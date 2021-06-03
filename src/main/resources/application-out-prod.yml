@@ -1,0 +1,29 @@
+applocal:
+  uploadfilepath: /Users/chenfeixiang/filespace/fianqijufile
+  currentuser:
+    currentUserId: 1111
+    currentAccount: deZhangguorong
+    currentRealName: 福州市账号
+    currentOrgId: 8a0f688f46db11f00146db130fa002ce
+    currentOrgPath: 国网福建电力/国网福州供电公司/
+
+
+# 面向科技 密码
+mx:
+  sql:
+    key: DYPNNKLCB38= # 对称加密钥匙
+
+
+# 日志
+logging:
+  # 输出级别
+  level:
+    root: info
+  file:
+    # 指定路径
+    path: xboot-logs
+    # 最大保存天数
+    max-history: 7
+    # 每个文件最大大小
+    max-size: 5MB
+
