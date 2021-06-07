@@ -13,6 +13,10 @@ mx:
   sql:
     key: DYPNNKLCB38= # 对称加密钥匙
 
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
 # 日志
 logging:
   # 输出级别
