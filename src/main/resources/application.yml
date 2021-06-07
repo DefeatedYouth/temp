@@ -198,6 +198,9 @@ swagger:
     url: http://blog.exrick.cn
     email: 1012139570@qq.com
 
+# Mybatis-plus
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
 # 日志
 logging:
   # 输出级别
