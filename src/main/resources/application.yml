@@ -78,6 +78,7 @@ spring:
     time-zone: GMT+8
     serialization:
       fail-on-empty-beans: false
+    date-format: yyyy-MM-dd HH:mm:ss
   boot:
     admin:
       # 修改上下文路径

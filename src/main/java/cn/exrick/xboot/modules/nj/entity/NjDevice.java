@@ -61,7 +61,7 @@ public class NjDevice extends StmBaseEntity {
     private String voltageLevel;
 
     @ApiModelProperty(value = "投运日期")
-    private LocalDateTime runDate;
+    private Date runDate;
 
     @ApiModelProperty(value = "间隔单元")
     private String spaceUnit;

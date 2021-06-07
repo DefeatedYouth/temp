@@ -2,6 +2,8 @@ package cn.exrick.xboot.base;
 
 import cn.exrick.xboot.common.utils.HLStringUtil;
 import cn.exrick.xboot.common.utils.SnowFlakeUtil;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModelProperty;
@@ -13,6 +15,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @author Exrickx
@@ -31,7 +34,8 @@ public abstract class StmBaseEntity implements Serializable{
     @ApiModelProperty(value = "创建时间")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createTime;
+    @TableField(fill= FieldFill.INSERT)
+    private Date createTime;
 
     public void initId(){
         id = String.valueOf(SnowFlakeUtil.getFlowIdInstance().nextId());
