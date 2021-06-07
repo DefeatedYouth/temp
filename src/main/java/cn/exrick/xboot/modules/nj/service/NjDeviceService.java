@@ -1,7 +1,7 @@
 package cn.exrick.xboot.modules.nj.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import cn.exrick.xboot.modules.nj.entity.NjDevice;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 
 /**

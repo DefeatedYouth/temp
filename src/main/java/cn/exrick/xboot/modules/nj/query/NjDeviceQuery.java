@@ -17,7 +17,7 @@ import io.swagger.annotations.ApiModelProperty;
 @ToString(callSuper = true)
 @Accessors(chain = true)
 @ApiModel(value="NjDevice查询对象", description="主设备表查询对象")
-public class NjDeviceQuery extends NjDevice{
+public class NjDeviceQuery extends NjDevice {
 
 
 

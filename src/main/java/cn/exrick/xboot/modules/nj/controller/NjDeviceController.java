@@ -1,12 +1,12 @@
 package cn.exrick.xboot.modules.nj.controller;
 
+import cn.exrick.xboot.modules.nj.entity.NjDevice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
 import cn.exrick.xboot.common.vo.BaseReqVO;
 import cn.exrick.xboot.common.vo.PageVo;
 import cn.exrick.xboot.common.utils.*;
-import cn.exrick.xboot.modules.nj.entity.NjDevice;
 import cn.exrick.xboot.modules.nj.query.NjDeviceQuery;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -19,7 +19,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RestController;
 import cn.exrick.xboot.modules.nj.service.NjDeviceService;
 
-import java.util.List;
 import cn.exrick.xboot.common.vo.Result;
 /**
  * @desc 主设备表 controller

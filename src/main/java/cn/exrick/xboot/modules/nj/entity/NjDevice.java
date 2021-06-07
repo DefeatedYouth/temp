@@ -1,15 +1,11 @@
 package cn.exrick.xboot.modules.nj.entity;
 
 import cn.exrick.xboot.base.StmBaseEntity;
-import java.time.LocalDateTime;
 import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * @desc 主设备表 实体
@@ -36,7 +32,7 @@ public class NjDevice extends StmBaseEntity {
     @ApiModelProperty(value = "设备名称")
     private String deviceName;
 
-    @ApiModelProperty(value = "设备类型：1=断路器；2=变压器")
+    @ApiModelProperty(value = "设备类型：1=变压器；2=断路器，3=电抗器，4=电流互感器，5=电压互感器，6=隔离开关，7=避雷器，8=组合电器")
     private String deviceType;
 
     @ApiModelProperty(value = "资源id")
