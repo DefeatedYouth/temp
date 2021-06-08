@@ -34,9 +34,5 @@ public abstract class StmBaseEntity implements Serializable{
     @TableField(fill= FieldFill.INSERT)
     private Date createTime;
 
-    public void initId(){
-        id = String.valueOf(SnowFlakeUtil.getFlowIdInstance().nextId());
-    };
-
 
 }
