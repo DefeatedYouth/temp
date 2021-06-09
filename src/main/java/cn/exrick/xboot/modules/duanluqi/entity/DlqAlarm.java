@@ -27,7 +27,7 @@ public class DlqAlarm extends StmBaseEntity {
 
 
     private String siteId;
-    
+
     @ApiModelProperty(value = "变电站名称")
     private String siteName;
 
@@ -40,7 +40,7 @@ public class DlqAlarm extends StmBaseEntity {
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "发现时间")
-    private Date happenTime;
+    private Date alarmTime;
 
     @ApiModelProperty(value = "告警类型")
     private String alarmType;

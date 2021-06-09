@@ -43,13 +43,16 @@ public class ByqFuhe extends StmBaseEntity {
     private String deviceName;
 
     @ApiModelProperty(value = "A相电压")
-    private String aboltage;
+    private String avoltage;
 
     @ApiModelProperty(value = "B相电压")
-    private String bboltage;
+    private String bvoltage;
 
     @ApiModelProperty(value = "C相电压")
-    private String cboltage;
+    private String cvoltage;
+
+    @ApiModelProperty(value = "A相电流")
+    private String aelectric;
 
     @ApiModelProperty(value = "B相电流")
     private String belectric;
@@ -66,8 +69,7 @@ public class ByqFuhe extends StmBaseEntity {
     @ApiModelProperty(value = "负载率")
     private String loadRate;
 
-    @ApiModelProperty(value = "A相电流")
-    private String aelectric;
+
 
 
 

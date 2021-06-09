@@ -45,10 +45,10 @@ public class ByqAlarm extends StmBaseEntity {
     private Integer alarmType;
 
     @ApiModelProperty(value = "告警描述")
-    private String alarmDescribe;
+    private String alarmDesc;
 
     @ApiModelProperty(value = "告警状态")
-    private Integer state;
+    private Integer alarmState;
 
 
 

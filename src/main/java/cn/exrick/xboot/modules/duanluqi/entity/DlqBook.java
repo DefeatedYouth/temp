@@ -104,6 +104,15 @@ public class DlqBook extends StmBaseEntity {
     @ApiModelProperty(value = "相数")
     private String farewellNum;
 
+    @ApiModelProperty(value = "额定短路开关电流")
+    private String openCloseCurrent;
+
+    @ApiModelProperty(value = "结构形式")
+    private String structureType;
+
+    @ApiModelProperty(value = "绝缘介质")
+    private String insulatingMedium;
+
     @ApiModelProperty(value = "用途")
     private String purpose;
 
@@ -156,8 +165,7 @@ public class DlqBook extends StmBaseEntity {
     @ApiModelProperty(value = "防污等级")
     private String antifoulingGrade;
 
-    @ApiModelProperty(value = "绝缘介质")
-    private String insulatingMedium;
+
 
 
 

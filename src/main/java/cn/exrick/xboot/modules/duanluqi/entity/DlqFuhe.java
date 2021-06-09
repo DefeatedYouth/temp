@@ -37,7 +37,7 @@ public class DlqFuhe extends StmBaseEntity {
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "监测时间")
-    private Date watchDate;
+    private Date monitoringTime;
 
     @ApiModelProperty(value = "设备名称")
     private String deviceName;
