@@ -2,10 +2,13 @@ package cn.exrick.xboot.modules.job.entity;
 
 import cn.exrick.xboot.base.StmBaseEntity;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * @desc 工作票表 实体
@@ -25,6 +28,8 @@ public class JobTicket extends StmBaseEntity {
 
     private String siteId;
 
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "工作票名称")
     private Date ticketName;
 
@@ -49,11 +54,19 @@ public class JobTicket extends StmBaseEntity {
     @ApiModelProperty(value = "工作内容")
     private String ticketContent;
 
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "计划工作时间")
     private Date ticketPlanTime;
 
     @ApiModelProperty(value = "完成状态")
     private String ticketState;
 
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "创建时间")
+    private Date createTime;
 
+    @ApiModelProperty(value = "缺陷等级")
+    private String defectLevel;
 }

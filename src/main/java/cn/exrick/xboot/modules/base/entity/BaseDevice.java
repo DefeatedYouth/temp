@@ -2,10 +2,13 @@ package cn.exrick.xboot.modules.base.entity;
 
 import cn.exrick.xboot.base.StmBaseEntity;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * @desc 主设备表 实体
@@ -56,11 +59,20 @@ public class BaseDevice extends StmBaseEntity {
     @ApiModelProperty(value = "电压等级")
     private String voltageLevel;
 
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "投运日期")
     private Date runDate;
 
     @ApiModelProperty(value = "间隔单元")
     private String spaceUnit;
 
+    @ApiModelProperty(value = "变电站名称")
+    private String siteName;
+
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "创建时间")
+    private Date createTime;
 
 }

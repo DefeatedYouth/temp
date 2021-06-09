@@ -1,10 +1,14 @@
 package cn.exrick.xboot.modules.duanluqi.entity;
 
 import cn.exrick.xboot.base.StmBaseEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 /**
  * @desc 设备履历故障记录表 实体
@@ -52,5 +56,11 @@ public class DlqFault extends StmBaseEntity {
     @ApiModelProperty(value = "故障状态")
     private String state;
 
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "创建时间")
+    private Date createTime;
 
+    @ApiModelProperty(value = "缺陷等级")
+    private String defectLevel;
 }

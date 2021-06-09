@@ -2,10 +2,13 @@ package cn.exrick.xboot.modules.anxiaofang.entity;
 
 import cn.exrick.xboot.base.StmBaseEntity;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * @desc 安消防设备监视表 实体
@@ -27,6 +30,8 @@ public class AxfDevice extends StmBaseEntity {
 
     private String siteId;
 
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "发生时间")
     private Date happenTime;
 
@@ -51,5 +56,12 @@ public class AxfDevice extends StmBaseEntity {
     @ApiModelProperty(value = "状态")
     private String linkState;
 
+    @ApiModelProperty(value = "变电站名称")
+    private String siteName;
+
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "创建时间")
+    private Date createTime;
 
 }

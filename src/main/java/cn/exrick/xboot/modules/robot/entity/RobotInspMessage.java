@@ -1,10 +1,14 @@
 package cn.exrick.xboot.modules.robot.entity;
 
 import cn.exrick.xboot.base.StmBaseEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 /**
  * @desc 机器人巡视报文表 实体
@@ -49,5 +53,11 @@ public class RobotInspMessage extends StmBaseEntity {
     @ApiModelProperty(value = "结论")
     private String inspResult;
 
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "创建时间")
+    private Date createTime;
 
+    @ApiModelProperty(value = "缺陷等级")
+    private String defectLevel;
 }

@@ -2,10 +2,13 @@ package cn.exrick.xboot.modules.bianyaqi.entity;
 
 import cn.exrick.xboot.base.StmBaseEntity;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * @desc 变压器台账表 实体
@@ -51,6 +54,8 @@ public class ByqBook extends StmBaseEntity {
     @ApiModelProperty(value = "设备型号")
     private String equipmentModel;
 
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "投运日期")
     private Date useTime;
 
@@ -99,6 +104,8 @@ public class ByqBook extends StmBaseEntity {
     @ApiModelProperty(value = "用途")
     private String purpose;
 
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "最近投运日期")
     private Date latelyUseTime;
 
@@ -120,6 +127,8 @@ public class ByqBook extends StmBaseEntity {
     @ApiModelProperty(value = "出厂编号")
     private String factoryNumber;
 
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "出厂日期")
     private Date factoryDate;
 
@@ -147,5 +156,12 @@ public class ByqBook extends StmBaseEntity {
     @ApiModelProperty(value = "绝缘介质")
     private String insulatingMedium;
 
+    @ApiModelProperty(value = "变电站名称")
+    private String siteName;
+
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "创建时间")
+    private Date createTime;
 
 }

@@ -1,10 +1,14 @@
 package cn.exrick.xboot.modules.base.entity;
 
 import cn.exrick.xboot.base.StmBaseEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 /**
  * @desc  摄像机表 实体
@@ -35,5 +39,11 @@ public class BaseCamera extends StmBaseEntity {
     @ApiModelProperty(value = "摄像机端口")
     private String cameraPort;
 
+    @ApiModelProperty(value = "变电站名称")
+    private String siteName;
 
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "创建时间")
+    private Date createTime;
 }

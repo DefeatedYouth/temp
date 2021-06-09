@@ -2,10 +2,13 @@ package cn.exrick.xboot.modules.robot.entity;
 
 import cn.exrick.xboot.base.StmBaseEntity;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * @desc 机器人本体告警表 实体
@@ -29,6 +32,8 @@ public class RobotAlarm extends StmBaseEntity {
     @ApiModelProperty(value = "机器人Id")
     private String robotId;
 
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "发现时间")
     private Date findTime;
 
@@ -44,5 +49,11 @@ public class RobotAlarm extends StmBaseEntity {
     @ApiModelProperty(value = "状态")
     private String alarmState;
 
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "创建时间")
+    private Date createTime;
 
+    @ApiModelProperty(value = "缺陷等级")
+    private String defectLevel;
 }

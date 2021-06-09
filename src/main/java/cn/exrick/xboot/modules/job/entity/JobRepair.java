@@ -2,10 +2,13 @@ package cn.exrick.xboot.modules.job.entity;
 
 import cn.exrick.xboot.base.StmBaseEntity;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * @desc 检修作业表 实体
@@ -31,6 +34,8 @@ public class JobRepair extends StmBaseEntity {
     @ApiModelProperty(value = "是否为综合计划")
     private String isComplan;
 
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "计划编制时间")
     private Date planTime;
 
@@ -49,11 +54,19 @@ public class JobRepair extends StmBaseEntity {
     @ApiModelProperty(value = "任务类型")
     private String jobType;
 
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "计划开始时间")
     private Date beginTime;
 
     @ApiModelProperty(value = "状态")
     private String jobState;
 
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "创建时间")
+    private Date createTime;
 
+    @ApiModelProperty(value = "缺陷等级")
+    private String defectLevel;
 }
