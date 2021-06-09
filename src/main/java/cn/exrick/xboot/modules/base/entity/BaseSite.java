@@ -34,9 +34,5 @@ public class BaseSite extends StmBaseEntity {
 
     @ApiModelProperty(value = "主接线图")
     private String svgpicFile;
-
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
+    
 }

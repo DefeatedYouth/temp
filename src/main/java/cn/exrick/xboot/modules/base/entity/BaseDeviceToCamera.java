@@ -28,15 +28,13 @@ public class BaseDeviceToCamera extends StmBaseEntity {
 
     private String siteId;
 
+    @ApiModelProperty(value = "变电站名称")
+    private String siteName;
+
     private String deviceResourcesId;
 
     private String cameraResourcesId;
 
-    @ApiModelProperty(value = "变电站名称")
-    private String siteName;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
+
 }

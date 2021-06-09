@@ -28,6 +28,10 @@ public class JobTicket extends StmBaseEntity {
 
     private String siteId;
 
+
+    @ApiModelProperty(value = "变电站名称")
+    private String siteName;
+
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "工作票名称")
@@ -62,11 +66,4 @@ public class JobTicket extends StmBaseEntity {
     @ApiModelProperty(value = "完成状态")
     private String ticketState;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
-
-    @ApiModelProperty(value = "缺陷等级")
-    private String defectLevel;
 }

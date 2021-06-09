@@ -30,6 +30,10 @@ public class DlqFuhe extends StmBaseEntity {
 
     private String siteId;
 
+
+    @ApiModelProperty(value = "变电站名称")
+    private String siteName;
+
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "监测时间")
@@ -56,11 +60,5 @@ public class DlqFuhe extends StmBaseEntity {
     @ApiModelProperty(value = "C相电流")
     private String celectric;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
 
-    @ApiModelProperty(value = "缺陷等级")
-    private String defectLevel;
 }

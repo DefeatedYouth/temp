@@ -30,6 +30,9 @@ public class ByqRungear extends StmBaseEntity {
 
     private String siteId;
 
+    @ApiModelProperty(value = "变电站名称")
+    private String siteName;
+
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "发生时间")
@@ -44,11 +47,6 @@ public class ByqRungear extends StmBaseEntity {
     @ApiModelProperty(value = "挡位值")
     private Integer gearValue;
 
-    @ApiModelProperty(value = "变电站名称")
-    private String siteName;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
+
 }

@@ -30,6 +30,10 @@ public class ByqFuhe extends StmBaseEntity {
 
     private String siteId;
 
+
+    @ApiModelProperty(value = "变电站名称")
+    private String siteName;
+
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "监测时间")
@@ -65,11 +69,6 @@ public class ByqFuhe extends StmBaseEntity {
     @ApiModelProperty(value = "A相电流")
     private String aelectric;
 
-    @ApiModelProperty(value = "变电站名称")
-    private String siteName;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
+
 }

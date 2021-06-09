@@ -30,6 +30,10 @@ public class BaseCamera extends StmBaseEntity {
 
     private String siteId;
 
+
+    @ApiModelProperty(value = "变电站名称")
+    private String siteName;
+
     @ApiModelProperty(value = "摄像机名称")
     private String cameraName;
 
@@ -39,11 +43,5 @@ public class BaseCamera extends StmBaseEntity {
     @ApiModelProperty(value = "摄像机端口")
     private String cameraPort;
 
-    @ApiModelProperty(value = "变电站名称")
-    private String siteName;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
 }

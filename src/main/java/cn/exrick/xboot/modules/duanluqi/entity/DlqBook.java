@@ -30,6 +30,9 @@ public class DlqBook extends StmBaseEntity {
 
     private String siteId;
 
+    @ApiModelProperty(value = "变电站名称")
+    private String siteName;
+
     @ApiModelProperty(value = "设备名称")
     private String deviceName;
 
@@ -156,11 +159,6 @@ public class DlqBook extends StmBaseEntity {
     @ApiModelProperty(value = "绝缘介质")
     private String insulatingMedium;
 
-    @ApiModelProperty(value = "变电站名称")
-    private String siteName;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
+
 }

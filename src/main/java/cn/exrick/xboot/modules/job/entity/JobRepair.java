@@ -28,6 +28,10 @@ public class JobRepair extends StmBaseEntity {
 
     private String siteId;
 
+
+    @ApiModelProperty(value = "变电站名称")
+    private String siteName;
+
     @ApiModelProperty(value = "计划类型")
     private String planType;
 
@@ -62,11 +66,4 @@ public class JobRepair extends StmBaseEntity {
     @ApiModelProperty(value = "状态")
     private String jobState;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
-
-    @ApiModelProperty(value = "缺陷等级")
-    private String defectLevel;
 }

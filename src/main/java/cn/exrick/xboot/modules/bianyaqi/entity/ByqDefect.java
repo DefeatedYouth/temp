@@ -30,6 +30,10 @@ public class ByqDefect extends StmBaseEntity {
 
     private String siteId;
 
+
+    @ApiModelProperty(value = "变电站名称")
+    private String siteName;
+
     @ApiModelProperty(value = "缺陷编号")
     private String defectNumber;
 
@@ -162,13 +166,6 @@ public class ByqDefect extends StmBaseEntity {
     @ApiModelProperty(value = "备注")
     private String remarks;
 
-    @ApiModelProperty(value = "变电站名称")
-    private String siteName;
-
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
 
     @ApiModelProperty(value = "缺陷等级")
     private String defectLevel;

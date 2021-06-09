@@ -33,6 +33,9 @@ public class ByqFault extends StmBaseEntity {
 
     private String siteId;
 
+    @ApiModelProperty(value = "变电站名称")
+    private String siteName;
+
     @ApiModelProperty(value = "设备名称")
     private String deviceName;
 
@@ -57,13 +60,8 @@ public class ByqFault extends StmBaseEntity {
     @ApiModelProperty(value = "故障状态")
     private String state;
 
-    @ApiModelProperty(value = "变电站名称")
-    private String siteName;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
+
 
 
 }

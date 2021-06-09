@@ -28,7 +28,13 @@ public class HjChushiji extends StmBaseEntity {
 
     private String siteId;
 
+
+    @ApiModelProperty(value = "变电站名称")
+    private String siteName;
+
     private String resourcesId;
+
+
 
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -53,11 +59,5 @@ public class HjChushiji extends StmBaseEntity {
     @ApiModelProperty(value = "监测湿度")
     private String shiduValue;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
 
-    @ApiModelProperty(value = "缺陷等级")
-    private String defectLevel;
 }

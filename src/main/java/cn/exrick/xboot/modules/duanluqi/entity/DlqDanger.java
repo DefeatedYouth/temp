@@ -30,6 +30,9 @@ public class DlqDanger extends StmBaseEntity {
 
     private String siteId;
 
+    @ApiModelProperty(value = "变电站名称")
+    private String siteName;
+
     @ApiModelProperty(value = "隐患编号")
     private String hiddenDangerNumber;
 
@@ -68,11 +71,7 @@ public class DlqDanger extends StmBaseEntity {
     @ApiModelProperty(value = "隐患状态")
     private String hiddenDangerState;
 
-    @ApiModelProperty(value = "变电站名称")
-    private String siteName;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
+
+
 }

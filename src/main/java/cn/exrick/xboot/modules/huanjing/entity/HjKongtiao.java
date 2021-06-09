@@ -30,6 +30,10 @@ public class HjKongtiao extends StmBaseEntity {
 
     private String resourcesId;
 
+
+    @ApiModelProperty(value = "变电站名称")
+    private String siteName;
+
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "发生时间")
@@ -47,11 +51,5 @@ public class HjKongtiao extends StmBaseEntity {
     @ApiModelProperty(value = "通信状态")
     private String linkState;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
 
-    @ApiModelProperty(value = "缺陷等级")
-    private String defectLevel;
 }

@@ -29,6 +29,10 @@ public class RobotRealdata extends StmBaseEntity {
     @ApiModelProperty(value = "站点Id")
     private String siteId;
 
+
+    @ApiModelProperty(value = "变电站名称")
+    private String siteName;
+
     @ApiModelProperty(value = "机器人Id")
     private String robotId;
 
@@ -56,11 +60,4 @@ public class RobotRealdata extends StmBaseEntity {
     @ApiModelProperty(value = "行驶里程")
     private String mileageValue;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
-
-    @ApiModelProperty(value = "缺陷等级")
-    private String defectLevel;
 }

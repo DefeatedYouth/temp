@@ -29,6 +29,9 @@ public class BaseDevice extends StmBaseEntity {
     @ApiModelProperty(value = "站点Id")
     private String siteId;
 
+    @ApiModelProperty(value = "变电站名称")
+    private String siteName;
+
     @ApiModelProperty(value = "设备编号")
     private String deviceCode;
 
@@ -67,12 +70,5 @@ public class BaseDevice extends StmBaseEntity {
     @ApiModelProperty(value = "间隔单元")
     private String spaceUnit;
 
-    @ApiModelProperty(value = "变电站名称")
-    private String siteName;
-
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "创建时间")
-    private Date createTime;
 
 }
