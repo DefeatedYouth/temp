@@ -1,14 +1,13 @@
 package cn.exrick.xboot.modules.robot.entity;
 
 import cn.exrick.xboot.base.StmBaseEntity;
-import java.util.Date;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
 
 /**
- * @desc 机器人本体告警表 实体
+ * @desc 机器人巡视记录表 实体
  * @author chenfeixiang
  * @since 2021-06-10
  */
@@ -19,8 +18,8 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ApiModel(value="RobotAlarm对象", description="机器人本体告警表")
-public class RobotAlarm extends StmBaseEntity {
+@ApiModel(value="RobotInspRecords对象", description="机器人巡视记录表")
+public class RobotInspRecords extends StmBaseEntity {
 
 
     @ApiModelProperty(value = "站点Id")
@@ -30,25 +29,19 @@ public class RobotAlarm extends StmBaseEntity {
     private String siteName;
 
     @ApiModelProperty(value = "机器人Id")
-    private String robotId;
+    private Integer robotId;
 
-    @ApiModelProperty(value = "机器人名称")
+    @ApiModelProperty(value = "机器人Id")
     private String robotName;
 
-    @ApiModelProperty(value = "发现时间")
-    private Date findTime;
+    @ApiModelProperty(value = "巡视任务名称")
+    private String inspName;
 
-    @ApiModelProperty(value = "装置名称")
-    private String deviceName;
+    @ApiModelProperty(value = "监测时间")
+    private String inspTime;
 
-    @ApiModelProperty(value = "告警类型")
-    private String alarmType;
-
-    @ApiModelProperty(value = "告警描述")
-    private String alarmDesc;
-
-    @ApiModelProperty(value = "状态")
-    private String alarmState;
+    @ApiModelProperty(value = "文件")
+    private String inspFile;
 
 
 }

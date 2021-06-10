@@ -7,7 +7,7 @@ import cn.exrick.xboot.modules.robot.entity.RobotRealdata;
 /**
  * @desc 机器人实时数据表 service
  * @author chenfeixiang
- * @since 2021-06-08
+ * @since 2021-06-10
  */
 public interface RobotRealdataService  extends IService<RobotRealdata>{
 

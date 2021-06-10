@@ -11,7 +11,7 @@ import cn.exrick.xboot.modules.robot.dao.RobotRealdataDao;
 /**
  * @desc 机器人实时数据表 serviceImpl
  * @author chenfeixiang
- * @since 2021-06-08
+ * @since 2021-06-10
  */
 @Service
 public class RobotRealdataServiceImpl extends ServiceImpl<RobotRealdataDao, RobotRealdata> implements RobotRealdataService {

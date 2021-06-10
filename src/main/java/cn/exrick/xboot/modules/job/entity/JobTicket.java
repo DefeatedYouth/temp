@@ -32,10 +32,8 @@ public class JobTicket extends StmBaseEntity {
     @ApiModelProperty(value = "变电站名称")
     private String siteName;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "工作票名称")
-    private Date ticketName;
+    private String ticketName;
 
     @ApiModelProperty(value = "工作票类型")
     private String ticketType;

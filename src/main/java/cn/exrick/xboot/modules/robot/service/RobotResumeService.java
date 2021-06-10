@@ -7,7 +7,7 @@ import cn.exrick.xboot.modules.robot.entity.RobotResume;
 /**
  * @desc 机器人履历 service
  * @author chenfeixiang
- * @since 2021-06-08
+ * @since 2021-06-10
  */
 public interface RobotResumeService  extends IService<RobotResume>{
 

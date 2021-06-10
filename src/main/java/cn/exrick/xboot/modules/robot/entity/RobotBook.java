@@ -2,18 +2,15 @@ package cn.exrick.xboot.modules.robot.entity;
 
 import cn.exrick.xboot.base.StmBaseEntity;
 import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * @desc 机器人台账表 实体
  * @author chenfeixiang
- * @since 2021-06-08
+ * @since 2021-06-10
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -29,12 +26,14 @@ public class RobotBook extends StmBaseEntity {
     @ApiModelProperty(value = "站点Id")
     private String siteId;
 
-
     @ApiModelProperty(value = "变电站名称")
     private String siteName;
 
     @ApiModelProperty(value = "机器人Id")
     private String robotId;
+
+    @ApiModelProperty(value = "机器人名称")
+    private String robotName;
 
     @ApiModelProperty(value = "使用单位")
     private String useOrgname;
@@ -57,8 +56,6 @@ public class RobotBook extends StmBaseEntity {
     @ApiModelProperty(value = "设备型号")
     private String deviceModel;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "生产日期")
     private Date buildDate;
 
@@ -68,17 +65,14 @@ public class RobotBook extends StmBaseEntity {
     @ApiModelProperty(value = "出场编号")
     private String outNumber;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "出厂日期")
     private Date outDate;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "正式投运日")
     private Date runDate;
 
     @ApiModelProperty(value = "设备状态")
     private String deviceState;
+
 
 }

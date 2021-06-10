@@ -11,7 +11,7 @@ import cn.exrick.xboot.modules.robot.dao.RobotResumeDao;
 /**
  * @desc 机器人履历 serviceImpl
  * @author chenfeixiang
- * @since 2021-06-08
+ * @since 2021-06-10
  */
 @Service
 public class RobotResumeServiceImpl extends ServiceImpl<RobotResumeDao, RobotResume> implements RobotResumeService {

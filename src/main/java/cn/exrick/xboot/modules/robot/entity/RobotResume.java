@@ -2,18 +2,15 @@ package cn.exrick.xboot.modules.robot.entity;
 
 import cn.exrick.xboot.base.StmBaseEntity;
 import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * @desc 机器人履历 实体
  * @author chenfeixiang
- * @since 2021-06-08
+ * @since 2021-06-10
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -29,12 +26,14 @@ public class RobotResume extends StmBaseEntity {
     @ApiModelProperty(value = "站点Id")
     private String siteId;
 
-
     @ApiModelProperty(value = "变电站名称")
     private String siteName;
 
     @ApiModelProperty(value = "机器人id")
     private String robotId;
+
+    @ApiModelProperty(value = "机器人名称")
+    private String robotName;
 
     @ApiModelProperty(value = "设备名称")
     private String deviceName;
@@ -48,8 +47,6 @@ public class RobotResume extends StmBaseEntity {
     @ApiModelProperty(value = "申请班组")
     private String requestOrgname;
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "申请时间")
     private Date requestTime;
 
@@ -64,5 +61,6 @@ public class RobotResume extends StmBaseEntity {
 
     @ApiModelProperty(value = "审核人")
     private String checkPerson;
+
 
 }

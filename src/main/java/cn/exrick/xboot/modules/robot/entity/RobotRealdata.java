@@ -1,19 +1,15 @@
 package cn.exrick.xboot.modules.robot.entity;
 
 import cn.exrick.xboot.base.StmBaseEntity;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.util.Date;
 
 /**
  * @desc 机器人实时数据表 实体
  * @author chenfeixiang
- * @since 2021-06-08
+ * @since 2021-06-10
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -29,12 +25,14 @@ public class RobotRealdata extends StmBaseEntity {
     @ApiModelProperty(value = "站点Id")
     private String siteId;
 
-
     @ApiModelProperty(value = "变电站名称")
     private String siteName;
 
     @ApiModelProperty(value = "机器人Id")
     private String robotId;
+
+    @ApiModelProperty(value = "机器人名称")
+    private String robotName;
 
     @ApiModelProperty(value = "电池电量")
     private String batteryLevel;
@@ -59,5 +57,6 @@ public class RobotRealdata extends StmBaseEntity {
 
     @ApiModelProperty(value = "行驶里程")
     private String mileageValue;
+
 
 }

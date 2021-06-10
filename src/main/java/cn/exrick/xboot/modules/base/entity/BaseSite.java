@@ -25,6 +25,8 @@ import java.util.Date;
 @ApiModel(value="BaseSite对象", description="站点表")
 public class BaseSite extends StmBaseEntity {
 
+    @ApiModelProperty(value = "区域地点Id")
+    private Long placeId;
 
     @ApiModelProperty(value = "站点Id")
     private Integer siteId;
@@ -34,5 +36,5 @@ public class BaseSite extends StmBaseEntity {
 
     @ApiModelProperty(value = "主接线图")
     private String svgpicFile;
-    
+
 }

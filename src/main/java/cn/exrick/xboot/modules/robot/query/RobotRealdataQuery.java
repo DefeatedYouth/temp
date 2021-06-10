@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * @desc 机器人实时数据表 列表分页查询对象
  * @author chenfeixiang
- * @since 2021-06-08
+ * @since 2021-06-10
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -18,6 +18,8 @@ import io.swagger.annotations.ApiModelProperty;
 @Accessors(chain = true)
 @ApiModel(value="RobotRealdata查询对象", description="机器人实时数据表查询对象")
 public class RobotRealdataQuery extends RobotRealdata{
+
+
 
 
 

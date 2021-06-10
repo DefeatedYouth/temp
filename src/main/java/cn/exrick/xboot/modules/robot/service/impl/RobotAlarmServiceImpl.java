@@ -11,7 +11,7 @@ import cn.exrick.xboot.modules.robot.dao.RobotAlarmDao;
 /**
  * @desc 机器人本体告警表 serviceImpl
  * @author chenfeixiang
- * @since 2021-06-08
+ * @since 2021-06-10
  */
 @Service
 public class RobotAlarmServiceImpl extends ServiceImpl<RobotAlarmDao, RobotAlarm> implements RobotAlarmService {
