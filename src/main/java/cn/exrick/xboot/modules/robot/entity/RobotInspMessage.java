@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
 
+import java.util.Date;
+
 /**
  * @desc 机器人巡视报文表 实体
  * @author chenfeixiang
@@ -38,7 +40,7 @@ public class RobotInspMessage extends StmBaseEntity {
     private String inspName;
 
     @ApiModelProperty(value = "监测时间")
-    private String inspTime;
+    private Date inspTime;
 
     @ApiModelProperty(value = "巡视点位")
     private String inspPoints;
