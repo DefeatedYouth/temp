@@ -25,7 +25,7 @@ public class RobotInspRecords extends StmBaseEntity {
 
 
     @ApiModelProperty(value = "站点Id")
-    private String siteId;
+    private Long siteId;
 
     @ApiModelProperty(value = "变电站名称")
     private String siteName;

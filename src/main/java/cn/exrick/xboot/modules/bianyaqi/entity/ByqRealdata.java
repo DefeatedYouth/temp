@@ -22,7 +22,7 @@ import lombok.experimental.Accessors;
 public class ByqRealdata extends StmBaseEntity {
 
 
-    private String siteId;
+    private Long siteId;
 
     private String resourcesId;
 

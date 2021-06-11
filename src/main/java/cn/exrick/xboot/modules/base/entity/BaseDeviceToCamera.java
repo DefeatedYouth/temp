@@ -26,7 +26,7 @@ import java.util.Date;
 public class BaseDeviceToCamera extends StmBaseEntity {
 
 
-    private String siteId;
+    private Long siteId;
 
     @ApiModelProperty(value = "变电站名称")
     private String siteName;
