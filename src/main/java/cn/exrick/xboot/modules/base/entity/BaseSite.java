@@ -29,7 +29,7 @@ public class BaseSite extends StmBaseEntity {
     private Long placeId;
 
     @ApiModelProperty(value = "站点Id")
-    private Integer siteId;
+    private Long siteId;
 
     @ApiModelProperty(value = "站点名称")
     private String siteName;

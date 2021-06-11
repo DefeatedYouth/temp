@@ -26,7 +26,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class HjKongtiao extends StmBaseEntity {
 
 
-    private String siteId;
+    private Long siteId;
 
     private String resourcesId;
 

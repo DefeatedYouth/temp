@@ -28,7 +28,7 @@ public class ByqFuhe extends StmBaseEntity {
 
     private String resourcesId;
 
-    private String siteId;
+    private Long siteId;
 
 
     @ApiModelProperty(value = "变电站名称")

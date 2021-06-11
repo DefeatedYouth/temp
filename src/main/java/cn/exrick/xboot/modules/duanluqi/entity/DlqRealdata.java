@@ -32,7 +32,7 @@ public class DlqRealdata extends StmBaseEntity {
     @ApiModelProperty(value = "变电站名称")
     private String siteName;
 
-    private String siteId;
+    private Long siteId;
 
 
 

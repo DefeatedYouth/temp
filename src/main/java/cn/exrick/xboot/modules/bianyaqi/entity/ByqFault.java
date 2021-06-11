@@ -31,7 +31,7 @@ public class ByqFault extends StmBaseEntity {
     @ApiModelProperty(value = "故障记录ID")
     private String faultId;
 
-    private String siteId;
+    private Long siteId;
 
     @ApiModelProperty(value = "变电站名称")
     private String siteName;

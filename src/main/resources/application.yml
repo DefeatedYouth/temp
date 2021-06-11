@@ -60,14 +60,14 @@ spring:
       #配置一个连接在池中最小生存的时间，单位是毫秒
       #min-evictable-idle-time-millis=300000
   # Redis
-#  redis:
-#    host: 47.114.91.22
-#    password: mx2020
-#    # 数据库索引 默认0
-#    database: 13
-#    port: 6359
-#    # 超时时间 Duration类型 3秒
-#    timeout: 3S
+  redis:
+    host: 47.114.91.22
+    password: mx2020
+    # 数据库索引 默认0
+    database: 12
+    port: 6359
+    # 超时时间 Duration类型 3秒
+    timeout: 3S
   # 文件大小上传配置
   servlet:
     multipart:

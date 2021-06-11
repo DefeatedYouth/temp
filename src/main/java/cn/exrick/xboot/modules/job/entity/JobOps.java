@@ -26,7 +26,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class JobOps extends StmBaseEntity {
 
 
-    private String siteId;
+    private Long siteId;
 
     @ApiModelProperty(value = "变电站名称")
     private String siteName;
