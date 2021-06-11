@@ -1,6 +1,5 @@
 package cn.exrick.xboot.base;
 
-import cn.exrick.xboot.common.utils.SnowFlakeUtil;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;

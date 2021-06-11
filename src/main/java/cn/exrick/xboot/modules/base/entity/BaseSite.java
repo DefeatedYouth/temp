@@ -37,4 +37,31 @@ public class BaseSite extends StmBaseEntity {
     @ApiModelProperty(value = "主接线图")
     private String svgpicFile;
 
+    @ApiModelProperty(value = "温度")
+    private String temperature;
+
+    @ApiModelProperty(value = "湿度")
+    private String humidity;
+
+    @ApiModelProperty(value = "风向")
+    private String windDirection;
+
+    @ApiModelProperty(value = "风速")
+    private String windSpeed;
+
+    @ApiModelProperty(value = "气压")
+    private String pressure;
+
+
+    @ApiModelProperty(value = "降水量")
+    private String precipitation;
+
+
+    @ApiModelProperty(value = "通信状态")
+    private String communicationStatus;
+
+
+    @ApiModelProperty(value = "天气状态")
+    private String weatherConditions;
+
 }
