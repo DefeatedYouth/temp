@@ -1,3 +1,12 @@
+spring:
+  # 数据源
+  datasource:
+    url: jdbc:mysql://rm-bp16r7tg01u8lnytg4o.mysql.rds.aliyuncs.com:3306/nj_overallview?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: nj_overallview
+    password: uWfzgwyXvJciS1db
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#    driverClassName: oracle.jdbc.driver.OracleDriver
+
 applocal:
   uploadfilepath: /Users/chenfeixiang/filespace/fianqijufile
   currentuser:
