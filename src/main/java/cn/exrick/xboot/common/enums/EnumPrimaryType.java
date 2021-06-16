@@ -10,9 +10,9 @@ import java.util.Map;
  * @File: EnumPrimaryType
  */
 public enum EnumPrimaryType {
-    transformer(1, "油浸式变压器(电抗器)"),
-    circuitbreaker(2, "断路器"),
-    isolatingswitch(4, "隔离开关"),
+    Transformer(1, "油浸式变压器(电抗器)"),
+    CircuitBreaker(2, "断路器"),
+    IsolatingSwitch(4, "隔离开关"),
 ;
     private Integer value;
     private String text;

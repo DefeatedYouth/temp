@@ -10,7 +10,7 @@ import java.util.Map;
  * @File: EnumDefectStatus
  */
 public enum EnumAlarmType {
-    nomal(0,"正常"),
+    Nomal(0,"正常"),
     Accident(1, "事故"),
     Abnormal(2, "异常"),
     CrossLine(3, "越线"),

@@ -9,7 +9,7 @@ import java.util.Map;
 public enum EnumOrganizationLevel {
     MunicipalCompany(1, "地市公司"),
     WorkArea(2, "工区"),
-    eam(3, "班组");
+    Eam(3, "班组");
 
     private Integer value;
     private String text;
