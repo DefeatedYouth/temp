@@ -1,5 +1,6 @@
 package cn.exrick.xboot.modules.base.controller;
 
+import cn.exrick.xboot.common.enums.EnumOrganizationLevel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
@@ -80,6 +81,22 @@ public class BasePlaceController {
         try {
             BasePlace basePlace = basePlaceService.getById(request.getId());
             return  ResultUtil.data(basePlace);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
+
+
+    @ApiOperation("查询所有的地市公司列表")
+    @GetMapping("/getMunicipalCompany")
+    public Result<List<BasePlace>> getMunicipalCompany(BaseReqVO request) {
+        try {
+            List<BasePlace> basePlaces =
+                    basePlaceService.getBaseMapper().selectList(new QueryWrapper<BasePlace>().lambda()
+                            .eq(BasePlace::getLevel, request.getLevel())
+                            .eq(request.getParentId()!=null&&!request.getParentId().equals(""),BasePlace::getParentId,request.getParentId())
+                    );
+            return  ResultUtil.data(basePlaces);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
         }

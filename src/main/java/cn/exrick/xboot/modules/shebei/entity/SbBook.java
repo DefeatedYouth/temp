@@ -32,6 +32,8 @@ public class SbBook extends StmBaseEntity {
 
     @ApiModelProperty(value = "设备名称")
     private String deviceName;
+    @ApiModelProperty(value = "设备类型")
+    private Integer deviceType;
 
     @ApiModelProperty(value = "所属地区")
     private String region;

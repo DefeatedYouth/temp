@@ -51,6 +51,9 @@ public class SbTest extends StmBaseEntity {
     @ApiModelProperty(value = "设备名称")
     private String deviceName;
 
+    @ApiModelProperty(value = "设备类型")
+    private Integer deviceType;
+
     @ApiModelProperty(value = "专业性质")
     private String professionalNature;
 

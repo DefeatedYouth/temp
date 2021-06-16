@@ -37,7 +37,7 @@ public class SbDanger extends StmBaseEntity {
     private String deviceName;
 
     @ApiModelProperty(value = "设备类型")
-    private String deviceType;
+    private Integer deviceType;
 
     @ApiModelProperty(value = "发现人")
     private String foundMan;

@@ -1,5 +1,8 @@
 package cn.exrick.xboot.modules.shebei.controller;
 
+import cn.exrick.xboot.common.enums.EnumAlarmStateType;
+import cn.exrick.xboot.common.enums.EnumAlarmType;
+import cn.exrick.xboot.modules.shebei.dto.SbAlarmNumDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
@@ -80,6 +83,27 @@ public class SbAlarmController {
         try {
             SbAlarm sbAlarm = sbAlarmService.getById(request.getId());
             return  ResultUtil.data(sbAlarm);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
+
+    @ApiOperation("查询设备事故告警数量，未处理告警数量")
+    @GetMapping("/getAlarmNum")
+    public Result<SbAlarmNumDTO> getAlarmNum(BaseReqVO request) {
+        try {
+            SbAlarmNumDTO sbAlarmNumDTO =new SbAlarmNumDTO();
+            Integer accidentAlarmNum = sbAlarmService.getBaseMapper().selectCount(new QueryWrapper<SbAlarm>().lambda().eq(SbAlarm::getAlarmType, request.getType())
+                    .eq(SbAlarm::getAlarmType, EnumAlarmType.Accident.getValue())
+                    .eq(SbAlarm::getAlarmState, EnumAlarmStateType.Untreated.getValue())
+            );
+
+            Integer unhandledNum = sbAlarmService.getBaseMapper().selectCount(new QueryWrapper<SbAlarm>().lambda().eq(SbAlarm::getAlarmType, EnumAlarmType.Accident.getValue())
+                    .eq(SbAlarm::getAlarmState, EnumAlarmStateType.Untreated.getValue())
+            );
+            sbAlarmNumDTO.setAccidentAlarmNum(accidentAlarmNum);
+            sbAlarmNumDTO.setUnhandledNum(unhandledNum);
+            return  ResultUtil.data(sbAlarmNumDTO);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
         }

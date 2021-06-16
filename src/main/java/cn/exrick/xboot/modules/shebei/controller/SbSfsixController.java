@@ -19,7 +19,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RestController;
 import cn.exrick.xboot.modules.shebei.service.SbSfsixService;
 
-import java.util.List;
 import cn.exrick.xboot.common.vo.Result;
 /**
  * @desc 断路器sf6监测数据表 controller

@@ -16,4 +16,13 @@ public class BaseReqVO {
     private String id ;
     @ApiModelProperty(value = "唯一标识")
     private List<String> ids ;
+
+    @ApiModelProperty(value = "层级 1 地市公司 2 工区 3 班组")
+    private Integer level;
+
+    @ApiModelProperty(value = "父级id")
+    private Long parentId;
+
+    @ApiModelProperty(value = "设备类型id")
+    private Integer type;
 }

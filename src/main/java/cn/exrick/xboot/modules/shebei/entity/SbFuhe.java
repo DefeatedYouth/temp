@@ -8,7 +8,7 @@ import lombok.*;
 import lombok.experimental.Accessors;
 
 /**
- * @desc 断路器负荷数据表 实体
+ * @desc 断路器负荷数据表 实体 列表默认显示高压测
  * @author chenfeixiang
  * @since 2021-06-15
  */
@@ -36,23 +36,81 @@ public class SbFuhe extends StmBaseEntity {
     @ApiModelProperty(value = "设备名称")
     private String deviceName;
 
-    @ApiModelProperty(value = "A相电压")
-    private String avoltage;
+    @ApiModelProperty(value = "设备类型")
+    private Integer deviceType;
 
-    @ApiModelProperty(value = "B相电压")
-    private String bvoltage;
+    @ApiModelProperty(value = "高压测A相电压")
+    private String highAvoltage;
 
-    @ApiModelProperty(value = "C相电压")
-    private String cvoltage;
+    @ApiModelProperty(value = "高压测B相电压")
+    private String highBvoltage;
 
-    @ApiModelProperty(value = "A相电流")
-    private String aelectric;
+    @ApiModelProperty(value = "高压测C相电压")
+    private String highCvoltage;
 
-    @ApiModelProperty(value = "B相电流")
-    private String belectric;
+    @ApiModelProperty(value = "高压测A相电流")
+    private String highAelectric;
 
-    @ApiModelProperty(value = "C相电流")
-    private String celectric;
+    @ApiModelProperty(value = "高压测B相电流")
+    private String highBelectric;
 
+    @ApiModelProperty(value = "高压测C相电流")
+    private String highCelectric;
 
+    @ApiModelProperty(value = "高压测有功功率")
+    private String highActivePower;
+
+    @ApiModelProperty(value = "高压测无功功率")
+    private String highReactivePower;
+
+    @ApiModelProperty(value = "中压测A相电压")
+    private String middleAvoltage;
+
+    @ApiModelProperty(value = "中压测B相电压")
+    private String middleBvoltage;
+
+    @ApiModelProperty(value = "中压测C相电压")
+    private String middleCvoltage;
+
+    @ApiModelProperty(value = "中压测A相电流")
+    private String middleAelectric;
+
+    @ApiModelProperty(value = "中压测B相电流")
+    private String middleBelectric;
+
+    @ApiModelProperty(value = "中压测C相电流")
+    private String middleCelectric;
+
+    @ApiModelProperty(value = "中压测有功功率")
+    private String middleActivePower;
+
+    @ApiModelProperty(value = "中压测无功功率")
+    private String middleReactivePower;
+
+    @ApiModelProperty(value = "低压测A相电压")
+    private String lowAvoltage;
+
+    @ApiModelProperty(value = "低压测B相电压")
+    private String lowBvoltage;
+
+    @ApiModelProperty(value = "低压测C相电压")
+    private String lowCvoltage;
+
+    @ApiModelProperty(value = "低压测A相电流")
+    private String lowAelectric;
+
+    @ApiModelProperty(value = "低压测B相电流")
+    private String lowBelectric;
+
+    @ApiModelProperty(value = "低压测C相电流")
+    private String lowCelectric;
+
+    @ApiModelProperty(value = "低压测有功功率")
+    private String lowActivePower;
+
+    @ApiModelProperty(value = "低压测无功功率")
+    private String lowReactivePower;
+
+    @ApiModelProperty(value = "负载率")
+    private String loadFactor;
 }

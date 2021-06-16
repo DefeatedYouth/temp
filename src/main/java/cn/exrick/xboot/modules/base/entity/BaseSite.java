@@ -64,4 +64,7 @@ public class BaseSite extends StmBaseEntity {
     @ApiModelProperty(value = "天气状态")
     private String weatherConditions;
 
+    @ApiModelProperty(value = "交直流系统监视图")
+    private String systemMonitoring;
+
 }

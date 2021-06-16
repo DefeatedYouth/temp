@@ -28,5 +28,6 @@ public class BasePlace extends StmBaseEntity {
     @ApiModelProperty(value = "父节点id")
     private Integer parentId;
 
-
+    @ApiModelProperty(value = "层级 1 地市公司 2 工区 3 班组")
+    private Integer level;
 }

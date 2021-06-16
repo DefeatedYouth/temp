@@ -34,7 +34,7 @@ public class SbFeed extends StmBaseEntity {
     private String deviceName;
 
     @ApiModelProperty(value = "设备类型")
-    private String deviceType;
+    private Integer deviceType;
 
     @ApiModelProperty(value = "电压等级")
     private String voltageLevel;

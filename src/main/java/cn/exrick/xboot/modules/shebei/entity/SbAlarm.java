@@ -34,17 +34,20 @@ public class SbAlarm extends StmBaseEntity {
     @ApiModelProperty(value = "设备名称")
     private String deviceName;
 
+    @ApiModelProperty(value = "设备类型")
+    private Integer deviceType;
+
     @ApiModelProperty(value = "发现时间")
     private Date alarmTime;
 
-    @ApiModelProperty(value = "告警类型")
-    private String alarmType;
+    @ApiModelProperty(value = "告警类型(0 正常 1 事故告警 2 异常告警 3 越线告警 4 变位告警 5 告知告警)")
+    private Integer alarmType;
 
     @ApiModelProperty(value = "告警描述")
     private String alarmDesc;
 
-    @ApiModelProperty(value = "状态")
-    private String alarmState;
+    @ApiModelProperty(value = "状态 0未处理 1已处理")
+    private Integer alarmState;
 
 
 }

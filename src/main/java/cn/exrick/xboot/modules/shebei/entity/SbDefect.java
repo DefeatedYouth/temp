@@ -49,7 +49,7 @@ public class SbDefect extends StmBaseEntity {
     private String voltageLevel;
 
     @ApiModelProperty(value = "设备类型")
-    private String deviceType;
+    private Integer deviceType;
 
     @ApiModelProperty(value = "设备种类")
     private String equipmentType;

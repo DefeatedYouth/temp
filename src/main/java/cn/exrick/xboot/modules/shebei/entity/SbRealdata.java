@@ -33,11 +33,51 @@ public class SbRealdata extends StmBaseEntity {
     @ApiModelProperty(value = "设备名称")
     private String deviceName;
 
+    @ApiModelProperty(value = "设备类型")
+    private Integer deviceType;
+
     @ApiModelProperty(value = "监测时间")
     private Date monitoringTime;
 
     @ApiModelProperty(value = "开合状态")
     private Integer openingClosingState;
 
+    @ApiModelProperty(value = "运行挡位")
+    private Integer operatingGear;
 
+    @ApiModelProperty(value = "A相位绕组温度")
+    private Integer awindingTemperature;
+
+    @ApiModelProperty(value = "A相顶层油温1")
+    private Integer atopOilTemperatureOne;
+
+    @ApiModelProperty(value = "A相顶层油温2")
+    private Integer atopOilTemperatureTwo;
+
+    @ApiModelProperty(value = "A相铁芯接地电流")
+    private Integer acoreGroundingCurrent;
+
+    @ApiModelProperty(value = "B相位绕组温度")
+    private Integer bwindingTemperature;
+
+    @ApiModelProperty(value = "B相顶层油温1")
+    private Integer btopOilTemperatureOne;
+
+    @ApiModelProperty(value = "B相顶层油温2")
+    private Integer btopOilTemperatureTwo;
+
+    @ApiModelProperty(value = "B相铁芯接地电流")
+    private Integer bcoreGroundingCurrent;
+
+    @ApiModelProperty(value = "C相位绕组温度")
+    private Integer cwindingTemperature;
+
+    @ApiModelProperty(value = "C相顶层油温1")
+    private Integer ctopOilTemperatureOne;
+
+    @ApiModelProperty(value = "C相顶层油温2")
+    private Integer ctopOilTemperatureTwo;
+
+    @ApiModelProperty(value = "C相铁芯接地电流")
+    private Integer ccoreGroundingCurrent;
 }

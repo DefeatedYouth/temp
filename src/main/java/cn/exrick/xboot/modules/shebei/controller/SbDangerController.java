@@ -1,5 +1,11 @@
 package cn.exrick.xboot.modules.shebei.controller;
 
+import cn.exrick.xboot.common.enums.EnumAlarmType;
+import cn.exrick.xboot.common.enums.EnumDangerStatus;
+import cn.exrick.xboot.common.enums.EnumDefectStatus;
+import cn.exrick.xboot.common.enums.EnumDeviceType;
+import cn.exrick.xboot.modules.shebei.dto.SbDefectDTO;
+import cn.exrick.xboot.modules.shebei.entity.SbDefect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
@@ -80,6 +86,26 @@ public class SbDangerController {
         try {
             SbDanger sbDanger = sbDangerService.getById(request.getId());
             return  ResultUtil.data(sbDanger);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
+
+    @ApiOperation("缺陷数量信息统计")
+    @GetMapping("/getCountDangerNum")
+    public Result<SbDefectDTO> getCountDefectNum(BaseReqVO request) {
+        try {
+            SbDefectDTO sbDangger = new SbDefectDTO();
+
+            Integer common = sbDangerService.getBaseMapper().selectCount(new QueryWrapper<SbDanger>().lambda().eq(SbDanger::getDeviceType, request.getType()).eq(SbDanger::getHiddenDangerLevel, EnumDangerStatus.common.getValue()));
+            Integer severity = sbDangerService.getBaseMapper().selectCount(new QueryWrapper<SbDanger>().lambda().eq(SbDanger::getDeviceType, request.getType()).eq(SbDanger::getHiddenDangerLevel, EnumDangerStatus.severity.getValue()));
+           // Integer notdefect = sbDangerService.getBaseMapper().selectCount(new QueryWrapper<SbDanger>().lambda().eq(SbDanger::getDeviceType, "变压器").eq(SbDanger::getHiddenDangerLevel, EnumDangerStatus.notdefect.getValue()));
+            sbDangger.setCommonNum(common);
+            sbDangger.setSeverityNum(severity);
+            //sbDefect.setCriticalNum(critical);
+            sbDangger.setNotdefectNum(common+severity);
+            return  ResultUtil.data(sbDangger);
+            //todo 根据前端传过来的设备类型来查询 具体是什么设备的缺陷信息统计 这里是写死的 变压器，后面根据传过来的type进行修改。
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
         }
