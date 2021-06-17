@@ -47,17 +47,18 @@ public class HjChushiji extends StmBaseEntity {
     @ApiModelProperty(value = "装置名称")
     private String deviceName;
 
-    @ApiModelProperty(value = "通信状态")
-    private String linkState;
+    @ApiModelProperty(value = "通信状态 0通信正常 1通信异常")
+    private Integer linkState;
 
-    @ApiModelProperty(value = "工作状态")
-    private String workState;
+    @ApiModelProperty(value = "工作状态 0关 1开")
+    private Integer workState;
 
     @ApiModelProperty(value = "监测温度")
     private String wenduValue;
 
     @ApiModelProperty(value = "监测湿度")
     private String shiduValue;
+
 
 
 }

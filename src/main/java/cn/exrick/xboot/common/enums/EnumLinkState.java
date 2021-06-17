@@ -9,19 +9,19 @@ import java.util.Map;
  * @date：2020/9/30 17:29
  * @File: EnumDefectStatusu
  */
-public enum EnumAlarmStateType {
+public enum EnumLinkState {
     //asda
-    Untreated(0,"未报警"),
+    Untreated(0,"通信正常"),
     //asdasda
-    Processed(1, "已报警");
+    Processed(1, "通信异常");
     private Integer value;
     private String text;
 
-    private static Map<Integer, EnumAlarmStateType> pool = new HashMap<Integer, EnumAlarmStateType>();
+    private static Map<Integer, EnumLinkState> pool = new HashMap<Integer, EnumLinkState>();
 
     static {
-        for (EnumAlarmStateType each : EnumAlarmStateType.values()) {
-            EnumAlarmStateType defined = pool.get(each.getValue());
+        for (EnumLinkState each : EnumLinkState.values()) {
+            EnumLinkState defined = pool.get(each.getValue());
             if (null != defined) {
                 pool.put(null, null);
             }
@@ -30,13 +30,13 @@ public enum EnumAlarmStateType {
     }
 
 
-    EnumAlarmStateType(Integer code, String message) {
+    EnumLinkState(Integer code, String message) {
         this.value = code;
         this.text = message;
     }
 
 
-    public static EnumAlarmStateType valueOf(Integer code) {
+    public static EnumLinkState valueOf(Integer code) {
         return pool.get(code);
     }
 

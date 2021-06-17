@@ -44,10 +44,10 @@ public class HjFengji extends StmBaseEntity {
     @ApiModelProperty(value = "装置名称")
     private String deviceName;
 
-    @ApiModelProperty(value = "风机状态")
+    @ApiModelProperty(value = "风机状态 0关闭 1开启")
     private String fengjiState;
 
-    @ApiModelProperty(value = "通信状态")
+    @ApiModelProperty(value = "通信状态 0通信正常 1通信异常")
     private String linkState;
 
 

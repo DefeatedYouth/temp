@@ -1,5 +1,9 @@
 package cn.exrick.xboot.modules.huanjing.controller;
 
+import cn.exrick.xboot.common.enums.EnumAlarmStateType;
+import cn.exrick.xboot.common.enums.EnumLinkState;
+import cn.exrick.xboot.modules.huanjing.dto.HjEquipmentNumDTO;
+import cn.exrick.xboot.modules.huanjing.entity.HjShuiwei;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
@@ -80,6 +84,28 @@ public class HjShuishengController {
         try {
             HjShuisheng hjShuisheng = hjShuishengService.getById(request.getId());
             return  ResultUtil.data(hjShuisheng);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
+
+    @ApiOperation(value = "水位设备监视数量统计",notes = "参数 变电站id")
+    @GetMapping("/getAuxiliaryEquipmentNum")
+    public Result<HjEquipmentNumDTO> getAuxiliaryEquipmentNum(BaseReqVO request) {
+        try {
+            HjEquipmentNumDTO hjEquipmentNumDTO = new HjEquipmentNumDTO();
+            Integer totalNum = hjShuishengService.count(new QueryWrapper<HjShuisheng>().lambda()
+                    .eq(HjShuisheng::getSiteId, request.getSiteId()));
+            hjEquipmentNumDTO.setTotalNum(totalNum);
+            Integer linkStateNum = hjShuishengService.count(new QueryWrapper<HjShuisheng>().lambda()
+                    .eq(HjShuisheng::getSiteId, request.getSiteId())
+                    .eq(HjShuisheng::getLinkState, EnumLinkState.Processed.getValue()));
+            hjEquipmentNumDTO.setAbnormalCommunicationNum(linkStateNum);
+            Integer alarmNum = hjShuishengService.count(new QueryWrapper<HjShuisheng>().lambda()
+                    .eq(HjShuisheng::getSiteId, request.getSiteId())
+                    .eq(HjShuisheng::getAlarmState, EnumAlarmStateType.Processed.getValue()));
+            hjEquipmentNumDTO.setAlarmNum(alarmNum);
+            return  ResultUtil.data(hjEquipmentNumDTO);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
         }

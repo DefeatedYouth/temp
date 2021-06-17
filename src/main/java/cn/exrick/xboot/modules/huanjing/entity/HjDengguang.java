@@ -43,11 +43,11 @@ public class HjDengguang extends StmBaseEntity {
     @ApiModelProperty(value = "装置名称")
     private String deviceName;
 
-    @ApiModelProperty(value = "开关状态值")
-    private String switchState;
+    @ApiModelProperty(value = "开关状态值 0关 1开")
+    private Integer switchState;
 
-    @ApiModelProperty(value = "通信状态")
-    private String linkState;
+    @ApiModelProperty(value = "通信状态 0通信正常 1通信异常")
+    private Integer linkState;
 
 
 }

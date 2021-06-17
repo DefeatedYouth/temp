@@ -1,5 +1,9 @@
 package cn.exrick.xboot.modules.huanjing.controller;
 
+import cn.exrick.xboot.common.enums.EnumLinkState;
+import cn.exrick.xboot.common.enums.EnumTemperatureAlarmState;
+import cn.exrick.xboot.modules.huanjing.dto.HjWenduDTO;
+import cn.exrick.xboot.modules.huanjing.entity.HjWendu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
@@ -80,6 +84,28 @@ public class HjShiduController {
         try {
             HjShidu hjShidu = hjShiduService.getById(request.getId());
             return  ResultUtil.data(hjShidu);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
+
+    @ApiOperation(value = "湿度首页统计",notes = "参数 变电站id")
+    @GetMapping("/temperatureCount")
+    public Result<HjWenduDTO> temperatureCount(BaseReqVO request) {
+        try {
+            HjWenduDTO hjWenduDTO = new HjWenduDTO();
+            Integer totalNum = hjShiduService.count(new QueryWrapper<HjShidu>().lambda().eq(HjShidu::getSiteId, request.getSiteId()));
+            hjWenduDTO.setTotalNum(totalNum);
+            Integer alarmNum = hjShiduService.count(new QueryWrapper<HjShidu>().lambda()
+                    .eq(HjShidu::getSiteId, request.getSiteId())
+                    .eq(HjShidu::getAlarmState, EnumTemperatureAlarmState.Alarm.getValue())
+            );
+            hjWenduDTO.setAlarmNum(alarmNum);
+            HjShidu hjShidu = hjShiduService.getBaseMapper().selectOne(new QueryWrapper<HjShidu>().lambda().eq(HjShidu::getSiteId, request.getSiteId()).orderByAsc(HjShidu::getShiduValue).last("limit 1"));
+            hjWenduDTO.setMaximumTemperature(hjShidu.getShiduValue());
+            Integer abnormalCommunication = hjShiduService.count(new QueryWrapper<HjShidu>().lambda().eq(HjShidu::getSiteId, request.getSiteId()).eq(HjShidu::getLinkState, EnumLinkState.Processed.getValue()));
+            hjWenduDTO.setAbnormalCommunication(abnormalCommunication);
+            return  ResultUtil.data(hjWenduDTO);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
         }

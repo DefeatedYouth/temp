@@ -5,6 +5,7 @@ import cn.exrick.xboot.common.enums.EnumDangerStatus;
 import cn.exrick.xboot.common.enums.EnumDefectStatus;
 import cn.exrick.xboot.common.enums.EnumDeviceType;
 import cn.exrick.xboot.modules.shebei.dto.SbDefectDTO;
+import cn.exrick.xboot.modules.shebei.entity.SbAlarm;
 import cn.exrick.xboot.modules.shebei.entity.SbDefect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -97,8 +98,12 @@ public class SbDangerController {
         try {
             SbDefectDTO sbDangger = new SbDefectDTO();
 
-            Integer common = sbDangerService.getBaseMapper().selectCount(new QueryWrapper<SbDanger>().lambda().eq(SbDanger::getDeviceType, request.getType()).eq(SbDanger::getHiddenDangerLevel, EnumDangerStatus.Common.getValue()));
-            Integer severity = sbDangerService.getBaseMapper().selectCount(new QueryWrapper<SbDanger>().lambda().eq(SbDanger::getDeviceType, request.getType()).eq(SbDanger::getHiddenDangerLevel, EnumDangerStatus.Severity.getValue()));
+            Integer common = sbDangerService.getBaseMapper().selectCount(new QueryWrapper<SbDanger>().lambda().eq(SbDanger::getDeviceType, request.getType())
+                    .eq(SbDanger::getSiteId,request.getSiteId())
+                    .eq(SbDanger::getHiddenDangerLevel, EnumDangerStatus.Common.getValue()));
+            Integer severity = sbDangerService.getBaseMapper().selectCount(new QueryWrapper<SbDanger>().lambda()
+                    .eq(SbDanger::getSiteId,request.getSiteId())
+                    .eq(SbDanger::getDeviceType, request.getType()).eq(SbDanger::getHiddenDangerLevel, EnumDangerStatus.Severity.getValue()));
            // Integer notdefect = sbDangerService.getBaseMapper().selectCount(new QueryWrapper<SbDanger>().lambda().eq(SbDanger::getDeviceType, "变压器").eq(SbDanger::getHiddenDangerLevel, EnumDangerStatus.notdefect.getValue()));
             sbDangger.setCommonNum(common);
             sbDangger.setSeverityNum(severity);

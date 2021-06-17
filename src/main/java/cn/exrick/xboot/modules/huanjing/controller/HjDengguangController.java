@@ -1,5 +1,8 @@
 package cn.exrick.xboot.modules.huanjing.controller;
 
+import cn.exrick.xboot.common.enums.EnumLinkState;
+import cn.exrick.xboot.common.enums.EnumSwitchState;
+import cn.exrick.xboot.modules.huanjing.dto.HjEquipmentNumDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
@@ -80,6 +83,32 @@ public class HjDengguangController {
         try {
             HjDengguang hjDengguang = hjDengguangService.getById(request.getId());
             return  ResultUtil.data(hjDengguang);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
+
+    @ApiOperation(value = "灯光设备监视数量统计",notes = "参数 变电站id")
+    @GetMapping("/getAuxiliaryEquipmentNum")
+    public Result<HjEquipmentNumDTO> getAuxiliaryEquipmentNum(BaseReqVO request) {
+        try {
+            HjEquipmentNumDTO hjEquipmentNumDTO = new HjEquipmentNumDTO();
+            Integer totalNum = hjDengguangService.count(new QueryWrapper<HjDengguang>().lambda()
+                    .eq(HjDengguang::getSiteId, request.getSiteId()));
+            hjEquipmentNumDTO.setTotalNum(totalNum);
+            Integer openNum = hjDengguangService.count(new QueryWrapper<HjDengguang>().lambda()
+                    .eq(HjDengguang::getSiteId, request.getSiteId())
+                    .eq(HjDengguang::getSwitchState, EnumSwitchState.Open.getValue()));
+            hjEquipmentNumDTO.setOpenNum(openNum);
+            Integer downNum = hjDengguangService.count(new QueryWrapper<HjDengguang>().lambda()
+                    .eq(HjDengguang::getSiteId, request.getSiteId())
+                    .eq(HjDengguang::getSwitchState, EnumSwitchState.Shut.getValue()));
+            hjEquipmentNumDTO.setDownNum(downNum);
+            Integer processed = hjDengguangService.count(new QueryWrapper<HjDengguang>().lambda()
+                    .eq(HjDengguang::getSiteId, request.getSiteId())
+                    .eq(HjDengguang::getLinkState, EnumLinkState.Processed.getValue()));
+            hjEquipmentNumDTO.setAbnormalCommunicationNum(processed);
+            return  ResultUtil.data(hjEquipmentNumDTO);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
         }

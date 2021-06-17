@@ -25,4 +25,8 @@ public class BaseReqVO {
 
     @ApiModelProperty(value = "设备类型id")
     private Integer type;
+
+    @ApiModelProperty(value = "变电站id")
+    private Long siteId;
+
 }

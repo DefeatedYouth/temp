@@ -93,13 +93,16 @@ public class SbAlarmController {
     public Result<SbAlarmNumDTO> getAlarmNum(BaseReqVO request) {
         try {
             SbAlarmNumDTO sbAlarmNumDTO =new SbAlarmNumDTO();
-            Integer accidentAlarmNum = sbAlarmService.getBaseMapper().selectCount(new QueryWrapper<SbAlarm>().lambda().eq(SbAlarm::getAlarmType, request.getType())
+            Integer accidentAlarmNum = sbAlarmService.count(new QueryWrapper<SbAlarm>().lambda()
+                    .eq(SbAlarm::getAlarmType, request.getType())
                     .eq(SbAlarm::getAlarmType, EnumAlarmType.Accident.getValue())
                     .eq(SbAlarm::getAlarmState, EnumAlarmStateType.Untreated.getValue())
+                    .eq(SbAlarm::getSiteId,request.getSiteId())
             );
 
-            Integer unhandledNum = sbAlarmService.getBaseMapper().selectCount(new QueryWrapper<SbAlarm>().lambda().eq(SbAlarm::getAlarmType, EnumAlarmType.Accident.getValue())
+            Integer unhandledNum = sbAlarmService.count(new QueryWrapper<SbAlarm>().lambda().eq(SbAlarm::getAlarmType, EnumAlarmType.Accident.getValue())
                     .eq(SbAlarm::getAlarmState, EnumAlarmStateType.Untreated.getValue())
+                    .eq(SbAlarm::getSiteId,request.getSiteId())
             );
             sbAlarmNumDTO.setAccidentAlarmNum(accidentAlarmNum);
             sbAlarmNumDTO.setUnhandledNum(unhandledNum);

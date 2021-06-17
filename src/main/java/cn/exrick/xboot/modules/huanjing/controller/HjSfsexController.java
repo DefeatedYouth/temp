@@ -1,5 +1,11 @@
 package cn.exrick.xboot.modules.huanjing.controller;
 
+import cn.exrick.xboot.common.enums.EnumAlarmStateType;
+import cn.exrick.xboot.common.enums.EnumLinkState;
+import cn.exrick.xboot.common.enums.EnumSwitchState;
+import cn.exrick.xboot.modules.huanjing.dto.HjEquipmentNumDTO;
+import cn.exrick.xboot.modules.huanjing.entity.HjShidu;
+import cn.exrick.xboot.modules.huanjing.entity.HjShuibang;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
@@ -80,6 +86,34 @@ public class HjSfsexController {
         try {
             HjSfsex hjSfsex = hjSfsexService.getById(request.getId());
             return  ResultUtil.data(hjSfsex);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
+
+    @ApiOperation(value = "SF6设备监视数量统计",notes = "参数 变电站id")
+    @GetMapping("/getAuxiliaryEquipmentNum")
+    public Result<HjEquipmentNumDTO> getAuxiliaryEquipmentNum(BaseReqVO request) {
+        try {
+            HjEquipmentNumDTO hjEquipmentNumDTO = new HjEquipmentNumDTO();
+            Integer totalNum = hjSfsexService.count(new QueryWrapper<HjSfsex>().lambda()
+                    .eq(HjSfsex::getSiteId, request.getSiteId()));
+            hjEquipmentNumDTO.setTotalNum(totalNum);
+            HjSfsex sfsix = hjSfsexService.getBaseMapper().selectOne(new QueryWrapper<HjSfsex>().lambda()
+                    .eq(HjSfsex::getSiteId, request.getSiteId()).orderByAsc(HjSfsex::getSfsexValue).last("limit 1"));
+            hjEquipmentNumDTO.setSfSixMax(sfsix.getSfsexValue());
+            HjSfsex cotwo = hjSfsexService.getBaseMapper().selectOne(new QueryWrapper<HjSfsex>().lambda()
+                    .eq(HjSfsex::getSiteId, request.getSiteId()).orderByAsc(HjSfsex::getOtwoValue).last("limit 1"));
+            hjEquipmentNumDTO.setCotwoMax(cotwo.getOtwoValue());
+            Integer processed = hjSfsexService.count(new QueryWrapper<HjSfsex>().lambda()
+                    .eq(HjSfsex::getSiteId, request.getSiteId())
+                    .eq(HjSfsex::getLinkState, EnumLinkState.Processed.getValue()));
+            hjEquipmentNumDTO.setAbnormalCommunicationNum(processed);
+            Integer alarmNum = hjSfsexService.count(new QueryWrapper<HjSfsex>().lambda()
+                    .eq(HjSfsex::getSiteId, request.getSiteId())
+                    .eq(HjSfsex::getAlarmState, EnumAlarmStateType.Processed.getValue()));
+            hjEquipmentNumDTO.setAlarmNum(alarmNum);
+            return  ResultUtil.data(hjEquipmentNumDTO);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
         }

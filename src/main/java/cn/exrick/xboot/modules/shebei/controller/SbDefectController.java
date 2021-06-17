@@ -2,6 +2,7 @@ package cn.exrick.xboot.modules.shebei.controller;
 
 import cn.exrick.xboot.common.enums.EnumDefectStatus;
 import cn.exrick.xboot.modules.shebei.dto.SbDefectDTO;
+import cn.exrick.xboot.modules.shebei.entity.SbDanger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
@@ -93,9 +94,15 @@ public class SbDefectController {
         try {
             SbDefectDTO sbDefect = new SbDefectDTO();
 
-            Integer common = sbDefectService.getBaseMapper().selectCount(new QueryWrapper<SbDefect>().lambda().eq(SbDefect::getDeviceType, request.getType()).eq(SbDefect::getDefectLevel, EnumDefectStatus.Common.getValue()));
-            Integer severity = sbDefectService.getBaseMapper().selectCount(new QueryWrapper<SbDefect>().lambda().eq(SbDefect::getDeviceType, request.getType()).eq(SbDefect::getDefectLevel, EnumDefectStatus.Severity.getValue()));
-            Integer critical = sbDefectService.getBaseMapper().selectCount(new QueryWrapper<SbDefect>().lambda().eq(SbDefect::getDeviceType, request.getType()).eq(SbDefect::getDefectLevel, EnumDefectStatus.Critical.getValue()));
+            Integer common = sbDefectService.getBaseMapper().selectCount(new QueryWrapper<SbDefect>().lambda().eq(SbDefect::getDeviceType, request.getType())
+                    .eq(SbDefect::getSiteId,request.getSiteId())
+                    .eq(SbDefect::getDefectLevel, EnumDefectStatus.Common.getValue()));
+            Integer severity = sbDefectService.getBaseMapper().selectCount(new QueryWrapper<SbDefect>().lambda()
+                    .eq(SbDefect::getSiteId,request.getSiteId())
+                    .eq(SbDefect::getDeviceType, request.getType()).eq(SbDefect::getDefectLevel, EnumDefectStatus.Severity.getValue()));
+            Integer critical = sbDefectService.getBaseMapper().selectCount(new QueryWrapper<SbDefect>().lambda()
+                    .eq(SbDefect::getSiteId,request.getSiteId())
+                    .eq(SbDefect::getDeviceType, request.getType()).eq(SbDefect::getDefectLevel, EnumDefectStatus.Critical.getValue()));
             //Integer notdefect = sbDefectService.getBaseMapper().selectCount(new QueryWrapper<SbDefect>().lambda().eq(SbDefect::getDeviceType, "变压器").eq(SbDefect::getDefectLevel, EnumDefectStatus.notdefect.getValue()));
             sbDefect.setCommonNum(common);
             sbDefect.setSeverityNum(severity);

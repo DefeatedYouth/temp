@@ -70,5 +70,6 @@ public class BaseDevice extends StmBaseEntity {
     @ApiModelProperty(value = "间隔单元")
     private String spaceUnit;
 
-
+    @ApiModelProperty(value = "消防系统类型（断路器才有这个属性） 1 水喷雾灭火系统 2 细水雾灭火系统3 泡沫喷雾灭火系统 4 排油注氮灭火系统")
+    private String fireFightingSystem;
 }

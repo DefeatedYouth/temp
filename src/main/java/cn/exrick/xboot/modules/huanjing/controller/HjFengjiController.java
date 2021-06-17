@@ -1,5 +1,10 @@
 package cn.exrick.xboot.modules.huanjing.controller;
 
+import cn.exrick.xboot.common.enums.EnumAlarmStateType;
+import cn.exrick.xboot.common.enums.EnumLinkState;
+import cn.exrick.xboot.common.enums.EnumSwitchState;
+import cn.exrick.xboot.modules.huanjing.dto.HjEquipmentNumDTO;
+import cn.exrick.xboot.modules.huanjing.entity.HjSfsex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
@@ -80,6 +85,28 @@ public class HjFengjiController {
         try {
             HjFengji hjFengji = hjFengjiService.getById(request.getId());
             return  ResultUtil.data(hjFengji);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
+
+    @ApiOperation(value = "风机设备监视数量统计",notes = "参数 变电站id")
+    @GetMapping("/getAuxiliaryEquipmentNum")
+    public Result<HjEquipmentNumDTO> getAuxiliaryEquipmentNum(BaseReqVO request) {
+        try {
+            HjEquipmentNumDTO hjEquipmentNumDTO = new HjEquipmentNumDTO();
+            Integer totalNum = hjFengjiService.count(new QueryWrapper<HjFengji>().lambda()
+                    .eq(HjFengji::getSiteId, request.getSiteId()));
+            hjEquipmentNumDTO.setTotalNum(totalNum);
+            Integer processed = hjFengjiService.count(new QueryWrapper<HjFengji>().lambda()
+                    .eq(HjFengji::getSiteId, request.getSiteId())
+                    .eq(HjFengji::getLinkState, EnumLinkState.Processed.getValue()));
+            hjEquipmentNumDTO.setAbnormalCommunicationNum(processed);
+            Integer shutNum = hjFengjiService.count(new QueryWrapper<HjFengji>().lambda()
+                    .eq(HjFengji::getSiteId, request.getSiteId())
+                    .eq(HjFengji::getFengjiState, EnumSwitchState.Shut.getValue()));
+            hjEquipmentNumDTO.setDownNum(shutNum);
+            return  ResultUtil.data(hjEquipmentNumDTO);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
         }

@@ -1,5 +1,11 @@
 package cn.exrick.xboot.modules.huanjing.controller;
 
+import cn.exrick.xboot.common.enums.EnumAlarmStateType;
+import cn.exrick.xboot.common.enums.EnumLinkState;
+import cn.exrick.xboot.common.enums.EnumSwitchState;
+import cn.exrick.xboot.modules.huanjing.dto.HjEquipmentNumDTO;
+import cn.exrick.xboot.modules.huanjing.entity.HjFengji;
+import cn.exrick.xboot.modules.huanjing.entity.HjWendu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
@@ -80,6 +86,28 @@ public class HjShuiweiController {
         try {
             HjShuiwei hjShuiwei = hjShuiweiService.getById(request.getId());
             return  ResultUtil.data(hjShuiwei);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
+
+    @ApiOperation(value = "水位设备监视数量统计",notes = "参数 变电站id")
+    @GetMapping("/getAuxiliaryEquipmentNum")
+    public Result<HjEquipmentNumDTO> getAuxiliaryEquipmentNum(BaseReqVO request) {
+        try {
+            HjEquipmentNumDTO hjEquipmentNumDTO = new HjEquipmentNumDTO();
+            Integer totalNum = hjShuiweiService.count(new QueryWrapper<HjShuiwei>().lambda()
+                    .eq(HjShuiwei::getSiteId, request.getSiteId()));
+            hjEquipmentNumDTO.setTotalNum(totalNum);
+            HjShuiwei hjShuiwei = hjShuiweiService.getBaseMapper().selectOne(new QueryWrapper<HjShuiwei>().lambda()
+                    .eq(HjShuiwei::getSiteId, request.getSiteId())
+                    .orderByAsc(HjShuiwei::getShuiweiValue).last("limit 1"));
+            hjEquipmentNumDTO.setWaterLevelMax(hjShuiwei.getShuiweiValue());
+            Integer alarmNum = hjShuiweiService.count(new QueryWrapper<HjShuiwei>().lambda()
+                    .eq(HjShuiwei::getSiteId, request.getSiteId())
+                    .eq(HjShuiwei::getAlarmState, EnumAlarmStateType.Processed.getValue()));
+            hjEquipmentNumDTO.setAlarmNum(alarmNum);
+            return  ResultUtil.data(hjEquipmentNumDTO);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
         }

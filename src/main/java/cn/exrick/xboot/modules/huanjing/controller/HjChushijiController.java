@@ -1,5 +1,9 @@
 package cn.exrick.xboot.modules.huanjing.controller;
 
+import cn.exrick.xboot.common.enums.EnumLinkState;
+import cn.exrick.xboot.common.enums.EnumSwitchState;
+import cn.exrick.xboot.modules.huanjing.dto.HjEquipmentNumDTO;
+import cn.exrick.xboot.modules.huanjing.entity.HjKongtiao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
@@ -80,6 +84,32 @@ public class HjChushijiController {
         try {
             HjChushiji hjChushiji = hjChushijiService.getById(request.getId());
             return  ResultUtil.data(hjChushiji);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
+
+    @ApiOperation(value = "除湿机设备监视数量统计",notes = "参数 变电站id")
+    @GetMapping("/getAuxiliaryEquipmentNum")
+    public Result<HjEquipmentNumDTO> getAuxiliaryEquipmentNum(BaseReqVO request) {
+        try {
+            HjEquipmentNumDTO hjEquipmentNumDTO = new HjEquipmentNumDTO();
+            Integer totalNum = hjChushijiService.count(new QueryWrapper<HjChushiji>().lambda()
+                    .eq(HjChushiji::getSiteId, request.getSiteId()));
+            hjEquipmentNumDTO.setTotalNum(totalNum);
+            Integer openNum = hjChushijiService.count(new QueryWrapper<HjChushiji>().lambda()
+                    .eq(HjChushiji::getSiteId, request.getSiteId())
+                    .eq(HjChushiji::getWorkState, EnumSwitchState.Open.getValue()));
+            hjEquipmentNumDTO.setOpenNum(openNum);
+            Integer downNum = hjChushijiService.count(new QueryWrapper<HjChushiji>().lambda()
+                    .eq(HjChushiji::getSiteId, request.getSiteId())
+                    .eq(HjChushiji::getWorkState, EnumSwitchState.Shut.getValue()));
+            hjEquipmentNumDTO.setDownNum(downNum);
+            Integer processed = hjChushijiService.count(new QueryWrapper<HjChushiji>().lambda()
+                    .eq(HjChushiji::getSiteId, request.getSiteId())
+                    .eq(HjChushiji::getLinkState, EnumLinkState.Processed.getValue()));
+            hjEquipmentNumDTO.setAbnormalCommunicationNum(processed);
+            return  ResultUtil.data(hjEquipmentNumDTO);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
         }
