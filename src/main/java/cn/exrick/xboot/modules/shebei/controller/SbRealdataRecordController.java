@@ -1,20 +1,13 @@
 package cn.exrick.xboot.modules.shebei.controller;
 
-import cn.exrick.xboot.common.enums.EnumAlarmType;
-import cn.exrick.xboot.common.enums.EnumDangerStatus;
-import cn.exrick.xboot.common.enums.EnumDefectStatus;
-import cn.exrick.xboot.common.enums.EnumDeviceType;
-import cn.exrick.xboot.modules.shebei.dto.SbDefectDTO;
-import cn.exrick.xboot.modules.shebei.entity.SbAlarm;
-import cn.exrick.xboot.modules.shebei.entity.SbDefect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
 import cn.exrick.xboot.common.vo.BaseReqVO;
 import cn.exrick.xboot.common.vo.PageVo;
 import cn.exrick.xboot.common.utils.*;
-import cn.exrick.xboot.modules.shebei.entity.SbDanger;
-import cn.exrick.xboot.modules.shebei.query.SbDangerQuery;
+import cn.exrick.xboot.modules.shebei.entity.SbRealdataRecord;
+import cn.exrick.xboot.modules.shebei.query.SbRealdataRecordQuery;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
@@ -24,34 +17,34 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import org.springframework.web.bind.annotation.RestController;
-import cn.exrick.xboot.modules.shebei.service.SbDangerService;
+import cn.exrick.xboot.modules.shebei.service.SbRealdataRecordService;
 
 import java.util.List;
 import cn.exrick.xboot.common.vo.Result;
 /**
- * @desc 断路器隐患信息表 controller
+ * @desc 设备实时状态历史数据表 controller
  * @author chenfeixiang
- * @since 2021-06-15
+ * @since 2021-06-18
  */
 @RestController
-@RequestMapping("/shebei/sbDanger")
+@RequestMapping("/shebei/sbRealdataRecord")
 @Slf4j
-@ApiModel(value="SbDanger对象", description="断路器隐患信息表")
-@Api(tags = "shebei-断路器隐患信息表")
-public class SbDangerController {
+@ApiModel(value="SbRealdataRecord对象", description="设备实时状态历史数据表")
+@Api(tags = "shebei-设备实时状态历史数据表")
+public class SbRealdataRecordController {
 
     @Autowired
-    private SbDangerService sbDangerService;
+    private SbRealdataRecordService sbRealdataRecordService;
 
     /**
      * @desc 新增或更新,带id为修改，不带id为新增
      */
     @ApiOperation("新增或更新")
     @PostMapping("/saveOrUpdate")
-    public Result<SbDanger> saveOrUpdate(@Valid @RequestBody SbDanger sbDanger){
+    public Result<SbRealdataRecord> saveOrUpdate(@Valid @RequestBody SbRealdataRecord sbRealdataRecord){
         try {
-            sbDangerService.saveOrUpdate(sbDanger);
-            return  ResultUtil.data(sbDanger);
+            sbRealdataRecordService.saveOrUpdate(sbRealdataRecord);
+            return  ResultUtil.data(sbRealdataRecord);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
         }
@@ -63,10 +56,10 @@ public class SbDangerController {
      */
     @ApiOperation("列表")
     @GetMapping("/list")
-    public Result<Page<SbDanger>> list(PageVo pageVo,SbDangerQuery query) {
-        QueryWrapper<SbDanger> queryWrapper = new QueryWrapper<SbDanger>() ;
+    public Result<Page<SbRealdataRecord>> list(PageVo pageVo,SbRealdataRecordQuery query) {
+        QueryWrapper<SbRealdataRecord> queryWrapper = new QueryWrapper<SbRealdataRecord>() ;
         //TODO 条件待填写
-        Page page = sbDangerService.page(PageUtil.initMpPage(pageVo),queryWrapper);
+        Page page = sbRealdataRecordService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);
     }
 
@@ -74,7 +67,7 @@ public class SbDangerController {
     @PostMapping("/remove")
     public Result remove(@RequestBody BaseReqVO request){
         try {
-             sbDangerService.removeByIds(request.getIds());
+             sbRealdataRecordService.removeByIds(request.getIds());
             return  ResultUtil.success(null);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
@@ -83,20 +76,13 @@ public class SbDangerController {
 
     @ApiOperation("单条记录查询")
     @GetMapping("/getById")
-    public Result<SbDanger> getById(BaseReqVO request) {
+    public Result<SbRealdataRecord> getById(BaseReqVO request) {
         try {
-            SbDanger sbDanger = sbDangerService.getById(request.getId());
-            return  ResultUtil.data(sbDanger);
+            SbRealdataRecord sbRealdataRecord = sbRealdataRecordService.getById(request.getId());
+            return  ResultUtil.data(sbRealdataRecord);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
         }
-    }
-
-    @ApiOperation("缺陷数量信息统计")
-    @GetMapping("/getCountDangerNum")
-    public Result<SbDefectDTO> getCountDefectNum(BaseReqVO request) {
-        SbDefectDTO countDefectNum = sbDangerService.getCountDefectNum(request);
-        return ResultUtil.data(countDefectNum);
     }
 }
 

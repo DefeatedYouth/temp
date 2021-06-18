@@ -1,5 +1,6 @@
 package cn.exrick.xboot.modules.anxiaofang.controller;
 
+import cn.exrick.xboot.modules.anxiaofang.dto.FirefightovweviewDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
@@ -80,6 +81,18 @@ public class AxfDeviceController {
         try {
             AxfDevice axfDevice = axfDeviceService.getById(request.getId());
             return  ResultUtil.data(axfDevice);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
+
+
+    @ApiOperation("消防设施信息总览")
+    @GetMapping("/fireFightingOvweview")
+    public Result<FirefightovweviewDTO> fireFightingOvweview(BaseReqVO request) {
+        try {
+            FirefightovweviewDTO firefightovweviewDTO = axfDeviceService.fireFightingOvweview(request);
+            return  ResultUtil.data(firefightovweviewDTO);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
         }

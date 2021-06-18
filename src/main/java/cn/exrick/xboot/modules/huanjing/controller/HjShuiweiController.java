@@ -95,19 +95,8 @@ public class HjShuiweiController {
     @GetMapping("/getAuxiliaryEquipmentNum")
     public Result<HjEquipmentNumDTO> getAuxiliaryEquipmentNum(BaseReqVO request) {
         try {
-            HjEquipmentNumDTO hjEquipmentNumDTO = new HjEquipmentNumDTO();
-            Integer totalNum = hjShuiweiService.count(new QueryWrapper<HjShuiwei>().lambda()
-                    .eq(HjShuiwei::getSiteId, request.getSiteId()));
-            hjEquipmentNumDTO.setTotalNum(totalNum);
-            HjShuiwei hjShuiwei = hjShuiweiService.getBaseMapper().selectOne(new QueryWrapper<HjShuiwei>().lambda()
-                    .eq(HjShuiwei::getSiteId, request.getSiteId())
-                    .orderByAsc(HjShuiwei::getShuiweiValue).last("limit 1"));
-            hjEquipmentNumDTO.setWaterLevelMax(hjShuiwei.getShuiweiValue());
-            Integer alarmNum = hjShuiweiService.count(new QueryWrapper<HjShuiwei>().lambda()
-                    .eq(HjShuiwei::getSiteId, request.getSiteId())
-                    .eq(HjShuiwei::getAlarmState, EnumAlarmStateType.Processed.getValue()));
-            hjEquipmentNumDTO.setAlarmNum(alarmNum);
-            return  ResultUtil.data(hjEquipmentNumDTO);
+            HjEquipmentNumDTO auxiliaryEquipmentNum = hjShuiweiService.getAuxiliaryEquipmentNum(request);
+            return  ResultUtil.data(auxiliaryEquipmentNum);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
         }

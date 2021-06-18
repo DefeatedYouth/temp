@@ -93,23 +93,8 @@ public class HjKongtiaoController {
     @GetMapping("/getAuxiliaryEquipmentNum")
     public Result<HjEquipmentNumDTO> getAuxiliaryEquipmentNum(BaseReqVO request) {
         try {
-            HjEquipmentNumDTO hjEquipmentNumDTO = new HjEquipmentNumDTO();
-            Integer totalNum = hjKongtiaoService.count(new QueryWrapper<HjKongtiao>().lambda()
-                    .eq(HjKongtiao::getSiteId, request.getSiteId()));
-            hjEquipmentNumDTO.setTotalNum(totalNum);
-            Integer openNum = hjKongtiaoService.count(new QueryWrapper<HjKongtiao>().lambda()
-                    .eq(HjKongtiao::getSiteId, request.getSiteId())
-                    .eq(HjKongtiao::getSwitchState, EnumSwitchState.Open.getValue()));
-            hjEquipmentNumDTO.setOpenNum(openNum);
-            Integer downNum = hjKongtiaoService.count(new QueryWrapper<HjKongtiao>().lambda()
-                    .eq(HjKongtiao::getSiteId, request.getSiteId())
-                    .eq(HjKongtiao::getSwitchState, EnumSwitchState.Shut.getValue()));
-            hjEquipmentNumDTO.setDownNum(downNum);
-            Integer processed = hjKongtiaoService.count(new QueryWrapper<HjKongtiao>().lambda()
-                    .eq(HjKongtiao::getSiteId, request.getSiteId())
-                    .eq(HjKongtiao::getLinkState, EnumLinkState.Processed.getValue()));
-            hjEquipmentNumDTO.setAbnormalCommunicationNum(processed);
-            return  ResultUtil.data(hjEquipmentNumDTO);
+            HjEquipmentNumDTO auxiliaryEquipmentNum = hjKongtiaoService.getAuxiliaryEquipmentNum(request);
+            return  ResultUtil.data(auxiliaryEquipmentNum);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
         }

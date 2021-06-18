@@ -1,5 +1,8 @@
 package cn.exrick.xboot.modules.shebei.service;
 
+import cn.exrick.xboot.common.vo.BaseReqVO;
+import cn.exrick.xboot.common.vo.Result;
+import cn.exrick.xboot.modules.shebei.dto.SbAlarmNumDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.exrick.xboot.modules.shebei.entity.SbAlarm;
 
@@ -11,5 +14,5 @@ import cn.exrick.xboot.modules.shebei.entity.SbAlarm;
  */
 public interface SbAlarmService  extends IService<SbAlarm>{
 
-
+    SbAlarmNumDTO getAlarmNum(BaseReqVO request);
 }

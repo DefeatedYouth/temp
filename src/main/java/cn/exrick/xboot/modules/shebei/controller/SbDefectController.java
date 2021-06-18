@@ -92,23 +92,8 @@ public class SbDefectController {
     @GetMapping("/getCountDefectNum")
     public Result<SbDefectDTO> getCountDefectNum(BaseReqVO request) {
         try {
-            SbDefectDTO sbDefect = new SbDefectDTO();
-
-            Integer common = sbDefectService.getBaseMapper().selectCount(new QueryWrapper<SbDefect>().lambda().eq(SbDefect::getDeviceType, request.getType())
-                    .eq(SbDefect::getSiteId,request.getSiteId())
-                    .eq(SbDefect::getDefectLevel, EnumDefectStatus.Common.getValue()));
-            Integer severity = sbDefectService.getBaseMapper().selectCount(new QueryWrapper<SbDefect>().lambda()
-                    .eq(SbDefect::getSiteId,request.getSiteId())
-                    .eq(SbDefect::getDeviceType, request.getType()).eq(SbDefect::getDefectLevel, EnumDefectStatus.Severity.getValue()));
-            Integer critical = sbDefectService.getBaseMapper().selectCount(new QueryWrapper<SbDefect>().lambda()
-                    .eq(SbDefect::getSiteId,request.getSiteId())
-                    .eq(SbDefect::getDeviceType, request.getType()).eq(SbDefect::getDefectLevel, EnumDefectStatus.Critical.getValue()));
-            //Integer notdefect = sbDefectService.getBaseMapper().selectCount(new QueryWrapper<SbDefect>().lambda().eq(SbDefect::getDeviceType, "变压器").eq(SbDefect::getDefectLevel, EnumDefectStatus.notdefect.getValue()));
-            sbDefect.setCommonNum(common);
-            sbDefect.setSeverityNum(severity);
-            sbDefect.setCriticalNum(critical);
-            sbDefect.setNotdefectNum(common+severity+critical);
-            return  ResultUtil.data(sbDefect);
+            SbDefectDTO countDefectNum = sbDefectService.getCountDefectNum(request);
+            return  ResultUtil.data(countDefectNum);
             //todo 根据前端传过来的设备类型来查询 具体是什么设备的缺陷信息统计 这里是写死的 变压器，后面根据传过来的type进行修改。
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());

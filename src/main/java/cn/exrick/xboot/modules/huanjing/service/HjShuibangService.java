@@ -1,5 +1,7 @@
 package cn.exrick.xboot.modules.huanjing.service;
 
+import cn.exrick.xboot.common.vo.BaseReqVO;
+import cn.exrick.xboot.modules.huanjing.dto.HjEquipmentNumDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.exrick.xboot.modules.huanjing.entity.HjShuibang;
 
@@ -11,5 +13,5 @@ import cn.exrick.xboot.modules.huanjing.entity.HjShuibang;
  */
 public interface HjShuibangService  extends IService<HjShuibang>{
 
-
+    HjEquipmentNumDTO getAuxiliaryEquipmentNum(BaseReqVO request);
 }

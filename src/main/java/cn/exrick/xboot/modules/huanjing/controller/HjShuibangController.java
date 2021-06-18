@@ -93,23 +93,8 @@ public class HjShuibangController {
     @GetMapping("/getAuxiliaryEquipmentNum")
     public Result<HjEquipmentNumDTO> getAuxiliaryEquipmentNum(BaseReqVO request) {
         try {
-            HjEquipmentNumDTO hjEquipmentNumDTO = new HjEquipmentNumDTO();
-            Integer totalNum = hjShuibangService.count(new QueryWrapper<HjShuibang>().lambda()
-                    .eq(HjShuibang::getSiteId, request.getSiteId()));
-            hjEquipmentNumDTO.setTotalNum(totalNum);
-            Integer openNum = hjShuibangService.count(new QueryWrapper<HjShuibang>().lambda()
-                    .eq(HjShuibang::getSiteId, request.getSiteId())
-                    .eq(HjShuibang::getSwitchState, EnumSwitchState.Open.getValue()));
-            hjEquipmentNumDTO.setOpenNum(openNum);
-            Integer downNum = hjShuibangService.count(new QueryWrapper<HjShuibang>().lambda()
-                    .eq(HjShuibang::getSiteId, request.getSiteId())
-                    .eq(HjShuibang::getSwitchState, EnumSwitchState.Shut.getValue()));
-            hjEquipmentNumDTO.setDownNum(downNum);
-            Integer processed = hjShuibangService.count(new QueryWrapper<HjShuibang>().lambda()
-                    .eq(HjShuibang::getSiteId, request.getSiteId())
-                    .eq(HjShuibang::getLinkState, EnumLinkState.Processed.getValue()));
-            hjEquipmentNumDTO.setAbnormalCommunicationNum(processed);
-            return  ResultUtil.data(hjEquipmentNumDTO);
+            HjEquipmentNumDTO auxiliaryEquipmentNum = hjShuibangService.getAuxiliaryEquipmentNum(request);
+            return  ResultUtil.data(auxiliaryEquipmentNum);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
         }

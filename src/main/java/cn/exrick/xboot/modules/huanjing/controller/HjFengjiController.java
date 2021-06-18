@@ -94,19 +94,8 @@ public class HjFengjiController {
     @GetMapping("/getAuxiliaryEquipmentNum")
     public Result<HjEquipmentNumDTO> getAuxiliaryEquipmentNum(BaseReqVO request) {
         try {
-            HjEquipmentNumDTO hjEquipmentNumDTO = new HjEquipmentNumDTO();
-            Integer totalNum = hjFengjiService.count(new QueryWrapper<HjFengji>().lambda()
-                    .eq(HjFengji::getSiteId, request.getSiteId()));
-            hjEquipmentNumDTO.setTotalNum(totalNum);
-            Integer processed = hjFengjiService.count(new QueryWrapper<HjFengji>().lambda()
-                    .eq(HjFengji::getSiteId, request.getSiteId())
-                    .eq(HjFengji::getLinkState, EnumLinkState.Processed.getValue()));
-            hjEquipmentNumDTO.setAbnormalCommunicationNum(processed);
-            Integer shutNum = hjFengjiService.count(new QueryWrapper<HjFengji>().lambda()
-                    .eq(HjFengji::getSiteId, request.getSiteId())
-                    .eq(HjFengji::getFengjiState, EnumSwitchState.Shut.getValue()));
-            hjEquipmentNumDTO.setDownNum(shutNum);
-            return  ResultUtil.data(hjEquipmentNumDTO);
+            HjEquipmentNumDTO auxiliaryEquipmentNum = hjFengjiService.getAuxiliaryEquipmentNum(request);
+            return  ResultUtil.data(auxiliaryEquipmentNum);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
         }

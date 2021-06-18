@@ -1,6 +1,7 @@
 package cn.exrick.xboot.modules.base.controller;
 
 import cn.exrick.xboot.common.enums.EnumOrganizationLevel;
+import cn.exrick.xboot.common.vo.MunicipalCompanyVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
@@ -87,16 +88,12 @@ public class BasePlaceController {
     }
 
 
-    @ApiOperation("查询所有的地市公司列表")
+    @ApiOperation(value = "查询所有的地市公司列表",notes = "level 查询层级 1 地市公司 2 工区 3 班组 ，parentId 父级id 没有就不传 ,电压等级voltageLevel 没有就不传")
     @GetMapping("/getMunicipalCompany")
-    public Result<List<BasePlace>> getMunicipalCompany(BaseReqVO request) {
+    public Result<List<BasePlace>> getMunicipalCompany(MunicipalCompanyVO municipalCompanyVO) {
         try {
-            List<BasePlace> basePlaces =
-                    basePlaceService.getBaseMapper().selectList(new QueryWrapper<BasePlace>().lambda()
-                            .eq(BasePlace::getLevel, request.getLevel())
-                            .eq(request.getParentId()!=null&&!request.getParentId().equals(""),BasePlace::getParentId,request.getParentId())
-                    );
-            return  ResultUtil.data(basePlaces);
+            List<BasePlace> municipalCompany = basePlaceService.getMunicipalCompany(municipalCompanyVO);
+            return  ResultUtil.data(municipalCompany);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
         }

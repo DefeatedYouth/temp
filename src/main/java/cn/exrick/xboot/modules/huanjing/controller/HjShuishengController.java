@@ -93,19 +93,8 @@ public class HjShuishengController {
     @GetMapping("/getAuxiliaryEquipmentNum")
     public Result<HjEquipmentNumDTO> getAuxiliaryEquipmentNum(BaseReqVO request) {
         try {
-            HjEquipmentNumDTO hjEquipmentNumDTO = new HjEquipmentNumDTO();
-            Integer totalNum = hjShuishengService.count(new QueryWrapper<HjShuisheng>().lambda()
-                    .eq(HjShuisheng::getSiteId, request.getSiteId()));
-            hjEquipmentNumDTO.setTotalNum(totalNum);
-            Integer linkStateNum = hjShuishengService.count(new QueryWrapper<HjShuisheng>().lambda()
-                    .eq(HjShuisheng::getSiteId, request.getSiteId())
-                    .eq(HjShuisheng::getLinkState, EnumLinkState.Processed.getValue()));
-            hjEquipmentNumDTO.setAbnormalCommunicationNum(linkStateNum);
-            Integer alarmNum = hjShuishengService.count(new QueryWrapper<HjShuisheng>().lambda()
-                    .eq(HjShuisheng::getSiteId, request.getSiteId())
-                    .eq(HjShuisheng::getAlarmState, EnumAlarmStateType.Processed.getValue()));
-            hjEquipmentNumDTO.setAlarmNum(alarmNum);
-            return  ResultUtil.data(hjEquipmentNumDTO);
+            HjEquipmentNumDTO auxiliaryEquipmentNum = hjShuishengService.getAuxiliaryEquipmentNum(request);
+            return  ResultUtil.data(auxiliaryEquipmentNum);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
         }

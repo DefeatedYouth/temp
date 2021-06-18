@@ -1,5 +1,7 @@
 package cn.exrick.xboot.modules.anxiaofang.service;
 
+import cn.exrick.xboot.common.vo.BaseReqVO;
+import cn.exrick.xboot.modules.anxiaofang.dto.FirefightovweviewDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.exrick.xboot.modules.anxiaofang.entity.AxfDevice;
 
@@ -11,5 +13,5 @@ import cn.exrick.xboot.modules.anxiaofang.entity.AxfDevice;
  */
 public interface AxfDeviceService  extends IService<AxfDevice>{
 
-
+    FirefightovweviewDTO fireFightingOvweview(BaseReqVO request);
 }
