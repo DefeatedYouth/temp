@@ -92,21 +92,8 @@ public class SbAlarmController {
     @GetMapping("/getAlarmNum")
     public Result<SbAlarmNumDTO> getAlarmNum(BaseReqVO request) {
         try {
-            SbAlarmNumDTO sbAlarmNumDTO =new SbAlarmNumDTO();
-            Integer accidentAlarmNum = sbAlarmService.count(new QueryWrapper<SbAlarm>().lambda()
-                    .eq(SbAlarm::getAlarmType, request.getType())
-                    .eq(SbAlarm::getAlarmType, EnumAlarmType.Accident.getValue())
-                    .eq(SbAlarm::getAlarmState, EnumAlarmStateType.Untreated.getValue())
-                    .eq(SbAlarm::getSiteId,request.getSiteId())
-            );
-
-            Integer unhandledNum = sbAlarmService.count(new QueryWrapper<SbAlarm>().lambda().eq(SbAlarm::getAlarmType, EnumAlarmType.Accident.getValue())
-                    .eq(SbAlarm::getAlarmState, EnumAlarmStateType.Untreated.getValue())
-                    .eq(SbAlarm::getSiteId,request.getSiteId())
-            );
-            sbAlarmNumDTO.setAccidentAlarmNum(accidentAlarmNum);
-            sbAlarmNumDTO.setUnhandledNum(unhandledNum);
-            return  ResultUtil.data(sbAlarmNumDTO);
+            SbAlarmNumDTO alarmNum = sbAlarmService.getAlarmNum(request);
+            return  ResultUtil.data(alarmNum);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
         }

@@ -3,7 +3,6 @@ package cn.exrick.xboot.modules.shebei.service.impl;
 
 import cn.exrick.xboot.common.enums.EnumAlarmStateType;
 import cn.exrick.xboot.common.enums.EnumAlarmType;
-import cn.exrick.xboot.common.utils.ResultUtil;
 import cn.exrick.xboot.common.vo.BaseReqVO;
 import cn.exrick.xboot.modules.shebei.dto.SbAlarmNumDTO;
 import cn.exrick.xboot.modules.shebei.service.SbAlarmService;
