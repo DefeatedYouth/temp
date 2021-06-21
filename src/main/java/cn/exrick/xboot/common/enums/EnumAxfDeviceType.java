@@ -10,6 +10,7 @@ import java.util.Map;
  * @File: EnumAxfDeviceType
  */
 public enum  EnumAxfDeviceType {
+    //
     Nomal(1,"变压器消防监视列表"),
     Accident(2, "烟感探测器监视列表"),
     Abnormal(3, "火灾探测器消防监视列表"),

@@ -10,6 +10,7 @@ import java.util.Map;
  * @File: EnumPrimaryType
  */
 public enum EnumPrimaryType {
+    //
     Transformer(1, "油浸式变压器(电抗器)"),
     CircuitBreaker(2, "断路器"),
     IsolatingSwitch(4, "隔离开关"),

@@ -7,6 +7,7 @@ import java.util.Map;
  * 1地市公司 2工区 3班组
  */
 public enum EnumOrganizationLevel {
+    //
     MunicipalCompany(1, "地市公司"),
     WorkArea(2, "工区"),
     Eam(3, "班组");
