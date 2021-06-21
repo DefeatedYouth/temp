@@ -66,4 +66,18 @@ public class JobRepair extends StmBaseEntity {
     @ApiModelProperty(value = "状态")
     private String jobState;
 
+    @ApiModelProperty(value = "负责人")
+    private String personCharge;
+
+    @ApiModelProperty(value = "计划结束时间")
+    private String endTime;
+
+    @ApiModelProperty(value = "电压等级")
+    private String voltageLevel;
+
+    @ApiModelProperty(value = "工作内容")
+    private String jobContent;
+
+    @ApiModelProperty(value = "是否停电")
+    private String powerFailure;
 }

@@ -25,9 +25,13 @@ public class AxfDeviceServiceImpl extends ServiceImpl<AxfDeviceDao, AxfDevice> i
     @Override
     public FirefightovweviewDTO fireFightingOvweview(BaseReqVO request) {
     try {
+        //
         FirefightovweviewDTO firefightovweviewDTO = new FirefightovweviewDTO();
         int total = this.count(new QueryWrapper<AxfDevice>().lambda()
                 .eq(AxfDevice::getSiteId, request.getSiteId()));
+        this.count(new QueryWrapper<AxfDevice>().lambda()
+                .eq(AxfDevice::getSiteId, request.getSiteId())
+        );
         firefightovweviewDTO.setTotalFireFightingNum(total);
         return firefightovweviewDTO;
     }catch (Exception e){
