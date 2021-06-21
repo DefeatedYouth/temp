@@ -57,5 +57,6 @@ public class RobotInspMessage extends StmBaseEntity {
     @ApiModelProperty(value = "结论")
     private String inspResult;
 
-
+    @ApiModelProperty(value = "告警等级")
+    private Integer alarmLevel;
 }

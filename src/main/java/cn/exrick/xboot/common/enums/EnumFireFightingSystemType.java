@@ -10,6 +10,7 @@ import java.util.Map;
  * @File: EnumDefectStatusu
  */
 public enum EnumFireFightingSystemType {
+    //
     WaterSprayFireExtinguishingSystem(1,"水喷雾灭火系统"),
     WaterMistSystem(2,"细水雾灭火系统"),
     FoamSprayFireExtinguishingSystem(3,"泡沫喷雾灭火系统"),

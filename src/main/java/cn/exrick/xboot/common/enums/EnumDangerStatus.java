@@ -10,6 +10,7 @@ import java.util.Map;
  * @File: EnumDefectStatus
  */
 public enum EnumDangerStatus {
+    //
     Common(1, "一般"),
     Severity(2, "严重"),
     Notdefect(0, "正常");

@@ -64,4 +64,12 @@ public class JobTicket extends StmBaseEntity {
     @ApiModelProperty(value = "完成状态")
     private String ticketState;
 
+    @ApiModelProperty(value = "许可人")
+    private String permitPersion;
+
+    @ApiModelProperty(value = "许可时间")
+    private String permitPersionTime;
+
+    @ApiModelProperty(value = "结束时间")
+    private String endTime;
 }

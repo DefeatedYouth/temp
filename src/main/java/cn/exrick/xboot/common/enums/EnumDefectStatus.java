@@ -10,6 +10,7 @@ import java.util.Map;
  * @File: EnumDefectStatus
  */
 public enum EnumDefectStatus {
+    //
     Common(1, "一般"),
     Severity(2, "严重"),
     Critical(3, "危急"),

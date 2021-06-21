@@ -10,6 +10,7 @@ import java.util.Map;
  * @File: EnumDefectStatus
  */
 public enum EnumDeviceType {
+    //
     OilImmersedTransformer(1, "油浸式变压器"),
     Breaker(2, "断路器"),
     CombinationAppliances(3, "组合电器"),
