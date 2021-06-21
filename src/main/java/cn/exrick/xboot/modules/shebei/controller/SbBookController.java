@@ -57,11 +57,52 @@ public class SbBookController {
     @ApiOperation("列表")
     @GetMapping("/list")
     public Result<Page<SbBook>> list(PageVo pageVo,SbBookQuery query) {
-        QueryWrapper<SbBook> queryWrapper = new QueryWrapper<SbBook>() ;
+        QueryWrapper<SbBook> queryWrapper = new QueryWrapper<>();
         //TODO 条件待填写
+        queryWrapper.lambda().eq(query.getSiteId()!= null,SbBook::getSiteId,query.getSiteId());
         queryWrapper.lambda().eq(query.getDeviceType()!= null,SbBook::getDeviceType,query.getDeviceType());
+        queryWrapper.lambda().like(query.getDeviceName()!= null,SbBook::getDeviceName,query.getDeviceName());
+        queryWrapper.lambda().eq(query.getManufacturer()!= null,SbBook::getManufacturer,query.getManufacturer());
+        queryWrapper.lambda().eq(query.getVoltageLevel()!= null,SbBook::getVoltageLevel,query.getVoltageLevel());
+        queryWrapper.lambda().eq(query.getEquipmentModel()!= null,SbBook::getEquipmentModel,query.getEquipmentModel());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,SbBook::getUseTime,query.getStartTime());
+        queryWrapper.lambda().lt(query.getEndTime() != null,SbBook::getUseTime,query.getEndTime());
         Page page = sbBookService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);
+    }
+
+    @ApiOperation("厂家列表")
+    @GetMapping("/manufacturerList")
+    public Result<List<SbBook>> manufacturerList(SbBookQuery query) {
+        QueryWrapper<SbBook> queryWrapper = new QueryWrapper<>() ;
+        queryWrapper.lambda().eq(query.getSiteId()!= null,SbBook::getSiteId,query.getSiteId());
+        queryWrapper.lambda().eq(query.getDeviceType()!= null,SbBook::getDeviceType,query.getDeviceType());
+        queryWrapper.lambda().groupBy(SbBook::getManufacturer);
+        queryWrapper.lambda().select(SbBook::getManufacturer);
+        List<SbBook> list = sbBookService.list(queryWrapper);
+        return ResultUtil.data(list);
+    }
+    @ApiOperation("电压等级列表")
+    @GetMapping("/voltageLevelList")
+    public Result<List<SbBook>> voltageLevelList(SbBookQuery query) {
+        QueryWrapper<SbBook> queryWrapper = new QueryWrapper<>() ;
+        queryWrapper.lambda().eq(query.getSiteId()!= null,SbBook::getSiteId,query.getSiteId());
+        queryWrapper.lambda().eq(query.getDeviceType()!= null,SbBook::getDeviceType,query.getDeviceType());
+        queryWrapper.lambda().groupBy(SbBook::getVoltageLevel);
+        queryWrapper.lambda().select(SbBook::getVoltageLevel);
+        List<SbBook> list = sbBookService.list(queryWrapper);
+        return ResultUtil.data(list);
+    }
+    @ApiOperation("设备型号列表")
+    @GetMapping("/equipmentModelList")
+    public Result<List<SbBook>> equipmentModelList(SbBookQuery query) {
+        QueryWrapper<SbBook> queryWrapper = new QueryWrapper<>() ;
+        queryWrapper.lambda().eq(query.getSiteId()!= null,SbBook::getSiteId,query.getSiteId());
+        queryWrapper.lambda().eq(query.getDeviceType()!= null,SbBook::getDeviceType,query.getDeviceType());
+        queryWrapper.lambda().groupBy(SbBook::getEquipmentModel);
+        queryWrapper.lambda().select(SbBook::getEquipmentModel);
+        List<SbBook> list = sbBookService.list(queryWrapper);
+        return ResultUtil.data(list);
     }
 
     @ApiOperation("批量删除")
