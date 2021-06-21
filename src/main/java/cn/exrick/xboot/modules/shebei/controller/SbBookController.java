@@ -59,6 +59,7 @@ public class SbBookController {
     public Result<Page<SbBook>> list(PageVo pageVo,SbBookQuery query) {
         QueryWrapper<SbBook> queryWrapper = new QueryWrapper<SbBook>() ;
         //TODO 条件待填写
+        queryWrapper.lambda().eq(query.getDeviceType()!= null,SbBook::getDeviceType,query.getDeviceType());
         Page page = sbBookService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);
     }
