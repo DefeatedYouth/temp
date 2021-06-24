@@ -58,6 +58,9 @@ public class BaseCameraRecordsController {
     @GetMapping("/list")
     public Result<Page<BaseCameraRecords>> list(PageVo pageVo,BaseCameraRecordsQuery query) {
         QueryWrapper<BaseCameraRecords> queryWrapper = new QueryWrapper<BaseCameraRecords>() ;
+        queryWrapper.lambda().eq(BaseCameraRecords::getSiteId,query.getSiteId());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,BaseCameraRecords::getVideoTime,query.getStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEndTime() != null,BaseCameraRecords::getVideoTime,query.getEndTime());//结束时间
         //TODO 条件待填写
         Page page = baseCameraRecordsService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

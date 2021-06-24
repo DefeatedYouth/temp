@@ -54,5 +54,12 @@ public class SbLiveDetection extends StmBaseEntity {
     @ApiModelProperty(value = "结论")
     private String conclusion;
 
+    @ApiModelProperty(value = "所属电站")
+    private String parentName;
 
+    @ApiModelProperty(value = "所属城市")
+    private String city;
+
+    @ApiModelProperty(value = "附件地址")
+    private String attachment;
 }

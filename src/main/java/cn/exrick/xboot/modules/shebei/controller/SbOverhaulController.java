@@ -57,7 +57,16 @@ public class SbOverhaulController {
     @ApiOperation("列表")
     @GetMapping("/list")
     public Result<Page<SbOverhaul>> list(PageVo pageVo,SbOverhaulQuery query) {
+
         QueryWrapper<SbOverhaul> queryWrapper = new QueryWrapper<SbOverhaul>() ;
+        queryWrapper.lambda().eq(SbOverhaul::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getWorkTicketNumber()!=null,SbOverhaul::getWorkTicketNumber,query.getWorkTicketNumber());
+        queryWrapper.lambda().like(query.getDeviceName()!=null,SbOverhaul::getDeviceName,query.getDeviceName());
+        queryWrapper.lambda().like(query.getWorkingTeam()!=null,SbOverhaul::getWorkingTeam,query.getWorkingTeam());
+        queryWrapper.lambda().like(query.getWorkContent()!=null,SbOverhaul::getWorkContent,query.getWorkContent());
+        queryWrapper.lambda().like(query.getWorkCharge()!=null,SbOverhaul::getWorkCharge,query.getWorkCharge());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,SbOverhaul::getWorkDate,query.getStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEndTime() != null,SbOverhaul::getWorkDate,query.getEndTime());//结束时间
         //TODO 条件待填写
         Page page = sbOverhaulService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

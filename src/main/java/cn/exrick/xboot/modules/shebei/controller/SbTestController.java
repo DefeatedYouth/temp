@@ -58,6 +58,16 @@ public class SbTestController {
     @GetMapping("/list")
     public Result<Page<SbTest>> list(PageVo pageVo,SbTestQuery query) {
         QueryWrapper<SbTest> queryWrapper = new QueryWrapper<SbTest>() ;
+        queryWrapper.lambda().eq(SbTest::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getExperimentSpecialty()!=null,SbTest::getExperimentSpecialty,query.getExperimentSpecialty());
+        queryWrapper.lambda().like(query.getNatureTest()!=null,SbTest::getNatureTest,query.getNatureTest());
+        queryWrapper.lambda().eq(query.getDeviceType()!=null,SbTest::getDeviceType,query.getDeviceType());
+        queryWrapper.lambda().like(query.getSiteName()!=null,SbTest::getSiteName,query.getSiteName());
+        queryWrapper.lambda().like(query.getInputMan()!=null,SbTest::getInputMan,query.getInputMan());
+        queryWrapper.lambda().like(query.getTestConclusion()!=null,SbTest::getTestConclusion,query.getTestConclusion());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,SbTest::getTestTime,query.getStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEndTime() != null,SbTest::getTestTime,query.getEndTime());//结束时间
+
         //TODO 条件待填写
         Page page = sbTestService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

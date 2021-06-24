@@ -58,6 +58,11 @@ public class SbRealdataRecordController {
     @GetMapping("/list")
     public Result<Page<SbRealdataRecord>> list(PageVo pageVo,SbRealdataRecordQuery query) {
         QueryWrapper<SbRealdataRecord> queryWrapper = new QueryWrapper<SbRealdataRecord>() ;
+        queryWrapper.lambda().eq(SbRealdataRecord::getSiteId,query.getSiteId());
+        queryWrapper.lambda().eq(query.getOpeningClosingState()!=null,SbRealdataRecord::getOpeningClosingState,query.getOpeningClosingState());
+        queryWrapper.lambda().like(query.getDeviceName()!=null,SbRealdataRecord::getDeviceName,query.getDeviceName());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,SbRealdataRecord::getMonitoringTime,query.getStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEndTime() != null,SbRealdataRecord::getMonitoringTime,query.getEndTime());//结束时间
         //TODO 条件待填写
         Page page = sbRealdataRecordService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

@@ -58,6 +58,17 @@ public class JobRepairController {
     @GetMapping("/list")
     public Result<Page<JobRepair>> list(PageVo pageVo,JobRepairQuery query) {
         QueryWrapper<JobRepair> queryWrapper = new QueryWrapper<JobRepair>() ;
+        queryWrapper.lambda().eq(JobRepair::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getWorkBanzhu()!=null,JobRepair::getWorkBanzhu,query.getWorkBanzhu());
+        queryWrapper.lambda().like(query.getPersonCharge()!=null,JobRepair::getPersonCharge,query.getPersonCharge());
+        queryWrapper.lambda().eq(query.getPlanType()!=null,JobRepair::getPlanType,query.getPlanType());
+        queryWrapper.lambda().eq(query.getIsComplan()!=null,JobRepair::getIsComplan,query.getIsComplan());
+        queryWrapper.lambda().gt(query.getOrganizationStartTime()!= null ,JobRepair::getPlanTime,query.getOrganizationStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getOrganizationEndTime() != null,JobRepair::getPlanTime,query.getOrganizationEndTime());//结束时间
+        queryWrapper.lambda().gt(query.getSstartTime()!= null ,JobRepair::getBeginTime,query.getSstartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getSendTime()!= null,JobRepair::getBeginTime,query.getSendTime());//结束时间
+        queryWrapper.lambda().gt(query.getEstartTime()!= null ,JobRepair::getEndTime,query.getEstartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEendTime() != null,JobRepair::getEndTime,query.getEendTime());//结束时间
         //TODO 条件待填写
         Page page = jobRepairService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

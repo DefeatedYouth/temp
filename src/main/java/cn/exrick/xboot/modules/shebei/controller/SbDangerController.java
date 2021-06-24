@@ -66,6 +66,16 @@ public class SbDangerController {
     public Result<Page<SbDanger>> list(PageVo pageVo,SbDangerQuery query) {
         QueryWrapper<SbDanger> queryWrapper = new QueryWrapper<SbDanger>() ;
         //TODO 条件待填写
+        queryWrapper.lambda().eq(SbDanger::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getDeviceName()!=null,SbDanger::getDeviceName,query.getDeviceName());
+        queryWrapper.lambda().eq(query.getDeviceType()!=null,SbDanger::getDeviceType,EnumDeviceType.valueOf(query.getDeviceType()));
+        queryWrapper.lambda().eq(query.getHiddenDangerLevel()!=null,SbDanger::getHiddenDangerLevel,EnumDangerStatus.valueOf(query.getHiddenDangerLevel()));
+        queryWrapper.lambda().eq(query.getHiddenDangerType()!=null,SbDanger::getHiddenDangerType,query.getHiddenDangerType());
+        queryWrapper.lambda().eq(query.getCommonHiddenDanger()!=null,SbDanger::getCommonHiddenDanger, query.getCommonHiddenDanger());
+        queryWrapper.lambda().eq(query.getHiddenDangerState()!=null,SbDanger::getHiddenDangerState,query.getHiddenDangerState());
+        queryWrapper.lambda().gt(query.getStartTime()!= null , SbDanger::getFoundTime,query.getStartTime());
+        queryWrapper.lambda().lt(query.getEndTime() != null,SbDanger::getFoundTime,query.getEndTime());
+
         Page page = sbDangerService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);
     }

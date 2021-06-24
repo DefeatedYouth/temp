@@ -1,5 +1,6 @@
 package cn.exrick.xboot.modules.shebei.controller;
 
+import cn.exrick.xboot.common.enums.EnumDeviceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
@@ -58,6 +59,16 @@ public class SbFeedController {
     @GetMapping("/list")
     public Result<Page<SbFeed>> list(PageVo pageVo,SbFeedQuery query) {
         QueryWrapper<SbFeed> queryWrapper = new QueryWrapper<SbFeed>() ;
+        queryWrapper.lambda().eq(SbFeed::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getDeviceName()!=null,SbFeed::getDeviceName,query.getDeviceName());
+        queryWrapper.lambda().eq(query.getDeviceType()!=null,SbFeed::getDeviceType, EnumDeviceType.valueOf(query.getDeviceType()));
+        queryWrapper.lambda().like(query.getEvaluationConclusion()!=null,SbFeed::getEvaluationConclusion,query.getEvaluationConclusion());
+        queryWrapper.lambda().like(query.getCommissioningType()!=null,SbFeed::getCommissioningType,query.getCommissioningType());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,SbFeed::getCommissioningDate,query.getStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEndTime() != null,SbFeed::getCommissioningDate,query.getEndTime());//结束时间
+        queryWrapper.lambda().gt(query.getEvaluationStartTime()!= null ,SbFeed::getEvaluationDate,query.getEvaluationStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEvaluationEndTime() != null,SbFeed::getEvaluationDate,query.getEvaluationEndTime());//结束时间
+
         //TODO 条件待填写
         Page page = sbFeedService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

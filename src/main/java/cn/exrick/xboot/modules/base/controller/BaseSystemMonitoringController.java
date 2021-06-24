@@ -58,6 +58,8 @@ public class BaseSystemMonitoringController {
     @GetMapping("/list")
     public Result<Page<BaseSystemMonitoring>> list(PageVo pageVo,BaseSystemMonitoringQuery query) {
         QueryWrapper<BaseSystemMonitoring> queryWrapper = new QueryWrapper<BaseSystemMonitoring>() ;
+        queryWrapper.lambda().eq(BaseSystemMonitoring::getSiteId,query.getSiteId());
+        queryWrapper.lambda().eq(query.getType()!=null,BaseSystemMonitoring::getType,query.getType());
         //TODO 条件待填写
         Page page = baseSystemMonitoringService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

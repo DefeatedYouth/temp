@@ -30,50 +30,36 @@ public class SbTest extends StmBaseEntity {
     @ApiModelProperty(value = "变电站名称")
     private String siteName;
 
-    @ApiModelProperty(value = "是否外接")
-    private Integer externalFlag;
-
-    @ApiModelProperty(value = "工作票号")
-    private String workTicketNumber;
-
-    @ApiModelProperty(value = "工作班组")
-    private String workingTeam;
-
-    @ApiModelProperty(value = "状态检修类型")
-    private String conditionBasedMaintenanceType;
-
-    @ApiModelProperty(value = "工作日期")
-    private Date workDate;
-
-    @ApiModelProperty(value = "工作负责人")
-    private String workCharge;
-
     @ApiModelProperty(value = "设备名称")
     private String deviceName;
 
     @ApiModelProperty(value = "设备类型")
     private Integer deviceType;
 
-    @ApiModelProperty(value = "专业性质")
-    private String professionalNature;
+    @ApiModelProperty(value = "生产厂家")
+    private String manufactor;
 
-    @ApiModelProperty(value = "间隔名称")
-    private String intervalName;
+    @ApiModelProperty(value = "试验专业")
+    private String experimentSpecialty;
 
-    @ApiModelProperty(value = "结论")
-    private String conclusion;
+    @ApiModelProperty(value = "实验性质")
+    private Date natureTest;
 
-    @ApiModelProperty(value = "工作人员")
-    private String workMan;
+    @ApiModelProperty(value = "实验名称")
+    private String testName;
 
-    @ApiModelProperty(value = "工作内容")
-    private String workContent;
+    @ApiModelProperty(value = "实验时间")
+    private String testTime;
 
-    @ApiModelProperty(value = "调度情况")
-    private String dispatchSituation;
+    @ApiModelProperty(value = "试验结论")
+    private Integer testConclusion;
 
-    @ApiModelProperty(value = "遗留问题		")
-    private String remainingProblems;
+    @ApiModelProperty(value = "试验状态")
+    private String testStatus;
 
+    @ApiModelProperty(value = "附件地址")
+    private String attachmentAddress;
 
+    @ApiModelProperty(value = "录入人")
+    private String inputMan;
 }

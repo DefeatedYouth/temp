@@ -1,5 +1,6 @@
 package cn.exrick.xboot.modules.shebei.controller;
 
+import cn.exrick.xboot.modules.shebei.entity.SbBook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
@@ -58,6 +59,10 @@ public class SbYousepuController {
     @GetMapping("/list")
     public Result<Page<SbYousepu>> list(PageVo pageVo,SbYousepuQuery query) {
         QueryWrapper<SbYousepu> queryWrapper = new QueryWrapper<SbYousepu>() ;
+        queryWrapper.lambda().like(query.getDeviceName()!=null,SbYousepu::getDeviceName,query.getDeviceName());
+        queryWrapper.lambda().eq(SbYousepu::getSiteId,query.getSiteId());
+        queryWrapper.lambda().gt(query.getStartTime()!= null , SbYousepu::getMonitoringTime,query.getStartTime());
+        queryWrapper.lambda().lt(query.getEndTime() != null,SbYousepu::getMonitoringTime,query.getEndTime());
         //TODO 条件待填写
         Page page = sbYousepuService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

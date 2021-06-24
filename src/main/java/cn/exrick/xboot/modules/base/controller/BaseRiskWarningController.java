@@ -22,15 +22,15 @@ import cn.exrick.xboot.modules.base.service.BaseRiskWarningService;
 import java.util.List;
 import cn.exrick.xboot.common.vo.Result;
 /**
- * @desc 交直流系统监视表 controller
+ * @desc 风险预警表 controller
  * @author chenfeixiang
  * @since 2021-06-18
  */
 @RestController
 @RequestMapping("/base/baseRiskWarning")
 @Slf4j
-@ApiModel(value="BaseRiskWarning对象", description="交直流系统监视表")
-@Api(tags = "base-交直流系统监视表")
+@ApiModel(value="BaseRiskWarning对象", description="风险预警表")
+@Api(tags = "base-风险预警表")
 public class BaseRiskWarningController {
 
     @Autowired
@@ -58,6 +58,12 @@ public class BaseRiskWarningController {
     @GetMapping("/list")
     public Result<Page<BaseRiskWarning>> list(PageVo pageVo,BaseRiskWarningQuery query) {
         QueryWrapper<BaseRiskWarning> queryWrapper = new QueryWrapper<BaseRiskWarning>() ;
+        queryWrapper.lambda().eq(BaseRiskWarning::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getCompany()!=null,BaseRiskWarning::getCompany,query.getCompany());
+        queryWrapper.lambda().eq(query.getRiskLevel()!=null,BaseRiskWarning::getRiskLevel,query.getRiskLevel());
+        queryWrapper.lambda().like(query.getReceivingDepartment()!=null,BaseRiskWarning::getReceivingDepartment,query.getReceivingDepartment());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,BaseRiskWarning::getDatee,query.getStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEndTime() != null,BaseRiskWarning::getDatee,query.getEndTime());//结束时间
         //TODO 条件待填写
         Page page = baseRiskWarningService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

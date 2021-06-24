@@ -45,6 +45,9 @@ public class SbRealdataRecord extends StmBaseEntity {
     @ApiModelProperty(value = "运行档位")
     private Integer operatingGear;
 
+    @ApiModelProperty(value = "挡位值")
+    private String gearPosition;
+
     @ApiModelProperty(value = "A相位绕组温度")
     private String awindingTemperature;
 

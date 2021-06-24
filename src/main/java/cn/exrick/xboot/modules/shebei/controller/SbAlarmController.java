@@ -2,7 +2,9 @@ package cn.exrick.xboot.modules.shebei.controller;
 
 import cn.exrick.xboot.common.enums.EnumAlarmStateType;
 import cn.exrick.xboot.common.enums.EnumAlarmType;
+import cn.exrick.xboot.common.enums.EnumDeviceType;
 import cn.exrick.xboot.modules.shebei.dto.SbAlarmNumDTO;
+import cn.exrick.xboot.modules.shebei.entity.SbDanger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
@@ -61,6 +63,15 @@ public class SbAlarmController {
     @GetMapping("/list")
     public Result<Page<SbAlarm>> list(PageVo pageVo,SbAlarmQuery query) {
         QueryWrapper<SbAlarm> queryWrapper = new QueryWrapper<SbAlarm>() ;
+        queryWrapper.lambda().eq(SbAlarm::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getPlaceName()!=null,SbAlarm::getPlaceName,query.getPlaceName());
+        //queryWrapper.lambda().like(query.getSiteName()!=null,SbAlarm::getSiteName,query.getSiteName());
+        queryWrapper.lambda().eq(query.getDeviceType()!=null, SbAlarm::getDeviceType, EnumDeviceType.valueOf(query.getDeviceType()));
+        queryWrapper.lambda().like(query.getDeviceName()!=null,SbAlarm::getDeviceName,query.getDeviceName());
+        queryWrapper.lambda().eq(query.getAlarmType()!=null,SbAlarm::getAlarmType,EnumAlarmType.valueOf(query.getAlarmType()));
+        queryWrapper.lambda().like(query.getAlarmDesc()!=null,SbAlarm::getAlarmDesc,query.getAlarmDesc());
+        queryWrapper.lambda().eq(query.getAlarmState()!=null,SbAlarm::getAlarmState,EnumAlarmStateType.valueOf(query.getAlarmState()));
+
         //TODO 条件待填写
         Page page = sbAlarmService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

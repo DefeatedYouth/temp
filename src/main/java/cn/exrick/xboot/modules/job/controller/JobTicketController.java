@@ -58,6 +58,14 @@ public class JobTicketController {
     @GetMapping("/list")
     public Result<Page<JobTicket>> list(PageVo pageVo,JobTicketQuery query) {
         QueryWrapper<JobTicket> queryWrapper = new QueryWrapper<JobTicket>() ;
+        queryWrapper.lambda().eq(JobTicket::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getTicketNumber()!=null,JobTicket::getTicketNumber,query.getTicketNumber());
+        queryWrapper.lambda().eq(query.getTicketType()!=null,JobTicket::getTicketType,query.getTicketType());
+        queryWrapper.lambda().like(query.getTicketOrgname()!=null,JobTicket::getTicketOrgname,query.getTicketOrgname());
+        queryWrapper.lambda().like(query.getTicketPerson()!=null,JobTicket::getTicketPerson,query.getTicketPerson());
+        queryWrapper.lambda().like(query.getPermitPersion()!=null,JobTicket::getPermitPersion,query.getPermitPersion());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,JobTicket::getTicketPlanTime,query.getStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEndTime() != null,JobTicket::getTicketPlanTime,query.getEndTime());//结束时间
         //TODO 条件待填写
         Page page = jobTicketService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

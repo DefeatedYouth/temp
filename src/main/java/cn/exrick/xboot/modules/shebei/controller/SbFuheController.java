@@ -1,5 +1,6 @@
 package cn.exrick.xboot.modules.shebei.controller;
 
+import cn.exrick.xboot.modules.shebei.entity.SbYousepu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
@@ -59,6 +60,11 @@ public class SbFuheController {
     public Result<Page<SbFuhe>> list(PageVo pageVo,SbFuheQuery query) {
         QueryWrapper<SbFuhe> queryWrapper = new QueryWrapper<SbFuhe>() ;
         //TODO 条件待填写
+        //每个设备都有高中低压测 前端的条件查询只是让显示的数据不一样而已
+        queryWrapper.lambda().eq(SbFuhe::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getDeviceName()!=null,SbFuhe::getDeviceName,query.getDeviceName());
+        queryWrapper.lambda().gt(query.getStartTime()!= null , SbFuhe::getMonitoringTime,query.getStartTime());
+        queryWrapper.lambda().lt(query.getEndTime() != null,SbFuhe::getMonitoringTime,query.getEndTime());
         Page page = sbFuheService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);
     }

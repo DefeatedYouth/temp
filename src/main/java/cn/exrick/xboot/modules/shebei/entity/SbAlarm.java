@@ -49,5 +49,6 @@ public class SbAlarm extends StmBaseEntity {
     @ApiModelProperty(value = "状态 0未处理 1已处理")
     private Integer alarmState;
 
-
+    @ApiModelProperty(value = "间隔名称")
+    private String  placeName;
 }

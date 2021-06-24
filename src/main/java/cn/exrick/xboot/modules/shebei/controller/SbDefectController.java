@@ -1,8 +1,10 @@
 package cn.exrick.xboot.modules.shebei.controller;
 
 import cn.exrick.xboot.common.enums.EnumDefectStatus;
+import cn.exrick.xboot.common.enums.EnumDeviceType;
 import cn.exrick.xboot.modules.shebei.dto.SbDefectDTO;
 import cn.exrick.xboot.modules.shebei.entity.SbDanger;
+import cn.exrick.xboot.modules.shebei.entity.SbFuhe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
@@ -62,6 +64,15 @@ public class SbDefectController {
     public Result<Page<SbDefect>> list(PageVo pageVo,SbDefectQuery query) {
         QueryWrapper<SbDefect> queryWrapper = new QueryWrapper<SbDefect>() ;
         //TODO 条件待填写
+        queryWrapper.lambda().eq(SbDefect::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getDefectDevice()!=null,SbDefect::getDefectDevice,query.getDefectDevice());
+        queryWrapper.lambda().eq(query.getDeviceType()!=null,SbDefect::getDeviceType, EnumDeviceType.valueOf(query.getDeviceType()));
+        queryWrapper.lambda().like(query.getDefectsNature()!=null,SbDefect::getDefectsNature,query.getDefectsNature());
+        queryWrapper.lambda().eq(query.getDefectLevel()!=null,SbDefect::getDefectLevel,EnumDefectStatus.valueOf(query.getDefectLevel()));
+        queryWrapper.lambda().like(query.getDiscoveryTeam()!=null,SbDefect::getDiscoveryTeam,query.getDiscoveryTeam());
+        queryWrapper.lambda().like(query.getSendMan()!=null,SbDefect::getSendMan,query.getSendMan());
+        queryWrapper.lambda().gt(query.getStartTime()!= null , SbDefect::getSendDate,query.getStartTime());
+        queryWrapper.lambda().lt(query.getEndTime() != null,SbDefect::getSendDate,query.getEndTime());
         Page page = sbDefectService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);
     }

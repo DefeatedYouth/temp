@@ -63,5 +63,15 @@ public class SbFeed extends StmBaseEntity {
     @ApiModelProperty(value = "建议检修内容")
     private String recommendedMaintenanceContents;
 
+    @ApiModelProperty(value = "所属单位")
+    private String affiliatedUnits;
 
+    @ApiModelProperty(value = "生产厂家")
+    private String manufacturer;
+
+    @ApiModelProperty(value = "投运日期")
+    private String commissioningDate;
+
+    @ApiModelProperty(value = "评价类型")
+    private String commissioningType;
 }

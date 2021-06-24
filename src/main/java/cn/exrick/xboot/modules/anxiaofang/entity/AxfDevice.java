@@ -47,11 +47,11 @@ public class AxfDevice extends StmBaseEntity {
     @ApiModelProperty(value = "1=变压器消防监视列表;	2=烟感探测器监视列表;	3=火灾探测器消防监视列表;	4=消防装置故障监视列表;	5=门禁异常监视列表;	6=门禁故障监视列表;	7=门禁报警监视列表;	8=电源故障监视列表;	9=通讯异常监视列表;	10=防区报警监视列表;	11=故障监视列表;	12=通信异常监视列表;	13=监控告警监视列表;	14=故障监视列表;	15=电源异常监视列表;	16=报警监视列表;	17=故障监视列表;	18=电源异常监视列表;	19=报警监视列表;	")
     private String deviceType;
 
-    @ApiModelProperty(value = "节点类型")
-    private String nodeType;
+    @ApiModelProperty(value = "节点类型  0布防状态 1撤防状态")
+    private Integer nodeType;
 
-    @ApiModelProperty(value = "设备状态")
-    private String deviceState;
+    @ApiModelProperty(value = "设备状态（0装置故障 1通信异常）")
+    private Integer deviceState;
 
     @ApiModelProperty(value = "事件描述")
     private String eventDesc;
@@ -67,4 +67,10 @@ public class AxfDevice extends StmBaseEntity {
 
     @ApiModelProperty(value = "节点名称")
     private String nodeName;
+
+    @ApiModelProperty(value = "开启状态0关闭1开启")
+    private Integer openFlag;
+
+    @ApiModelProperty(value = "运维班组名称")
+    private String operationMaintenanceTeam;
 }

@@ -57,6 +57,19 @@ public class SbSfsixController {
     @GetMapping("/list")
     public Result<Page<SbSfsix>> list(PageVo pageVo,SbSfsixQuery query) {
         QueryWrapper<SbSfsix> queryWrapper = new QueryWrapper<SbSfsix>() ;
+        queryWrapper.lambda().eq(SbSfsix::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getAgasConcentration()!=null,SbSfsix::getAgasConcentration,query.getAgasConcentration());
+        queryWrapper.lambda().like(query.getAgasMoisture()!=null,SbSfsix::getAgasMoisture,query.getAgasMoisture());
+        queryWrapper.lambda().like(query.getAgasPressure()!=null,SbSfsix::getAgasPressure,query.getAgasPressure());
+        queryWrapper.lambda().like(query.getBgasConcentration()!=null,SbSfsix::getBgasConcentration,query.getBgasConcentration());
+        queryWrapper.lambda().like(query.getBgasMoisture()!=null,SbSfsix::getBgasMoisture,query.getBgasMoisture());
+        queryWrapper.lambda().like(query.getBgasPressure()!=null,SbSfsix::getBgasPressure,query.getBgasPressure());
+        queryWrapper.lambda().like(query.getCgasConcentration()!=null,SbSfsix::getCgasConcentration,query.getCgasConcentration());
+        queryWrapper.lambda().like(query.getCgasMoisture()!=null,SbSfsix::getCgasMoisture,query.getCgasMoisture());
+        queryWrapper.lambda().like(query.getCgasPressure()!=null,SbSfsix::getCgasPressure,query.getCgasPressure());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,SbSfsix::getMonitoringTime,query.getStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEndTime() != null,SbSfsix::getMonitoringTime,query.getEndTime());//结束时间
+        // queryWrapper.lambda()
         //TODO 条件待填写
         Page page = sbSfsixService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

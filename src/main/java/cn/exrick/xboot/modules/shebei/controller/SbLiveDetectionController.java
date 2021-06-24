@@ -1,5 +1,6 @@
 package cn.exrick.xboot.modules.shebei.controller;
 
+import cn.exrick.xboot.common.enums.EnumDeviceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
@@ -58,6 +59,15 @@ public class SbLiveDetectionController {
     @GetMapping("/list")
     public Result<Page<SbLiveDetection>> list(PageVo pageVo,SbLiveDetectionQuery query) {
         QueryWrapper<SbLiveDetection> queryWrapper = new QueryWrapper<SbLiveDetection>() ;
+        queryWrapper.lambda().eq(SbLiveDetection::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getCity()!=null,SbLiveDetection::getCity,query.getCity());
+        queryWrapper.lambda().like(query.getDeviceName()!=null,SbLiveDetection::getDeviceName,query.getDeviceName());
+        queryWrapper.lambda().eq(query.getDeviceType()!=null,SbLiveDetection::getDeviceType, EnumDeviceType.valueOf(query.getDeviceType()));
+        queryWrapper.lambda().like(query.getManufactor()!=null,SbLiveDetection::getManufactor,query.getManufactor());
+        queryWrapper.lambda().like(query.getTestItems()!=null,SbLiveDetection::getTestItems,query.getTestItems());
+        queryWrapper.lambda().like(query.getConclusion()!=null,SbLiveDetection::getConclusion,query.getConclusion());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,SbLiveDetection::getTestTime,query.getStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEndTime() != null,SbLiveDetection::getTestTime,query.getEndTime());//结束时间
         //TODO 条件待填写
         Page page = sbLiveDetectionService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

@@ -1,6 +1,12 @@
 package cn.exrick.xboot.modules.anxiaofang.controller;
 
+import cn.exrick.xboot.common.enums.EnumNodeType;
+import cn.exrick.xboot.modules.anxiaofang.dto.AccessControlInformationDTO;
+import cn.exrick.xboot.modules.anxiaofang.dto.ElectronicFenceDTO;
 import cn.exrick.xboot.modules.anxiaofang.dto.FirefightovweviewDTO;
+import cn.exrick.xboot.modules.anxiaofang.dto.InfraredRadiationCountDTO;
+import cn.exrick.xboot.modules.shebei.entity.SbBook;
+import cn.exrick.xboot.modules.shebei.entity.SbYousepu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
@@ -60,6 +66,14 @@ public class AxfDeviceController {
     public Result<Page<AxfDevice>> list(PageVo pageVo,AxfDeviceQuery query) {
         QueryWrapper<AxfDevice> queryWrapper = new QueryWrapper<AxfDevice>() ;
         //TODO 条件待填写
+        queryWrapper.lambda().like(query.getOperationMaintenanceTeam()!=null,AxfDevice::getOperationMaintenanceTeam,query.getOperationMaintenanceTeam());
+        queryWrapper.lambda().eq(query.getNodeType()!=null,AxfDevice::getNodeType, EnumNodeType.valueOf(query.getNodeType()));
+        queryWrapper.lambda().like(query.getNodeName()!=null,AxfDevice::getNodeName,query.getNodeName());
+        queryWrapper.lambda().like(query.getDeviceName()!=null,AxfDevice::getDeviceName,query.getDeviceName());
+        queryWrapper.lambda().like(query.getRealData()!=null,AxfDevice::getRealdata,query.getRealData());
+        queryWrapper.lambda().gt(query.getStartTime()!= null , AxfDevice::getHappenTime,query.getStartTime());
+        queryWrapper.lambda().lt(query.getEndTime() != null,AxfDevice::getHappenTime,query.getEndTime());
+        queryWrapper.lambda().eq(AxfDevice::getSiteId,query.getSiteId());
         Page page = axfDeviceService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);
     }
@@ -97,5 +111,63 @@ public class AxfDeviceController {
             return ResultUtil.error(500,e.getMessage());
         }
     }
+
+    @ApiOperation("红外对射信息监视")
+    @GetMapping("/infraredRadiationCount")
+    public Result<InfraredRadiationCountDTO> infraredRadiationCount(BaseReqVO request){
+        try {
+            InfraredRadiationCountDTO infraredRadiationCountDTO = axfDeviceService.infraredRadiationCount(request);
+            return  ResultUtil.data(infraredRadiationCountDTO);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
+
+    @ApiOperation("红外双鉴信息监视")
+    @GetMapping("/infraredDoubleDetector")
+    public Result<InfraredRadiationCountDTO>   infraredDoubleDetector(BaseReqVO request){
+        try {
+            InfraredRadiationCountDTO infraredRadiationCountDTO = axfDeviceService.infraredDoubleDetector(request);
+            return  ResultUtil.data(infraredRadiationCountDTO);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
+
+    @ApiOperation("摄像头信息")
+    @GetMapping("/cameraInfoCount")
+    public Result<InfraredRadiationCountDTO>   cameraInfoCount(BaseReqVO request){
+        try {
+            InfraredRadiationCountDTO infraredRadiationCountDTO = axfDeviceService.cameraInfoCount(request);
+            return  ResultUtil.data(infraredRadiationCountDTO);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
+
+
+    @ApiOperation("电子围栏信息监视")
+    @GetMapping("/electronicFenceNum")
+    public Result<ElectronicFenceDTO>   electronicFenceNum(BaseReqVO request){
+        try {
+            ElectronicFenceDTO electronicFenceDTO = axfDeviceService.electronicFenceNum(request);
+            return  ResultUtil.data(electronicFenceDTO);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
+
+
+    @ApiOperation("门禁信息监视")
+    @GetMapping("/accessControlInformation")
+    public Result<AccessControlInformationDTO>   accessControlInformation(BaseReqVO request){
+        try {
+            AccessControlInformationDTO electronicFenceDTO = axfDeviceService.accessControlInformation(request);
+            return  ResultUtil.data(electronicFenceDTO);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
+
 }
 

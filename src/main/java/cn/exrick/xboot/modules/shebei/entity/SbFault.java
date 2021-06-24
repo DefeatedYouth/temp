@@ -58,5 +58,12 @@ public class SbFault extends StmBaseEntity {
     @ApiModelProperty(value = "故障状态")
     private String state;
 
+    @ApiModelProperty(value = "故障性质")
+    private String faultNature;
 
+    @ApiModelProperty(value = "故障电流")
+    private String faultCurrent;
+
+    @ApiModelProperty(value = "故障相别")
+    private String faultPhase;
 }

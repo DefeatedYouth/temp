@@ -58,6 +58,12 @@ public class SbRealdataController {
     @GetMapping("/list")
     public Result<Page<SbRealdata>> list(PageVo pageVo,SbRealdataQuery query) {
         QueryWrapper<SbRealdata> queryWrapper = new QueryWrapper<SbRealdata>() ;
+        queryWrapper.lambda().eq(SbRealdata::getSiteName,query.getSiteName());
+        queryWrapper.lambda().like(query.getDeviceName()!=null,SbRealdata::getDeviceName,query.getDeviceName());
+        queryWrapper.lambda().eq(query.getOperatingGear()!=null,SbRealdata::getOperatingGear,query.getOperatingGear());
+        queryWrapper.lambda().eq(query.getGearPosition()!=null,SbRealdata::getGearPosition,query.getGearPosition());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,SbRealdata::getMonitoringTime,query.getStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEndTime() != null,SbRealdata::getMonitoringTime,query.getEndTime());//结束时间
         //TODO 条件待填写
         Page page = sbRealdataService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);
