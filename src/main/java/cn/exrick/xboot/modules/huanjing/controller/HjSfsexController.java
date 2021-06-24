@@ -1,11 +1,6 @@
 package cn.exrick.xboot.modules.huanjing.controller;
 
-import cn.exrick.xboot.common.enums.EnumAlarmStateType;
-import cn.exrick.xboot.common.enums.EnumLinkState;
-import cn.exrick.xboot.common.enums.EnumSwitchState;
 import cn.exrick.xboot.modules.huanjing.dto.HjEquipmentNumDTO;
-import cn.exrick.xboot.modules.huanjing.entity.HjShidu;
-import cn.exrick.xboot.modules.huanjing.entity.HjShuibang;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
@@ -64,6 +59,13 @@ public class HjSfsexController {
     @GetMapping("/list")
     public Result<Page<HjSfsex>> list(PageVo pageVo,HjSfsexQuery query) {
         QueryWrapper<HjSfsex> queryWrapper = new QueryWrapper<HjSfsex>() ;
+        queryWrapper.lambda().eq(HjSfsex::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getDeviceName()!=null,HjSfsex::getDeviceName,query.getDeviceName());
+        queryWrapper.lambda().eq(query.getSfsexValue()!=null,HjSfsex::getSfsexValue,query.getSfsexValue());
+        queryWrapper.lambda().eq(query.getOtwoValue()!=null,HjSfsex::getOtwoValue,query.getOtwoValue());
+        queryWrapper.lambda().eq(query.getDeviceState()!=null,HjSfsex::getDeviceState,query.getDeviceState());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,HjSfsex::getHappenTime,query.getStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEndTime() != null,HjSfsex::getHappenTime,query.getEndTime());//结束时间
         //TODO 条件待填写
         Page page = hjSfsexService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

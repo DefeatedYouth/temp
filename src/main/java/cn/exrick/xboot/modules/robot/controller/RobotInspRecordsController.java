@@ -58,6 +58,13 @@ public class RobotInspRecordsController {
     @GetMapping("/list")
     public Result<Page<RobotInspRecords>> list(PageVo pageVo,RobotInspRecordsQuery query) {
         QueryWrapper<RobotInspRecords> queryWrapper = new QueryWrapper<RobotInspRecords>() ;
+
+        queryWrapper.lambda().eq(RobotInspRecords::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getRobotName()!=null,RobotInspRecords::getRobotName,query.getRobotName());
+        queryWrapper.lambda().like(query.getInspName()!=null,RobotInspRecords::getInspName,query.getInspName());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,RobotInspRecords::getInspTime,query.getStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEndTime() != null,RobotInspRecords::getInspTime,query.getEndTime());//结束时间
+
         //TODO 条件待填写
         Page page = robotInspRecordsService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

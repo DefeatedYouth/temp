@@ -62,6 +62,14 @@ public class HjKongtiaoController {
     @GetMapping("/list")
     public Result<Page<HjKongtiao>> list(PageVo pageVo,HjKongtiaoQuery query) {
         QueryWrapper<HjKongtiao> queryWrapper = new QueryWrapper<HjKongtiao>() ;
+        queryWrapper.lambda().eq(HjKongtiao::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getParentName()!=null,HjKongtiao::getParentName,query.getParentName());
+        queryWrapper.lambda().like(query.getDeviceName()!=null,HjKongtiao::getDeviceName,query.getDeviceName());
+        queryWrapper.lambda().like(query.getNoteName()!=null,HjKongtiao::getNoteName,query.getNoteName());
+        queryWrapper.lambda().like(query.getNoteType()!=null,HjKongtiao::getNoteType,query.getNoteType());
+        queryWrapper.lambda().eq(query.getSwitchState()!=null,HjKongtiao::getSwitchState,query.getSwitchState());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,HjKongtiao::getHappenTime,query.getStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEndTime() != null,HjKongtiao::getHappenTime,query.getEndTime());//结束时间
         //TODO 条件待填写
         Page page = hjKongtiaoService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

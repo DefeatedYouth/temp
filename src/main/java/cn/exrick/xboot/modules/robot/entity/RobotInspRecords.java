@@ -33,7 +33,7 @@ public class RobotInspRecords extends StmBaseEntity {
     @ApiModelProperty(value = "机器人Id")
     private Integer robotId;
 
-    @ApiModelProperty(value = "机器人Id")
+    @ApiModelProperty(value = "机器人名称")
     private String robotName;
 
     @ApiModelProperty(value = "巡视任务名称")

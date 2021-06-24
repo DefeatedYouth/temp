@@ -1,11 +1,16 @@
 package cn.exrick.xboot.modules.huanjing.query;
 
-import java.time.LocalDateTime;
+
 import cn.exrick.xboot.modules.huanjing.entity.HjSfsex;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import lombok.experimental.Accessors;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
+
 
 /**
  * @desc SF6监视表 列表分页查询对象
@@ -20,7 +25,15 @@ import io.swagger.annotations.ApiModelProperty;
 public class HjSfsexQuery extends HjSfsex{
 
 
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "开始时间")
+    private Date startTime;
 
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "结束时间")
+    private Date endTime;
 
 
 

@@ -58,6 +58,15 @@ public class RobotResumeController {
     @GetMapping("/list")
     public Result<Page<RobotResume>> list(PageVo pageVo,RobotResumeQuery query) {
         QueryWrapper<RobotResume> queryWrapper = new QueryWrapper<RobotResume>() ;
+        queryWrapper.lambda().eq(RobotResume::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getDeviceName()!=null,RobotResume::getDeviceName,query.getDeviceName());
+        queryWrapper.lambda().eq(query.getRequestType()!=null,RobotResume::getRequestType,query.getRequestType());
+        queryWrapper.lambda().like(query.getRequestPerson()!=null,RobotResume::getRequestPerson,query.getRequestPerson());
+        queryWrapper.lambda().like(query.getRepairOrgname()!=null,RobotResume::getRepairOrgname,query.getRepairOrgname());
+        queryWrapper.lambda().like(query.getRepairTime()!=null,RobotResume::getRepairTime,query.getRepairTime());
+        queryWrapper.lambda().like(query.getCheckPerson()!=null,RobotResume::getCheckPerson,query.getCheckPerson());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,RobotResume::getRequestTime,query.getStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEndTime() != null,RobotResume::getRequestTime,query.getEndTime());//结束时间
         //TODO 条件待填写
         Page page = robotResumeService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

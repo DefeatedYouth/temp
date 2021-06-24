@@ -59,6 +59,17 @@ public class HjChushiji extends StmBaseEntity {
     @ApiModelProperty(value = "监测湿度")
     private String shiduValue;
 
+    @ApiModelProperty(value = "运维班id")
+    private Integer parentId;
+
+    @ApiModelProperty(value = "运维班名称")
+    private String parentName;
+
+    @ApiModelProperty(value = "节点名称")
+    private String noteName;
+
+    @ApiModelProperty(value = "节点类型")
+    private String noteType;
 
 
 }

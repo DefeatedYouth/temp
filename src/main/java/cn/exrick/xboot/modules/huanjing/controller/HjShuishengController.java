@@ -62,6 +62,14 @@ public class HjShuishengController {
     @GetMapping("/list")
     public Result<Page<HjShuisheng>> list(PageVo pageVo,HjShuishengQuery query) {
         QueryWrapper<HjShuisheng> queryWrapper = new QueryWrapper<HjShuisheng>() ;
+        queryWrapper.lambda().eq(HjShuisheng::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getParentName()!=null,HjShuisheng::getParentName,query.getParentName());
+        queryWrapper.lambda().like(query.getDeviceName()!=null,HjShuisheng::getDeviceName,query.getDeviceName());
+        queryWrapper.lambda().like(query.getNoteName()!=null,HjShuisheng::getNoteName,query.getNoteName());
+        queryWrapper.lambda().like(query.getNoteType()!=null,HjShuisheng::getNoteType,query.getNoteType());
+       // queryWrapper.lambda().eq(query.getShuiweiValue()!=null,HjShuisheng::getShuiweiValue,query.getShuiweiValue());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,HjShuisheng::getHappenTime,query.getStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEndTime() != null,HjShuisheng::getHappenTime,query.getEndTime());//结束时间
         //TODO 条件待填写
         Page page = hjShuishengService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

@@ -4,6 +4,7 @@ import cn.exrick.xboot.common.enums.EnumAlarmStateType;
 import cn.exrick.xboot.common.enums.EnumLinkState;
 import cn.exrick.xboot.common.enums.EnumSwitchState;
 import cn.exrick.xboot.modules.huanjing.dto.HjEquipmentNumDTO;
+import cn.exrick.xboot.modules.huanjing.entity.HjDengguang;
 import cn.exrick.xboot.modules.huanjing.entity.HjSfsex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,6 +64,14 @@ public class HjFengjiController {
     @GetMapping("/list")
     public Result<Page<HjFengji>> list(PageVo pageVo,HjFengjiQuery query) {
         QueryWrapper<HjFengji> queryWrapper = new QueryWrapper<HjFengji>() ;
+        queryWrapper.lambda().eq(HjFengji::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getParentName()!=null,HjFengji::getParentName,query.getParentName());
+        queryWrapper.lambda().like(query.getDeviceName()!=null,HjFengji::getDeviceName,query.getDeviceName());
+        queryWrapper.lambda().like(query.getNoteName()!=null,HjFengji::getNoteName,query.getNoteName());
+        queryWrapper.lambda().like(query.getNoteType()!=null,HjFengji::getNoteType,query.getNoteType());
+        queryWrapper.lambda().eq(query.getFengjiState()!=null,HjFengji::getFengjiState,query.getFengjiState());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,HjFengji::getHappenTime,query.getStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEndTime() != null,HjFengji::getHappenTime,query.getEndTime());//结束时间
         //TODO 条件待填写
         Page page = hjFengjiService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

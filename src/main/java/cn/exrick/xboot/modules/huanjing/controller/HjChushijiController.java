@@ -3,6 +3,7 @@ package cn.exrick.xboot.modules.huanjing.controller;
 import cn.exrick.xboot.common.enums.EnumLinkState;
 import cn.exrick.xboot.common.enums.EnumSwitchState;
 import cn.exrick.xboot.modules.huanjing.dto.HjEquipmentNumDTO;
+import cn.exrick.xboot.modules.huanjing.entity.HjFengji;
 import cn.exrick.xboot.modules.huanjing.entity.HjKongtiao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,6 +63,14 @@ public class HjChushijiController {
     @GetMapping("/list")
     public Result<Page<HjChushiji>> list(PageVo pageVo,HjChushijiQuery query) {
         QueryWrapper<HjChushiji> queryWrapper = new QueryWrapper<HjChushiji>() ;
+        queryWrapper.lambda().eq(HjChushiji::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getParentName()!=null,HjChushiji::getParentName,query.getParentName());
+        queryWrapper.lambda().like(query.getDeviceName()!=null,HjChushiji::getDeviceName,query.getDeviceName());
+        queryWrapper.lambda().like(query.getNoteName()!=null,HjChushiji::getNoteName,query.getNoteName());
+        queryWrapper.lambda().like(query.getNoteType()!=null,HjChushiji::getNoteType,query.getNoteType());
+        queryWrapper.lambda().eq(query.getWorkState()!=null,HjChushiji::getWorkState,query.getWorkState());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,HjChushiji::getHappenTime,query.getStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEndTime() != null,HjChushiji::getHappenTime,query.getEndTime());//结束时间
         //TODO 条件待填写
         Page page = hjChushijiService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

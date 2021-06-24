@@ -61,6 +61,14 @@ public class HjWenduController {
     @GetMapping("/list")
     public Result<Page<HjWendu>> list(PageVo pageVo,HjWenduQuery query) {
         QueryWrapper<HjWendu> queryWrapper = new QueryWrapper<HjWendu>() ;
+        queryWrapper.lambda().eq(HjWendu::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getParentName()!=null,HjWendu::getParentName,query.getParentName());
+        queryWrapper.lambda().like(query.getDeviceName()!=null,HjWendu::getDeviceName,query.getDeviceName());
+        queryWrapper.lambda().like(query.getNoteName()!=null,HjWendu::getNoteName,query.getNoteName());
+        queryWrapper.lambda().like(query.getNoteType()!=null,HjWendu::getNoteType,query.getNoteType());
+        queryWrapper.lambda().eq(query.getWenduValue()!=null,HjWendu::getWenduValue,query.getWenduValue());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,HjWendu::getHappenTime,query.getStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEndTime() != null,HjWendu::getHappenTime,query.getEndTime());//结束时间
         //TODO 条件待填写
         Page page = hjWenduService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

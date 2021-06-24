@@ -58,6 +58,12 @@ public class RobotBookController {
     @GetMapping("/list")
     public Result<Page<RobotBook>> list(PageVo pageVo,RobotBookQuery query) {
         QueryWrapper<RobotBook> queryWrapper = new QueryWrapper<RobotBook>() ;
+        queryWrapper.lambda().eq(RobotBook::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getDeviceName()!=null,RobotBook::getDeviceName,query.getDeviceName());
+        queryWrapper.lambda().like(query.getManufacturer()!=null,RobotBook::getManufacturer,query.getManufacturer());
+        queryWrapper.lambda().eq(query.getDeviceState()!=null,RobotBook::getDeviceState,query.getDeviceState());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,RobotBook::getRunDate,query.getStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEndTime() != null,RobotBook::getRunDate,query.getEndTime());//结束时间
         //TODO 条件待填写
         Page page = robotBookService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

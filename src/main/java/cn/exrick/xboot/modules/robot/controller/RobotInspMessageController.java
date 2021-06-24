@@ -58,6 +58,16 @@ public class RobotInspMessageController {
     @GetMapping("/list")
     public Result<Page<RobotInspMessage>> list(PageVo pageVo,RobotInspMessageQuery query) {
         QueryWrapper<RobotInspMessage> queryWrapper = new QueryWrapper<RobotInspMessage>() ;
+
+        queryWrapper.lambda().eq(RobotInspMessage::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getInspName()!=null,RobotInspMessage::getInspName,query.getInspName());
+        queryWrapper.lambda().like(query.getRobotName()!=null,RobotInspMessage::getRobotName,query.getRobotName());
+        queryWrapper.lambda().like(query.getInspPoints()!=null,RobotInspMessage::getInspPoints,query.getInspPoints());
+        queryWrapper.lambda().like(query.getInspType()!=null,RobotInspMessage::getInspType,query.getInspType());
+        queryWrapper.lambda().like(query.getInspResult()!=null,RobotInspMessage::getInspResult,query.getInspResult());
+        queryWrapper.lambda().eq(query.getAlarmLevel()!=null,RobotInspMessage::getAlarmLevel,query.getAlarmLevel());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,RobotInspMessage::getInspTime,query.getStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEndTime() != null,RobotInspMessage::getInspTime,query.getEndTime());//结束时间
         //TODO 条件待填写
         Page page = robotInspMessageService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

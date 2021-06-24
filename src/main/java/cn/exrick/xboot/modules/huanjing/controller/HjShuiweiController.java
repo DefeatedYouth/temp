@@ -5,6 +5,7 @@ import cn.exrick.xboot.common.enums.EnumLinkState;
 import cn.exrick.xboot.common.enums.EnumSwitchState;
 import cn.exrick.xboot.modules.huanjing.dto.HjEquipmentNumDTO;
 import cn.exrick.xboot.modules.huanjing.entity.HjFengji;
+import cn.exrick.xboot.modules.huanjing.entity.HjShuibang;
 import cn.exrick.xboot.modules.huanjing.entity.HjWendu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,6 +65,14 @@ public class HjShuiweiController {
     @GetMapping("/list")
     public Result<Page<HjShuiwei>> list(PageVo pageVo,HjShuiweiQuery query) {
         QueryWrapper<HjShuiwei> queryWrapper = new QueryWrapper<HjShuiwei>() ;
+        queryWrapper.lambda().eq(HjShuiwei::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getParentName()!=null,HjShuiwei::getParentName,query.getParentName());
+        queryWrapper.lambda().like(query.getDeviceName()!=null,HjShuiwei::getDeviceName,query.getDeviceName());
+        queryWrapper.lambda().like(query.getNoteName()!=null,HjShuiwei::getNoteName,query.getNoteName());
+        queryWrapper.lambda().like(query.getNoteType()!=null,HjShuiwei::getNoteType,query.getNoteType());
+        queryWrapper.lambda().eq(query.getShuiweiValue()!=null,HjShuiwei::getShuiweiValue,query.getShuiweiValue());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,HjShuiwei::getHappenTime,query.getStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEndTime() != null,HjShuiwei::getHappenTime,query.getEndTime());//结束时间
         //TODO 条件待填写
         Page page = hjShuiweiService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

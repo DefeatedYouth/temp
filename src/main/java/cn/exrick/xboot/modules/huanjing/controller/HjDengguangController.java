@@ -3,6 +3,7 @@ package cn.exrick.xboot.modules.huanjing.controller;
 import cn.exrick.xboot.common.enums.EnumLinkState;
 import cn.exrick.xboot.common.enums.EnumSwitchState;
 import cn.exrick.xboot.modules.huanjing.dto.HjEquipmentNumDTO;
+import cn.exrick.xboot.modules.huanjing.entity.HjShidu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
@@ -61,6 +62,14 @@ public class HjDengguangController {
     @GetMapping("/list")
     public Result<Page<HjDengguang>> list(PageVo pageVo,HjDengguangQuery query) {
         QueryWrapper<HjDengguang> queryWrapper = new QueryWrapper<HjDengguang>() ;
+        queryWrapper.lambda().eq(HjDengguang::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getParentName()!=null,HjDengguang::getParentName,query.getParentName());
+        queryWrapper.lambda().like(query.getDeviceName()!=null,HjDengguang::getDeviceName,query.getDeviceName());
+        queryWrapper.lambda().like(query.getNoteName()!=null,HjDengguang::getNoteName,query.getNoteName());
+        queryWrapper.lambda().like(query.getNoteType()!=null,HjDengguang::getNoteType,query.getNoteType());
+        queryWrapper.lambda().eq(query.getSwitchState()!=null,HjDengguang::getSwitchState,query.getSwitchState());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,HjDengguang::getHappenTime,query.getStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEndTime() != null,HjDengguang::getHappenTime,query.getEndTime());//结束时间
         //TODO 条件待填写
         Page page = hjDengguangService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

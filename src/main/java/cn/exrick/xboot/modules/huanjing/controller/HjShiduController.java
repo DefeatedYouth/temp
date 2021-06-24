@@ -62,6 +62,14 @@ public class HjShiduController {
     @GetMapping("/list")
     public Result<Page<HjShidu>> list(PageVo pageVo,HjShiduQuery query) {
         QueryWrapper<HjShidu> queryWrapper = new QueryWrapper<HjShidu>() ;
+        queryWrapper.lambda().eq(HjShidu::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getParentName()!=null,HjShidu::getParentName,query.getParentName());
+        queryWrapper.lambda().like(query.getDeviceName()!=null,HjShidu::getDeviceName,query.getDeviceName());
+        queryWrapper.lambda().like(query.getNoteName()!=null,HjShidu::getNoteName,query.getNoteName());
+        queryWrapper.lambda().like(query.getNoteType()!=null,HjShidu::getNoteType,query.getNoteType());
+        queryWrapper.lambda().eq(query.getShiduValue()!=null,HjShidu::getShiduValue,query.getShiduValue());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,HjShidu::getHappenTime,query.getStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEndTime() != null,HjShidu::getHappenTime,query.getEndTime());//结束时间
         //TODO 条件待填写
         Page page = hjShiduService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

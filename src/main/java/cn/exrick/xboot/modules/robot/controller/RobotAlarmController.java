@@ -58,6 +58,12 @@ public class RobotAlarmController {
     @GetMapping("/list")
     public Result<Page<RobotAlarm>> list(PageVo pageVo,RobotAlarmQuery query) {
         QueryWrapper<RobotAlarm> queryWrapper = new QueryWrapper<RobotAlarm>() ;
+        queryWrapper.lambda().eq(RobotAlarm::getSiteId,query.getSiteId());
+        queryWrapper.lambda().eq(query.getRobotName()!=null,RobotAlarm::getRobotName,query.getRobotName());
+        queryWrapper.lambda().eq(query.getAlarmType()!=null,RobotAlarm::getAlarmType,query.getAlarmType());
+        queryWrapper.lambda().eq(query.getAlarmState()!=null,RobotAlarm::getAlarmState,query.getAlarmState());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,RobotAlarm::getFindTime,query.getStartTime()); //时间开始
+        queryWrapper.lambda().lt(query.getEndTime() != null,RobotAlarm::getFindTime,query.getEndTime());//结束时间
         //TODO 条件待填写
         Page page = robotAlarmService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);
