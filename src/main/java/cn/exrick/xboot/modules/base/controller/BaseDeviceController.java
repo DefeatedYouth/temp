@@ -1,5 +1,9 @@
 package cn.exrick.xboot.modules.base.controller;
 
+import cn.exrick.xboot.modules.base.dto.AnFireDTO;
+import cn.exrick.xboot.modules.base.dto.DeviceCountDTO;
+import cn.exrick.xboot.modules.base.dto.DeviceMonitorDTO;
+import cn.exrick.xboot.modules.base.dto.InspectionPlanDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
@@ -80,6 +84,61 @@ public class BaseDeviceController {
         try {
             BaseDevice baseDevice = baseDeviceService.getById(request.getId());
             return  ResultUtil.data(baseDevice);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
+
+    @ApiOperation("查询所有的设备规模")
+    @GetMapping("/getDeviceCount")
+    public Result<DeviceCountDTO> getDeviceCount(BaseReqVO request) {
+        try {
+            DeviceCountDTO deviceCount = baseDeviceService.getDeviceCount(request);
+            return  ResultUtil.data(deviceCount);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
+
+    @ApiOperation("查询所有的设备监视数量")
+    @GetMapping("/getDeviceMonitorCount")
+    public Result<DeviceMonitorDTO> getDeviceMonitorCount(BaseReqVO request) {
+        try {
+            DeviceMonitorDTO deviceCount = baseDeviceService.getDeviceMonitorCount(request);
+            return  ResultUtil.data(deviceCount);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
+
+    @ApiOperation("安消防监视")
+    @GetMapping("/getAnFireCount")
+    public Result<AnFireDTO> getAnFireCount(BaseReqVO request) {
+        try {
+            AnFireDTO anFireCount = baseDeviceService.getAnFireCount(request);
+            return  ResultUtil.data(anFireCount);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
+
+ /*   @ApiOperation("环境监视")
+    @GetMapping("/getEnvironmentalMonitoringCount")
+    public Result<AnFireDTO> getEnvironmentalMonitoringCount(BaseReqVO request) {
+        try {
+            AnFireDTO anFireCount = baseDeviceService.getAnFireCount(request);
+            return  ResultUtil.data(anFireCount);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }*/
+
+    @ApiOperation("运检计划监视")
+    @GetMapping("/getInspectionPlan")
+    public Result<InspectionPlanDTO> getInspectionPlan(BaseReqVO request) {
+        try {
+            InspectionPlanDTO inspectionPlan = baseDeviceService.getInspectionPlan(request);
+            return  ResultUtil.data(inspectionPlan);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
         }

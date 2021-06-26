@@ -58,5 +58,27 @@ public class RobotRealdata extends StmBaseEntity {
     @ApiModelProperty(value = "行驶里程")
     private String mileageValue;
 
+    @ApiModelProperty(value = "告警准确率")
+    private String alarmRatio;
+    @ApiModelProperty(value = "漏检率")
+    private String missedDetectionRate;
+    @ApiModelProperty(value = "出勤率")
+    private String attendance;
+    @ApiModelProperty(value = "巡检总次数")
+    private String totalInspectionTimes;
+    @ApiModelProperty(value = "年均运行时间")
+    private String averageAnnualOperationTime;
+    @ApiModelProperty(value = "故障总次数")
+    private String totalNumberFailures;
+    @ApiModelProperty(value = "年均故障次数")
+    private String averageAnnualNumberFailures;
+    @ApiModelProperty(value = "空闲时长（小时）")
+    private String freeTime;
+    @ApiModelProperty(value = "巡视时长")
+    private String inspectionTour;
+    @ApiModelProperty(value = "充电时长")
+    private String charge;
+    @ApiModelProperty(value = "检修时长")
+    private String overhaul;
 
 }

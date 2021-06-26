@@ -45,5 +45,40 @@ public class RobotInspRecords extends StmBaseEntity {
     @ApiModelProperty(value = "文件")
     private String inspFile;
 
+    @ApiModelProperty(value = "'任务状态'")
+    private Integer taskType;
 
+    @ApiModelProperty(value = "巡视点位数量")
+    private Integer pointNum;
+
+    @ApiModelProperty(value = "摄像机总数")
+    private Integer cameraNum;
+
+    @ApiModelProperty(value = "枪机数量")
+    private Integer gunNum;
+
+    @ApiModelProperty(value = "球机数量")
+    private Integer speedDomeNum;
+    @ApiModelProperty(value = "云台数量")
+    private Integer yuntaiNum;
+    @ApiModelProperty(value = "红外")
+    private Integer redNum;
+    @ApiModelProperty(value = "可见光")
+    private Integer lightNum;
+
+    @ApiModelProperty(value = "红外和可见光")
+    private Integer redLightNum;
+    @ApiModelProperty(value = "未识别")
+    private Integer unrecognizedNum;
+    @ApiModelProperty(value = "一般")
+    private Integer commonlyNum;
+    @ApiModelProperty(value = "严重")
+    private Integer seriousNum;
+    @ApiModelProperty(value = "危急")
+    private Integer criticalNum;
+
+    @ApiModelProperty(value = "比率")
+    private Integer ratio;
+    @ApiModelProperty(value = "机器人id集合")
+    private Integer robot;
 }
