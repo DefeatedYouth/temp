@@ -20,6 +20,9 @@ public class AnFireDTO {
     @ApiModelProperty(value = "消防火灾数量")
     private Integer fireFireNum;
 
+    @ApiModelProperty(value = "图像识别 数量")
+    private Integer imageNum;
+
     @ApiModelProperty(value = "图像识别 装置异常数量")
     private Integer imageDeviceAbnormalNum;
 
@@ -41,6 +44,6 @@ public class AnFireDTO {
     @ApiModelProperty(value = "装置异常数量")
     private Integer accessDeviceAbnormalNum;
 
-    @ApiModelProperty(value = "门禁数量")
+    @ApiModelProperty(value = "消防火灾")
     private Integer accessNum;
 }
