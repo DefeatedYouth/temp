@@ -63,10 +63,12 @@ public class BaseDeviceServiceImpl extends ServiceImpl<BaseDeviceDao, BaseDevice
         for (Map<String, Object> map : maps) {
             if (map.get("device_type") != null && map.get("num") != null ){
                 Integer deviceType = (Integer)map.get("device_type");
-                Long num = (Long)map.get("num");
-                DeviceCountDTO deviceCountDTO = list.get(deviceType - 1);
-                if (deviceCountDTO != null){
-                    deviceCountDTO.setNum(num);
+                if (deviceType <= 8){
+                    Long num = (Long)map.get("num");
+                    DeviceCountDTO deviceCountDTO = list.get(deviceType - 1);
+                    if (deviceCountDTO != null){
+                        deviceCountDTO.setNum(num);
+                    }
                 }
             }
         }

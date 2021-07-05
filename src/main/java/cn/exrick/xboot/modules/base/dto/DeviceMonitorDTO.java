@@ -28,4 +28,13 @@ public class DeviceMonitorDTO {
 
     @ApiModelProperty(value = "设备故障")
     private Integer failureNum;
+
+//    @ApiModelProperty(value = "名称(一般缺陷,严重缺陷,危急缺陷,设备隐患,监控告警,设备故障)")
+//    private String describe;
+//
+//    @ApiModelProperty(value = "数量")
+//    private Integer num;
+//
+//    @ApiModelProperty(value = "状态")
+//    private String code = "未处理";
 }
