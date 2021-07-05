@@ -76,6 +76,7 @@ public class SbBookController {
     public Result<List<SbBook>> manufacturerList(SbBookQuery query) {
         QueryWrapper<SbBook> queryWrapper = new QueryWrapper<>() ;
         queryWrapper.lambda().eq(query.getSiteId()!= null,SbBook::getSiteId,query.getSiteId());
+        queryWrapper.lambda().isNotNull(SbBook::getManufacturer);
         queryWrapper.lambda().eq(query.getDeviceType()!= null,SbBook::getDeviceType,query.getDeviceType());
         queryWrapper.lambda().groupBy(SbBook::getManufacturer);
         queryWrapper.lambda().select(SbBook::getManufacturer);
@@ -86,6 +87,7 @@ public class SbBookController {
     @GetMapping("/voltageLevelList")
     public Result<List<SbBook>> voltageLevelList(SbBookQuery query) {
         QueryWrapper<SbBook> queryWrapper = new QueryWrapper<>() ;
+        queryWrapper.lambda().isNotNull(SbBook::getVoltageLevel);
         queryWrapper.lambda().eq(query.getSiteId()!= null,SbBook::getSiteId,query.getSiteId());
         queryWrapper.lambda().eq(query.getDeviceType()!= null,SbBook::getDeviceType,query.getDeviceType());
         queryWrapper.lambda().groupBy(SbBook::getVoltageLevel);
@@ -97,6 +99,7 @@ public class SbBookController {
     @GetMapping("/equipmentModelList")
     public Result<List<SbBook>> equipmentModelList(SbBookQuery query) {
         QueryWrapper<SbBook> queryWrapper = new QueryWrapper<>() ;
+        queryWrapper.lambda().isNotNull(SbBook::getEquipmentModel);
         queryWrapper.lambda().eq(query.getSiteId()!= null,SbBook::getSiteId,query.getSiteId());
         queryWrapper.lambda().eq(query.getDeviceType()!= null,SbBook::getDeviceType,query.getDeviceType());
         queryWrapper.lambda().groupBy(SbBook::getEquipmentModel);
