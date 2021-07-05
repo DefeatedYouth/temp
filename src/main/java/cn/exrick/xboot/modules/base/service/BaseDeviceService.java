@@ -9,6 +9,8 @@ import cn.exrick.xboot.modules.base.dto.InspectionPlanDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.exrick.xboot.modules.base.entity.BaseDevice;
 
+import java.util.List;
+
 
 /**
  * @desc 主设备表 service
@@ -17,7 +19,7 @@ import cn.exrick.xboot.modules.base.entity.BaseDevice;
  */
 public interface BaseDeviceService  extends IService<BaseDevice>{
 
-    DeviceCountDTO getDeviceCount(BaseReqVO request);
+    List<DeviceCountDTO> getDeviceCount(BaseReqVO request);
 
     DeviceMonitorDTO getDeviceMonitorCount(BaseReqVO request);
 

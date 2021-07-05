@@ -23,6 +23,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RestController;
 import cn.exrick.xboot.modules.base.service.BaseDeviceService;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import cn.exrick.xboot.common.vo.Result;
 /**
@@ -91,10 +93,11 @@ public class BaseDeviceController {
 
     @ApiOperation("查询所有的设备规模")
     @GetMapping("/getDeviceCount")
-    public Result<DeviceCountDTO> getDeviceCount(BaseReqVO request) {
+    public Result<List<DeviceCountDTO>> getDeviceCount(BaseReqVO request) {
         try {
-            DeviceCountDTO deviceCount = baseDeviceService.getDeviceCount(request);
-            return  ResultUtil.data(deviceCount);
+            List<DeviceCountDTO> list = baseDeviceService.getDeviceCount(request);
+
+            return  ResultUtil.data(list);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
         }

@@ -12,20 +12,18 @@ import cn.exrick.xboot.modules.base.dto.InspectionPlanDTO;
 import cn.exrick.xboot.modules.base.service.BaseDeviceService;
 import cn.exrick.xboot.modules.job.entity.JobRepair;
 import cn.exrick.xboot.modules.job.service.JobRepairService;
-import cn.exrick.xboot.modules.shebei.entity.SbAlarm;
-import cn.exrick.xboot.modules.shebei.entity.SbDanger;
-import cn.exrick.xboot.modules.shebei.entity.SbDefect;
-import cn.exrick.xboot.modules.shebei.entity.SbFault;
-import cn.exrick.xboot.modules.shebei.service.SbAlarmService;
-import cn.exrick.xboot.modules.shebei.service.SbDangerService;
-import cn.exrick.xboot.modules.shebei.service.SbDefectService;
-import cn.exrick.xboot.modules.shebei.service.SbFaultService;
+import cn.exrick.xboot.modules.shebei.entity.*;
+import cn.exrick.xboot.modules.shebei.service.*;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import cn.exrick.xboot.modules.base.entity.BaseDevice;
 import cn.exrick.xboot.modules.base.dao.BaseDeviceDao;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @desc 主设备表 serviceImpl
@@ -37,6 +35,8 @@ public class BaseDeviceServiceImpl extends ServiceImpl<BaseDeviceDao, BaseDevice
 
     @Autowired
     BaseDeviceDao baseDeviceDao;
+    @Autowired
+    SbBookService sbBookService;
     @Autowired
     SbDefectService sbDefectService;
     @Autowired
@@ -51,50 +51,28 @@ public class BaseDeviceServiceImpl extends ServiceImpl<BaseDeviceDao, BaseDevice
     JobRepairService jobRepairService;
 
     @Override
-    public DeviceCountDTO getDeviceCount(BaseReqVO request) {
-        DeviceCountDTO deviceCountDTO = new DeviceCountDTO();
-        int transformerNum = this.count(new QueryWrapper<BaseDevice>().lambda()
-                .eq(BaseDevice::getSiteId, request.getSiteId())
-                .eq(BaseDevice::getDeviceType,1)
-        );
-        deviceCountDTO.setTransformerNum(transformerNum);
-        int reactorNum = this.count(new QueryWrapper<BaseDevice>().lambda()
-                .eq(BaseDevice::getSiteId, request.getSiteId())
-                .eq(BaseDevice::getDeviceType,2)
-        );
-        deviceCountDTO.setReactorNum(reactorNum);
-        int breakerNum = this.count(new QueryWrapper<BaseDevice>().lambda()
-                .eq(BaseDevice::getSiteId, request.getSiteId())
-                .eq(BaseDevice::getDeviceType,3)
-        );
-        deviceCountDTO.setBreakerNum(breakerNum);
-        int currentTransformerNum = this.count(new QueryWrapper<BaseDevice>().lambda()
-                .eq(BaseDevice::getSiteId, request.getSiteId())
-                .eq(BaseDevice::getDeviceType,4)
-        );
-        deviceCountDTO.setCurrentTransformerNum(currentTransformerNum);
-        int voltageTransformerNum = this.count(new QueryWrapper<BaseDevice>().lambda()
-                .eq(BaseDevice::getSiteId, request.getSiteId())
-                .eq(BaseDevice::getDeviceType,5)
-        );
-        deviceCountDTO.setVoltageTransformerNum(voltageTransformerNum);
-        int isolatingSwitchNum = this.count(new QueryWrapper<BaseDevice>().lambda()
-                .eq(BaseDevice::getSiteId, request.getSiteId())
-                .eq(BaseDevice::getDeviceType,6)
-        );
-        deviceCountDTO.setIsolatingSwitchNum(isolatingSwitchNum);
-        int lightningArresterNum = this.count(new QueryWrapper<BaseDevice>().lambda()
-                .eq(BaseDevice::getSiteId, request.getSiteId())
-                .eq(BaseDevice::getDeviceType,7)
-        );
-        deviceCountDTO.setLightningArresterNum(lightningArresterNum);
-        int combinationAppliancesNum = this.count(new QueryWrapper<BaseDevice>().lambda()
-                .eq(BaseDevice::getSiteId, request.getSiteId())
-                .eq(BaseDevice::getDeviceType,8)
-        );
-        deviceCountDTO.setCombinationAppliancesNum(combinationAppliancesNum);
-        return deviceCountDTO;
+    public List<DeviceCountDTO> getDeviceCount(BaseReqVO request) {
+        List<DeviceCountDTO> list = new ArrayList<>();
+        initDeviceCountList(list);
+        QueryWrapper<SbBook> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda()
+                .eq(request.getSiteId() != null,SbBook::getSiteId, request.getSiteId())
+                .groupBy(SbBook::getDeviceType);
+        queryWrapper.select("device_type,count(*) num");
+        List<Map<String, Object>> maps = sbBookService.listMaps(queryWrapper);
+        for (Map<String, Object> map : maps) {
+            if (map.get("device_type") != null && map.get("num") != null ){
+                Integer deviceType = (Integer)map.get("device_type");
+                Long num = (Long)map.get("num");
+                DeviceCountDTO deviceCountDTO = list.get(deviceType - 1);
+                if (deviceCountDTO != null){
+                    deviceCountDTO.setNum(num);
+                }
+            }
+        }
+        return list;
     }
+
 
     @Override
     public DeviceMonitorDTO getDeviceMonitorCount(BaseReqVO request) {
@@ -228,5 +206,41 @@ public class BaseDeviceServiceImpl extends ServiceImpl<BaseDeviceDao, BaseDevice
         );
         inspectionPlanDTO.setCompletedNum(completed);
         return inspectionPlanDTO;
+    }
+
+
+    private void initDeviceCountList(List<DeviceCountDTO> list) {
+        DeviceCountDTO d1 = new DeviceCountDTO();
+        d1.setEquipmentName("变压器");
+        d1.setNum(0L);
+        list.add(d1);
+        DeviceCountDTO d2 = new DeviceCountDTO();
+        d2.setEquipmentName("断路器");
+        d2.setNum(0L);
+        list.add(d2);
+        DeviceCountDTO d3 = new DeviceCountDTO();
+        d3.setEquipmentName("电抗器");
+        d3.setNum(0L);
+        list.add(d3);
+        DeviceCountDTO d4 = new DeviceCountDTO();
+        d4.setEquipmentName("电流互感器");
+        d4.setNum(0L);
+        list.add(d4);
+        DeviceCountDTO d5 = new DeviceCountDTO();
+        d5.setEquipmentName("电压互感器");
+        d5.setNum(0L);
+        list.add(d5);
+        DeviceCountDTO d6 = new DeviceCountDTO();
+        d6.setEquipmentName("隔离开关");
+        d6.setNum(0L);
+        list.add(d6);
+        DeviceCountDTO d7 = new DeviceCountDTO();
+        d7.setEquipmentName("避雷器");
+        d7.setNum(0L);
+        list.add(d7);
+        DeviceCountDTO d8 = new DeviceCountDTO();
+        d8.setEquipmentName("组合电器");
+        d8.setNum(0L);
+        list.add(d8);
     }
 }
