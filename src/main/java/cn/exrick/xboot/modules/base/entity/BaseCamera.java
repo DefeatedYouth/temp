@@ -43,5 +43,6 @@ public class BaseCamera extends StmBaseEntity {
     @ApiModelProperty(value = "摄像机端口")
     private String cameraPort;
 
-
+    @ApiModelProperty(value = "三维对应id")
+    private String threeId;
 }

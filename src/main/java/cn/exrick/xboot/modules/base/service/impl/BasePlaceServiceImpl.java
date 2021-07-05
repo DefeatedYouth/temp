@@ -33,7 +33,7 @@ public class BasePlaceServiceImpl extends ServiceImpl<BasePlaceDao, BasePlace> i
                     this.getBaseMapper().selectList(new QueryWrapper<BasePlace>().lambda()
                             .eq(BasePlace::getLevel, municipalCompanyVO.getLevel())
                             .eq(municipalCompanyVO.getParentId()!=null&&!municipalCompanyVO.getParentId().equals(""),BasePlace::getParentId,municipalCompanyVO.getParentId())
-                            .eq(municipalCompanyVO.getVoltageLevel()!=null&&!municipalCompanyVO.getVoltageLevel().equals(""),BasePlace::getVoltageLevel,municipalCompanyVO.getVoltageLevel())
+                          //  .eq(municipalCompanyVO.getVoltageLevel()!=null&&!municipalCompanyVO.getVoltageLevel().equals(""),BasePlace::getVoltageLevel,municipalCompanyVO.getVoltageLevel())
                     );
             return basePlaces;
         }catch (Exception e){

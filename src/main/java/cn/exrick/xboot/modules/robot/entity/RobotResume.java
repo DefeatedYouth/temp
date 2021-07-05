@@ -62,5 +62,9 @@ public class RobotResume extends StmBaseEntity {
     @ApiModelProperty(value = "审核人")
     private String checkPerson;
 
+    @ApiModelProperty(value = "数据源id")
+    private String resourcesId;
 
+    @ApiModelProperty(value = "三维对应id")
+    private String threeId;
 }

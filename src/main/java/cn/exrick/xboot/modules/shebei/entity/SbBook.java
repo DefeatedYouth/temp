@@ -158,5 +158,7 @@ public class SbBook extends StmBaseEntity {
     @ApiModelProperty(value = "绝缘介质")
     private String insulatingMedium;
 
+    @ApiModelProperty(value = "三维对应id")
+    private String threeId;
 
 }

@@ -72,4 +72,13 @@ public class BaseDevice extends StmBaseEntity {
 
     @ApiModelProperty(value = "消防系统类型（断路器才有这个属性） 1 水喷雾灭火系统 2 细水雾灭火系统3 泡沫喷雾灭火系统 4 排油注氮灭火系统")
     private String fireFightingSystem;
+
+    @ApiModelProperty(value = "三维对应id")
+    private String threeId;
+
+    @ApiModelProperty(value = "设备性质 一次设备 二次设备 辅助设备")
+    private String equipmentNature;
+
+    @ApiModelProperty(value = "相别")
+    private String farewell;
 }

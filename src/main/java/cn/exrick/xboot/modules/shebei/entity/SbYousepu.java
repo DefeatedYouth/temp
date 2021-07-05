@@ -66,5 +66,6 @@ public class SbYousepu extends StmBaseEntity {
     @ApiModelProperty(value = "设备类型")
     private Integer deviceType;
 
-
+    @ApiModelProperty(value = "三维对应id")
+    private String threeId;
 }

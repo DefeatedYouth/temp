@@ -52,14 +52,11 @@ public class BaseSite extends StmBaseEntity {
     @ApiModelProperty(value = "气压")
     private String pressure;
 
-
     @ApiModelProperty(value = "降水量")
     private String precipitation;
 
-
     @ApiModelProperty(value = "通信状态")
     private String communicationStatus;
-
 
     @ApiModelProperty(value = "天气状态")
     private String weatherConditions;
@@ -67,4 +64,21 @@ public class BaseSite extends StmBaseEntity {
     @ApiModelProperty(value = "交直流系统监视图")
     private String systemMonitoring;
 
+    @ApiModelProperty(value = "重要程度")
+    private String importance;
+
+    @ApiModelProperty(value = "投运时间")
+    private String operationTime;
+
+    @ApiModelProperty(value = "运维班名称")
+    private String departmentName;
+
+    @ApiModelProperty(value = "无故障运行时间（天）")
+    private String runDay;
+
+    @ApiModelProperty(value = "精益化评价得分")
+    private String leanEvaluation;
+
+    @ApiModelProperty(value = "电压等级")
+    private String voltageLevel;
 }

@@ -159,5 +159,6 @@ public class SbDefect extends StmBaseEntity {
     @ApiModelProperty(value = "备注")
     private String remarks;
 
-
+    @ApiModelProperty(value = "三维对应id")
+    private String threeId;
 }

@@ -70,6 +70,6 @@ public class JobTicket extends StmBaseEntity {
     @ApiModelProperty(value = "许可时间")
     private String permitPersionTime;
 
-    @ApiModelProperty(value = "结束时间")
-    private String endTime;
+ /*   @ApiModelProperty(value = "结束时间")
+    private String endTime;*/
 }

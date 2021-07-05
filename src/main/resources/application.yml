@@ -216,6 +216,7 @@ logging:
     max-size: 5MB
 
 
+storeBasePath: D:\微信file\WeChat Files\wxid_uxv7ab1244kn22\FileStorage\File
 
 
 

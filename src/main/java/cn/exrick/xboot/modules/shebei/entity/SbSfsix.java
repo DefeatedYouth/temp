@@ -66,5 +66,6 @@ public class SbSfsix extends StmBaseEntity {
     @ApiModelProperty(value = "C相SF6气体水分")
     private String cgasMoisture;
 
-
+    @ApiModelProperty(value = "三维对应id")
+    private String threeId;
 }

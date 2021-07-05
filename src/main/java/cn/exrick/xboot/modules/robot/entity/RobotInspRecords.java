@@ -81,4 +81,10 @@ public class RobotInspRecords extends StmBaseEntity {
     private Integer ratio;
     @ApiModelProperty(value = "机器人id集合")
     private Integer robot;
+
+    @ApiModelProperty(value = "数据源id")
+    private String resourcesId;
+
+    @ApiModelProperty(value = "三维对应id")
+    private String threeId;
 }

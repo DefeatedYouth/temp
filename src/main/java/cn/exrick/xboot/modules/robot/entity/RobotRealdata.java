@@ -80,5 +80,10 @@ public class RobotRealdata extends StmBaseEntity {
     private String charge;
     @ApiModelProperty(value = "检修时长")
     private String overhaul;
+    @ApiModelProperty(value = "数据源id")
+    private String resourcesId;
+
+    @ApiModelProperty(value = "三维对应id")
+    private String threeId;
 
 }

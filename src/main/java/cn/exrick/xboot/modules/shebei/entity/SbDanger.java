@@ -66,5 +66,7 @@ public class SbDanger extends StmBaseEntity {
     @ApiModelProperty(value = "隐患状态")
     private String hiddenDangerState;
 
+    @ApiModelProperty(value = "三维对应id")
+    private String threeId;
 
 }

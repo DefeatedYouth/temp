@@ -66,4 +66,17 @@ public class SbFault extends StmBaseEntity {
 
     @ApiModelProperty(value = "故障相别")
     private String faultPhase;
+
+    @ApiModelProperty(value = "三维对应id")
+    private String threeId;
+
+    @ApiModelProperty(value = "故障录波")
+    private String faultBo;
+
+    @ApiModelProperty(value = "智能决策")
+    private String intelligentDecisionMaking;
+
+    @ApiModelProperty(value = "应急预案")
+    private String emergencyPlan;
+
 }

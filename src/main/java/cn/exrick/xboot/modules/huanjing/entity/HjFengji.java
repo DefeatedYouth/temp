@@ -62,4 +62,7 @@ public class HjFengji extends StmBaseEntity {
     @ApiModelProperty(value = "节点类型")
     private String noteType;
 
+    @ApiModelProperty(value = "三维对应id")
+    private String threeId;
+
 }

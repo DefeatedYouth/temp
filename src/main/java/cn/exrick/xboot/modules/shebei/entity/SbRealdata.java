@@ -83,4 +83,8 @@ public class SbRealdata extends StmBaseEntity {
 
     @ApiModelProperty(value = "C相铁芯接地电流")
     private Integer ccoreGroundingCurrent;
+
+    @ApiModelProperty(value = "三维对应id")
+    private String threeId;
+
 }

@@ -31,6 +31,6 @@ public class BasePlace extends StmBaseEntity {
     @ApiModelProperty(value = "层级 1 地市公司 2 工区 3 班组")
     private Integer level;
 
-    @ApiModelProperty(value = "电压等级")
-    private String voltageLevel;
+/*    @ApiModelProperty(value = "电压等级")
+    private String voltageLevel;*/
 }

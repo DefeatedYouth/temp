@@ -62,4 +62,7 @@ public class SbTest extends StmBaseEntity {
 
     @ApiModelProperty(value = "录入人")
     private String inputMan;
+
+    @ApiModelProperty(value = "三维对应id")
+    private String threeId;
 }

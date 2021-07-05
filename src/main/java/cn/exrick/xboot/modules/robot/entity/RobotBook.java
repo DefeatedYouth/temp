@@ -74,5 +74,9 @@ public class RobotBook extends StmBaseEntity {
     @ApiModelProperty(value = "设备状态")
     private String deviceState;
 
+    @ApiModelProperty(value = "数据源id")
+    private String resourcesId;
 
+    @ApiModelProperty(value = "三维对应id")
+    private String threeId;
 }

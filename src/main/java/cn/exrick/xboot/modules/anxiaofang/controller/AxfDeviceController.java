@@ -1,13 +1,21 @@
 package cn.exrick.xboot.modules.anxiaofang.controller;
 
 import cn.exrick.xboot.common.enums.EnumNodeType;
-import cn.exrick.xboot.modules.anxiaofang.dto.AccessControlInformationDTO;
-import cn.exrick.xboot.modules.anxiaofang.dto.ElectronicFenceDTO;
-import cn.exrick.xboot.modules.anxiaofang.dto.FirefightovweviewDTO;
-import cn.exrick.xboot.modules.anxiaofang.dto.InfraredRadiationCountDTO;
+import cn.exrick.xboot.modules.anxiaofang.dto.*;
+import cn.exrick.xboot.modules.base.service.BaseDeviceService;
+import cn.exrick.xboot.modules.robot.service.RobotInspMessageService;
 import cn.exrick.xboot.modules.shebei.entity.SbBook;
 import cn.exrick.xboot.modules.shebei.entity.SbYousepu;
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.thread.ThreadUtil;
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.ExcelReader;
+import com.alibaba.excel.read.metadata.ReadSheet;
+import com.baomidou.mybatisplus.core.toolkit.ExceptionUtils;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
 import cn.exrick.xboot.common.vo.BaseReqVO;
@@ -26,8 +34,15 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RestController;
 import cn.exrick.xboot.modules.anxiaofang.service.AxfDeviceService;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+
 import cn.exrick.xboot.common.vo.Result;
+import org.springframework.web.multipart.MultipartFile;
+
 /**
  * @desc 安消防设备监视表 controller
  * @author chenfeixiang
@@ -42,6 +57,15 @@ public class AxfDeviceController {
 
     @Autowired
     private AxfDeviceService axfDeviceService;
+    @Autowired
+    private BaseDeviceService baseDeviceService;
+
+    private RobotInspMessageService robotInspMessageService;
+
+    @Value("${storeBasePath}")
+    private  String storeBasePath;
+
+    static ExecutorService executorService = ThreadUtil.newSingleExecutor();
 
     /**
      * @desc 新增或更新,带id为修改，不带id为新增 提交的成功嘛
@@ -67,7 +91,7 @@ public class AxfDeviceController {
         QueryWrapper<AxfDevice> queryWrapper = new QueryWrapper<AxfDevice>() ;
         //TODO 条件待填写
         queryWrapper.lambda().like(query.getOperationMaintenanceTeam()!=null,AxfDevice::getOperationMaintenanceTeam,query.getOperationMaintenanceTeam());
-        queryWrapper.lambda().eq(query.getNodeType()!=null,AxfDevice::getNodeType, EnumNodeType.valueOf(query.getNodeType()));
+        queryWrapper.lambda().eq(query.getNodeType()!=null,AxfDevice::getNodeType, EnumNodeType.valueOf(query.getNodeType()).getValue());
         queryWrapper.lambda().like(query.getNodeName()!=null,AxfDevice::getNodeName,query.getNodeName());
         queryWrapper.lambda().like(query.getDeviceName()!=null,AxfDevice::getDeviceName,query.getDeviceName());
         queryWrapper.lambda().like(query.getRealData()!=null,AxfDevice::getRealdata,query.getRealData());
@@ -168,6 +192,45 @@ public class AxfDeviceController {
             return ResultUtil.error(500,e.getMessage());
         }
     }
+
+    @PostMapping("/upload")
+    @ApiOperation("上传excel模板")
+    @ResponseBody
+    public Result<Object> deviceInExcel(MultipartFile file) throws IOException {
+        StringBuilder fullPath = new StringBuilder(128);
+        fullPath.append(storeBasePath).append(System.currentTimeMillis()).append(".xls");
+        File tmpFile = new File(fullPath.toString());
+        IoUtil.copy(file.getInputStream(), new FileOutputStream(tmpFile));
+        ExcelReader excelReader = null;
+        List<ReadSheet> readSheetList = Lists.newArrayList();
+        try {
+            //导入设备类型点位基础模板数据
+            excelReader = EasyExcel.read(tmpFile).build();
+            ReadSheet readSheet0 =
+                    EasyExcel.readSheet(6).headRowNumber(5).head(PrimaryDeviceTypeVO.class).registerReadListener(new PrimaryDeviceTypeListener(robotInspMessageService)).build();
+            readSheetList.add(readSheet0);
+
+            this.myExecutgeExcelInner(tmpFile, excelReader, readSheetList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResultUtil.success("已提交导入模板，请几分钟后刷新");
+    }
+        private void myExecutgeExcelInner(File tmpFile, ExcelReader excelReader, List<ReadSheet> readSheetList) {
+            executorService.execute(() -> {
+                try {
+                    excelReader.read(readSheetList);
+                    // 这里千万别忘记关闭，读的时候会创建临时文件，到时磁盘会崩的
+                    excelReader.finish();
+                } catch (Exception e) {
+                   // log.error("上传导入异常{}", ExceptionUtils.getStackTrace(e));
+                } finally {
+                    System.gc();
+                    FileUtil.del(tmpFile);
+                }
+            });
+
+        }
 
 }
 

@@ -59,4 +59,12 @@ public class RobotInspMessage extends StmBaseEntity {
 
     @ApiModelProperty(value = "告警等级")
     private Integer alarmLevel;
+
+    @ApiModelProperty(value = "数据源id")
+    private String resourcesId;
+
+    @ApiModelProperty(value = "三维对应id")
+    private String threeId;
+
+    private String equipmentNameNumber;
 }

@@ -33,7 +33,7 @@ public class AxfDeviceQuery extends AxfDevice{
     private String nodeName;
 
     @ApiModelProperty(value = "节点类型")
-    private String nodeType;
+    private Integer nodeType;
 
     @ApiModelProperty(value = "实时数据")
     private String realData;

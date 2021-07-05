@@ -80,4 +80,7 @@ public class JobRepair extends StmBaseEntity {
 
     @ApiModelProperty(value = "是否停电")
     private String powerFailure;
+
+    @ApiModelProperty(value = "是否超期")
+    private Integer overFlag;
 }

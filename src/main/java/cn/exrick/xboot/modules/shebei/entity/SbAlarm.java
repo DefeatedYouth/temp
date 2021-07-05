@@ -51,4 +51,7 @@ public class SbAlarm extends StmBaseEntity {
 
     @ApiModelProperty(value = "间隔名称")
     private String  placeName;
+
+    @ApiModelProperty(value = "三维对应id")
+    private String threeId;
 }

@@ -74,4 +74,7 @@ public class SbFeed extends StmBaseEntity {
 
     @ApiModelProperty(value = "评价类型")
     private String commissioningType;
+
+    @ApiModelProperty(value = "三维对应id")
+    private String threeId;
 }

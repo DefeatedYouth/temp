@@ -63,4 +63,7 @@ public class HjSfsex extends StmBaseEntity {
     @ApiModelProperty(value = "报警状态 0未报警 1已报警")
     private Integer alarmState;
 
+    @ApiModelProperty(value = "三维对应id")
+    private String threeId;
+
 }

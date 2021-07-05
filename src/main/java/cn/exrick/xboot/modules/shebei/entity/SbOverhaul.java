@@ -75,5 +75,6 @@ public class SbOverhaul extends StmBaseEntity {
     @ApiModelProperty(value = "遗留问题		")
     private String remainingProblems;
 
-
+    @ApiModelProperty(value = "三维对应id")
+    private String threeId;
 }

@@ -62,4 +62,7 @@ public class SbLiveDetection extends StmBaseEntity {
 
     @ApiModelProperty(value = "附件地址")
     private String attachment;
+
+    @ApiModelProperty(value = "三维对应id")
+    private String threeId;
 }
