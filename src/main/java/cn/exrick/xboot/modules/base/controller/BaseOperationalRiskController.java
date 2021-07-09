@@ -62,7 +62,13 @@ public class BaseOperationalRiskController {
         QueryWrapper<BaseOperationalRisk> queryWrapper = new QueryWrapper<BaseOperationalRisk>() ;
         queryWrapper.lambda().eq(query.getSiteId()!=null, BaseOperationalRisk::getSiteId,query.getSiteId());
         //queryWrapper.lambda()
-
+        queryWrapper.lambda().like(query.getPowerCutScope()!=null,BaseOperationalRisk::getPowerCutScope,query.getPowerCutScope());
+        queryWrapper.lambda().like(query.getHiddenDangerItems()!=null,BaseOperationalRisk::getHiddenDangerItems,query.getHiddenDangerItems());
+        queryWrapper.lambda().like(query.getNum()!=null,BaseOperationalRisk::getNum,query.getNum());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,BaseOperationalRisk::getStartTimePlan,query.getStartTime());
+        queryWrapper.lambda().lt(query.getEndTime() != null,BaseOperationalRisk::getStartTimePlan,query.getEndTime());
+        queryWrapper.lambda().gt(query.getStartPlanTime()!= null ,BaseOperationalRisk::getEndTimePlan,query.getStartPlanTime());
+        queryWrapper.lambda().lt(query.getEndPlanTime() != null,BaseOperationalRisk::getEndTimePlan,query.getEndPlanTime());
         //TODO 条件待填写
         Page page = baseOperationalRiskService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);
