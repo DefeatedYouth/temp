@@ -6,6 +6,7 @@ import cn.exrick.xboot.modules.base.service.BaseDeviceService;
 import cn.exrick.xboot.modules.robot.service.RobotInspMessageService;
 import cn.exrick.xboot.modules.shebei.entity.SbBook;
 import cn.exrick.xboot.modules.shebei.entity.SbYousepu;
+import cn.exrick.xboot.modules.shebei.service.SbBookService;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.thread.ThreadUtil;
@@ -59,8 +60,10 @@ public class AxfDeviceController {
     private AxfDeviceService axfDeviceService;
     @Autowired
     private BaseDeviceService baseDeviceService;
-
+    @Autowired
     private RobotInspMessageService robotInspMessageService;
+    @Autowired
+    private SbBookService sbBookService;
 
     @Value("${storeBasePath}")
     private  String storeBasePath;
@@ -207,7 +210,7 @@ public class AxfDeviceController {
             //导入设备类型点位基础模板数据
             excelReader = EasyExcel.read(tmpFile).build();
             ReadSheet readSheet0 =
-                    EasyExcel.readSheet(6).headRowNumber(5).head(PrimaryDeviceTypeVO.class).registerReadListener(new PrimaryDeviceTypeListener(robotInspMessageService)).build();
+                    EasyExcel.readSheet(3).headRowNumber(4).head(PrimaryDeviceTypeVO.class).registerReadListener(new PrimaryDeviceTypeListener(sbBookService)).build();
             readSheetList.add(readSheet0);
 
             this.myExecutgeExcelInner(tmpFile, excelReader, readSheetList);
@@ -223,7 +226,8 @@ public class AxfDeviceController {
                     // 这里千万别忘记关闭，读的时候会创建临时文件，到时磁盘会崩的
                     excelReader.finish();
                 } catch (Exception e) {
-                   // log.error("上传导入异常{}", ExceptionUtils.getStackTrace(e));
+                    e.printStackTrace();
+                   // log.error("上传导入异常{}", e.printStackTrace());
                 } finally {
                     System.gc();
                     FileUtil.del(tmpFile);

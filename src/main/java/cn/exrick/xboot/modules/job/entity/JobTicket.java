@@ -25,9 +25,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @ApiModel(value="JobTicket对象", description="工作票表")
 public class JobTicket extends StmBaseEntity {
 
-
     private Long siteId;
-
 
     @ApiModelProperty(value = "变电站名称")
     private String siteName;
@@ -69,6 +67,12 @@ public class JobTicket extends StmBaseEntity {
 
     @ApiModelProperty(value = "许可时间")
     private String permitPersionTime;
+
+    @ApiModelProperty(value = "城市")
+    private String city;
+
+    @ApiModelProperty(value = "编号")
+    private String number;
 
  /*   @ApiModelProperty(value = "结束时间")
     private String endTime;*/

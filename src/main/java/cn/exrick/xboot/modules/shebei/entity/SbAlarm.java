@@ -8,9 +8,9 @@ import lombok.*;
 import lombok.experimental.Accessors;
 
 /**
- * @desc 断路器告警数据表 实体
+ * @desc 设备告警数据表 实体
  * @author chenfeixiang
- * @since 2021-06-15
+ * @since 2021-07-09
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -19,7 +19,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ApiModel(value="SbAlarm对象", description="断路器告警数据表")
+@ApiModel(value="SbAlarm对象", description="设备告警数据表")
 public class SbAlarm extends StmBaseEntity {
 
 
@@ -50,8 +50,13 @@ public class SbAlarm extends StmBaseEntity {
     private Integer alarmState;
 
     @ApiModelProperty(value = "间隔名称")
-    private String  placeName;
+    private String placeName;
 
     @ApiModelProperty(value = "三维对应id")
     private String threeId;
+
+    @ApiModelProperty(value = "1 在线告警 2监测告警")
+    private Integer alarmKind;
+
+
 }

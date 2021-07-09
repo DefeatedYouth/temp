@@ -1,9 +1,12 @@
 package cn.exrick.xboot.modules.anxiaofang.dto;
 
+import cn.exrick.xboot.common.enums.EnumDeviceType;
 import cn.exrick.xboot.modules.base.entity.BaseDevice;
 import cn.exrick.xboot.modules.base.service.BaseDeviceService;
 import cn.exrick.xboot.modules.robot.entity.RobotInspMessage;
 import cn.exrick.xboot.modules.robot.service.RobotInspMessageService;
+import cn.exrick.xboot.modules.shebei.entity.SbBook;
+import cn.exrick.xboot.modules.shebei.service.SbBookService;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -23,12 +26,12 @@ public class PrimaryDeviceTypeListener extends AnalysisEventListener<PrimaryDevi
    // private static final Logger LOGGER = LoggerFactory.getLogger(DeciceListener.class);
     private static final int BATCH_COUNT = 1000;
 
-    private RobotInspMessageService robotInspMessageService;
+    private SbBookService sbBookService;
 
     List<PrimaryDeviceTypeVO> list = new ArrayList<PrimaryDeviceTypeVO>();
 
-    public PrimaryDeviceTypeListener(RobotInspMessageService robotInspMessageService) {
-        this.robotInspMessageService = robotInspMessageService;
+    public PrimaryDeviceTypeListener(SbBookService sbBookService) {
+        this.sbBookService = sbBookService;
     }
 
     @Override
@@ -48,24 +51,21 @@ public class PrimaryDeviceTypeListener extends AnalysisEventListener<PrimaryDevi
     @Override
     public void doAfterAllAnalysed(AnalysisContext context) {
         list.forEach(primaryDeviceTypeVO -> {
-            RobotInspMessage robotInspMessage = new RobotInspMessage();
-            /*BaseDevice baseDevice1 = baseDeviceService.getBaseMapper().selectOne(new QueryWrapper<BaseDevice>().lambda().eq(BaseDevice::getDeviceName, primaryDeviceTypeVO.getDeviceName())
-                    .eq(BaseDevice::getDeviceType, primaryDeviceTypeVO.getDeviceType())
-            );
-            if (baseDevice1==null){*/
-            robotInspMessage.setSiteId(1L);
-            robotInspMessage.setSiteName("东山桥站");
-            robotInspMessage.setInspTime(primaryDeviceTypeVO.getInspTime());
-            robotInspMessage.setInspValue(primaryDeviceTypeVO.getInspValue());
-            robotInspMessage.setEquipmentNameNumber(primaryDeviceTypeVO.getEquipmentNameNumber());
-            robotInspMessage.setInspResult("1");
-            robotInspMessage.setAlarmLevel(1);
-            robotInspMessageService.save(robotInspMessage);
-        //}
+            SbBook sbBook = new SbBook();
+            sbBook.setSiteName(primaryDeviceTypeVO.getSiteName());
+            sbBook.setSiteId(1L);
+            sbBook.setVoltageLevel(primaryDeviceTypeVO.getVoltageLevel());
+            sbBook.setDeviceType(EnumDeviceType.textOf(primaryDeviceTypeVO.getDeviceType()).getValue());
+            sbBook.setSpacerUnit(primaryDeviceTypeVO.getSpaceUnit());
+            sbBook.setDeviceName(primaryDeviceTypeVO.getDeviceName());
+            sbBook.setFarewell(primaryDeviceTypeVO.getFarewell());
+            sbBookService.save(sbBook);
         });
 
         //saveData();
        // redisHelper.hset(SmartConstants.redis_excel_import_plan_map,"1",SmartConstants.redis_excel_import_plan_key_device_type,"1");
     }
+
+
 
 }

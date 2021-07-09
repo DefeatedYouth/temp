@@ -17,18 +17,21 @@ public class PrimaryDeviceTypeVO {
     @ExcelProperty("序号")
     private Integer attr;
 
-    @ExcelProperty("设备巡检时间")
-    private Date inspTime;
+    @ExcelProperty("*变电站名称")
+    private String siteName;
 
-    @ExcelProperty("间隔设备命名编号")
-    private String equipmentNameNumber;
+    @ExcelProperty("*电压等级")
+    private String voltageLevel;
 
-  /*  @ExcelProperty("环境温度(℃)")
-    private String inspValue;*/
+    @ExcelProperty("设备类型名称")
+    private String deviceType;
 
-    @ExcelProperty("结果")
-    private String inspValue;
+    @ExcelProperty("间隔单元")
+    private String spaceUnit;
 
- /*   @ExcelProperty("简要分析")
-    private String deviceName;*/
+    @ExcelProperty("*设备名称")
+    private String deviceName;
+
+    @ExcelProperty("相别")
+    private String farewell;
 }

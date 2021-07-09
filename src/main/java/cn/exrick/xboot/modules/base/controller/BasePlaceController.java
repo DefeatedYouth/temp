@@ -2,6 +2,8 @@ package cn.exrick.xboot.modules.base.controller;
 
 import cn.exrick.xboot.common.enums.EnumOrganizationLevel;
 import cn.exrick.xboot.common.vo.MunicipalCompanyVO;
+import cn.exrick.xboot.modules.shebei.entity.SbBook;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
@@ -56,14 +58,31 @@ public class BasePlaceController {
      * @param query 分页查询对象
      * @return 分页结果集
      */
-    @ApiOperation("列表")
+/*    @ApiOperation("列表")
     @GetMapping("/list")
     public Result<Page<BasePlace>> list(PageVo pageVo,BasePlaceQuery query) {
         QueryWrapper<BasePlace> queryWrapper = new QueryWrapper<BasePlace>() ;
         //TODO 条件待填写
+
         Page page = basePlaceService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);
+    }*/
+
+    @ApiOperation("列表")
+    @GetMapping("/list")
+    public Result<List<BasePlace>> list(BasePlaceQuery query) {
+        //第一层级 level 传1  后面的不传
+        //第二层级 传parentId 跟level =2
+        //第三层级 传parentId 跟level =3
+        QueryWrapper<BasePlace> queryWrapper = new QueryWrapper<BasePlace>() ;
+        queryWrapper.lambda().eq(BasePlace::getLevel, query.getLevel());
+        queryWrapper.lambda().eq(query.getParentId()!=null,BasePlace::getParentId, query.getParentId());
+        List<BasePlace> basePlaces = basePlaceService.getBaseMapper().selectList(queryWrapper);
+        return ResultUtil.data(basePlaces);
     }
+
+
+
 
     @ApiOperation("批量删除")
     @PostMapping("/remove")

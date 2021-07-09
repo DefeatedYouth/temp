@@ -31,6 +31,9 @@ public class BaseSite extends StmBaseEntity {
     @ApiModelProperty(value = "站点Id")
     private Long siteId;
 
+    @ApiModelProperty(value = "城区id")
+    private Integer parentId;
+
     @ApiModelProperty(value = "站点名称")
     private String siteName;
 
@@ -81,4 +84,7 @@ public class BaseSite extends StmBaseEntity {
 
     @ApiModelProperty(value = "电压等级")
     private String voltageLevel;
+
+    @ApiModelProperty(value = "部门id")
+    private String departmentId;
 }

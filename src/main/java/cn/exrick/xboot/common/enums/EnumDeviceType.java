@@ -11,23 +11,23 @@ import java.util.Map;
  */
 public enum EnumDeviceType {
     //
-    OilImmersedTransformer(1, "油浸式变压器"),
+    OilImmersedTransformer(1, "主变压器"),
     Breaker(2, "断路器"),
-    CombinationAppliances(3, "组合电器"),
-    Displacement(4, "隔离开关"),
-    IsolatingSwitch(5, "开关柜"),
-    CurrentTransformer(6, "电流互感器"),
-    VoltageTransformer(7, "电压互感器"),
-    LightningArrester(8, "避雷器"),
+    CombinationAppliances(3, "电抗器"),
+    Displacement(4, "电流互感器"),
+    IsolatingSwitch(5, "电压互感器"),
+    CurrentTransformer(6, "隔离开关"),
+    VoltageTransformer(7, "避雷器"),
+    LightningArrester(8, "组合电器"),
     ParallelCapacitorBank(9, "并联电容器组"),
     DryReactor(10, "干式电抗器"),
     SeriesCompensationDevice(11, "串联补偿装置"),
     BusbarInsulator(12, "母线及绝缘子"),
     WallBushing(13, "穿墙套管"),
     PetersenCoil(14, "消弧线圈"),
-    HighFrequencyWaveTrap(15, "高频阻波器"),
+    HighFrequencyWaveTrap(15, "阻波器"),
     CouplingCapacitor(16, "耦合电容器"),
-    HighColtageFuse(17, "高压熔断器"),
+    HighColtageFuse(17, "熔断器"),
     NeutralPointBlockingDevice(18, "中性点隔直装置"),
     GroundingDevice(19, "接地装置"),
     TerminalBoxAndMaintenancePowerBox(20, "端子箱及检修电源箱"),
@@ -44,8 +44,8 @@ public enum EnumDeviceType {
     FireFightingSystem(31, "消防系统"),
     PowerCable(32, "电力电缆"),
     OutletSleeve(33, "出线套管"),
-    Reactor(34, "电抗器"),
-    Capacitor(35, "电容器"),
+    Reactor(34, "开关柜"),
+    Capacitor(35, "电力电容器"),
     CapacitorTower(36, "电容器塔"),
     Resistor(37, "电阻器"),
     ValveTower(38, "阀塔"),
@@ -57,11 +57,17 @@ public enum EnumDeviceType {
     Boost(44, "升压变"),
     LeadAirChamber(45, "引线气室"),
     LeadVoltageChange(46, "引线压变"),
-    DCDivider(47, "直流分压器");
+    DCDivider(47, "直流分压器"),
+    Jiediwang(48,"接地网"),
+    Suoyongbian(49,"所用变"),
+    Fangdianxianquan(50,"放电线圈"),
+    Zhanneidianlan(51,"站内电缆"),
+    Zhubianyaqi(52,"油浸式变压器");
     private Integer value;
     private String text;
 
     private static Map<Integer, EnumDeviceType> pool = new HashMap<Integer, EnumDeviceType>();
+    private static Map<String, EnumDeviceType> textPool = new HashMap<String, EnumDeviceType>();
 
     static {
         for (EnumDeviceType each : EnumDeviceType.values()) {
@@ -70,6 +76,7 @@ public enum EnumDeviceType {
                 pool.put(null, null);
             }
             pool.put(each.getValue(), each);
+            textPool.put(each.getText(),each);
         }
     }
 
@@ -82,6 +89,9 @@ public enum EnumDeviceType {
 
     public static EnumDeviceType valueOf(Integer code) {
         return pool.get(code);
+    }
+    public static EnumDeviceType textOf(String text) {
+        return textPool.get(text);
     }
 
     public Integer getValue() {
