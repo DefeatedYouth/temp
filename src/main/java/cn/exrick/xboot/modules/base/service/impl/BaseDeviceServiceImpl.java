@@ -11,8 +11,12 @@ import cn.exrick.xboot.modules.base.dto.DeviceCountDTO;
 import cn.exrick.xboot.modules.base.dto.DeviceMonitorDTO;
 import cn.exrick.xboot.modules.base.dto.InspectionPlanDTO;
 import cn.exrick.xboot.modules.base.service.BaseDeviceService;
+import cn.exrick.xboot.modules.job.entity.JobOperationTicket;
 import cn.exrick.xboot.modules.job.entity.JobRepair;
+import cn.exrick.xboot.modules.job.entity.JobTicket;
+import cn.exrick.xboot.modules.job.service.JobOperationTicketService;
 import cn.exrick.xboot.modules.job.service.JobRepairService;
+import cn.exrick.xboot.modules.job.service.JobTicketService;
 import cn.exrick.xboot.modules.overview.dto.ToolMonitoringDTO;
 import cn.exrick.xboot.modules.shebei.entity.*;
 import cn.exrick.xboot.modules.shebei.service.*;
@@ -52,15 +56,16 @@ public class BaseDeviceServiceImpl extends ServiceImpl<BaseDeviceDao, BaseDevice
     AxfDeviceService axfDeviceService;
     @Autowired
     JobRepairService jobRepairService;
-
     @Autowired
     SbSparePartsListService sbSparePartsListService;
-
     @Autowired
     SbToolMonitoringService sbToolMonitoringService;
-
     @Autowired
     SbSecondaryEquipmentMonitoringService sbSecondaryEquipmentMonitoringService;
+    @Autowired
+    JobTicketService jobTicketService;
+    @Autowired
+    JobOperationTicketService jobOperationTicketService;
 
     @Override
     public List<DeviceCountDTO> getDeviceCount(BaseReqVO request) {
@@ -179,6 +184,31 @@ public class BaseDeviceServiceImpl extends ServiceImpl<BaseDeviceDao, BaseDevice
             }
         }
         return list;
+    }
+
+    @Override
+    public List<DeviceCountDTO> performanceManagement(BaseReqVO request) {
+        List<DeviceCountDTO> list = new ArrayList<>();
+        DeviceCountDTO firstDevice = new DeviceCountDTO();
+        int firstNum = jobTicketService.count(new QueryWrapper<JobTicket>().lambda()
+                .eq(JobTicket::getSiteId, request.getSiteId())
+                .eq(JobTicket::getTicketType, "第一种")
+        );
+
+        firstDevice.setEquipmentName("第一种工作票");
+        firstDevice.setNum(Long.parseLong(firstNum+""));
+
+        int secondNum = jobTicketService.count(new QueryWrapper<JobTicket>().lambda()
+                .eq(JobTicket::getSiteId, request.getSiteId())
+                .eq(JobTicket::getTicketType, "第二种")
+        );
+        DeviceCountDTO secondDevice = new DeviceCountDTO();
+        secondDevice.setEquipmentName("第二种工作票");
+        secondDevice.setNum(Long.parseLong(secondNum+""));
+
+       // jobOperationTicket
+
+        return null;
     }
 
 
@@ -420,4 +450,6 @@ public class BaseDeviceServiceImpl extends ServiceImpl<BaseDeviceDao, BaseDevice
         d4.setNum(0L);
         list.add(d4);
     }
+
+
 }

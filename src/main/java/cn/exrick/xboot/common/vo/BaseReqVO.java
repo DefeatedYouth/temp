@@ -13,11 +13,9 @@ import java.util.List;
 @Data
 public class BaseReqVO {
     @ApiModelProperty(value = "唯一标识")
-    private String id ;
+    private Integer id ;
     @ApiModelProperty(value = "唯一标识")
     private List<String> ids ;
-
-
 
     @ApiModelProperty(value = "设备类型id")
     private Integer type;

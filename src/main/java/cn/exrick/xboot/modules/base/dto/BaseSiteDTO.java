@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 public class BaseSiteDTO {
     @ApiModelProperty(value = "")
-    private String id;
+    private Long id;
 
     @ApiModelProperty(value = "名称")
     private String name;

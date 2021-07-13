@@ -25,7 +25,7 @@ public abstract class StmBaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "唯一标识")
-    private String id ;
+    private Long id ;
 
     @ApiModelProperty(value = "创建时间")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")

@@ -452,5 +452,16 @@ public class OverviewController {
         }
     }
 
+    @ApiOperation("运维绩效管理")
+    @GetMapping("/performanceManagement")
+    public Result<List<DeviceCountDTO>> performanceManagement(BaseReqVO request) {
+        try {
+            List<DeviceCountDTO> list = baseDeviceService.secondaryEquipment(request);
+            return  ResultUtil.data(list);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
+
 }
 

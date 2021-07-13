@@ -60,7 +60,11 @@ public class JobMaintenanceTasksController {
         QueryWrapper<JobMaintenanceTasks> queryWrapper = new QueryWrapper<JobMaintenanceTasks>() ;
         queryWrapper.lambda().eq(JobMaintenanceTasks::getSiteId,query.getSiteId());
         queryWrapper.lambda().like(query.getCity()!=null,JobMaintenanceTasks::getCity,query.getCity());
-      //  queryWrapper.lambda()
+        queryWrapper.lambda().like(query.getSiteName()!=null,JobMaintenanceTasks::getSiteName,query.getSiteName());
+        queryWrapper.lambda().like(query.getWorkingTeam()!=null,JobMaintenanceTasks::getWorkingTeam,query.getWorkingTeam()!=null);
+        queryWrapper.lambda().like(query.getMaintenanceProject()!=null,JobMaintenanceTasks::getMaintenanceProject,query.getMaintenanceProject());
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,JobMaintenanceTasks::getMaintenanceDate,query.getStartTime());
+        queryWrapper.lambda().lt(query.getEndTime() != null,JobMaintenanceTasks::getMaintenanceDate,query.getEndTime());
 
         //TODO 条件待填写
         Page page = jobMaintenanceTasksService.page(PageUtil.initMpPage(pageVo),queryWrapper);
