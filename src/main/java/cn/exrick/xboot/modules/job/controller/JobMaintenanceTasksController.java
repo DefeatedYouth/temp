@@ -58,6 +58,10 @@ public class JobMaintenanceTasksController {
     @GetMapping("/list")
     public Result<Page<JobMaintenanceTasks>> list(PageVo pageVo,JobMaintenanceTasksQuery query) {
         QueryWrapper<JobMaintenanceTasks> queryWrapper = new QueryWrapper<JobMaintenanceTasks>() ;
+        queryWrapper.lambda().eq(JobMaintenanceTasks::getSiteId,query.getSiteId());
+        queryWrapper.lambda().like(query.getCity()!=null,JobMaintenanceTasks::getCity,query.getCity());
+      //  queryWrapper.lambda()
+
         //TODO 条件待填写
         Page page = jobMaintenanceTasksService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);

@@ -47,7 +47,7 @@ spring:
             # 允许多条sql同时执行
             multi-statement-allow: true
       test-while-idle: true
-      validation-query: select 1 from dual
+      validation-query: select 1
       initial-size: 10
       max-active: 20
       min-idle: 10

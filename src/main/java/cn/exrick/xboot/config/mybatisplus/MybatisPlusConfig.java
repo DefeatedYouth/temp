@@ -21,7 +21,7 @@ public class MybatisPlusConfig {
         PaginationInterceptor page = new PaginationInterceptor();
         // 设置最大单页限制数量，默认 500 条，-1 不受限制
 //        page.setLimit(1000);
-        page.setDbType(DbType.MYSQL);
+        page.setDbType(DbType.POSTGRE_SQL);
         return  page;
     }
 }
