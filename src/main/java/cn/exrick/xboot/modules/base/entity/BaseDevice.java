@@ -81,4 +81,7 @@ public class BaseDevice extends StmBaseEntity {
 
     @ApiModelProperty(value = "相别")
     private String farewell;
+
+    @ApiModelProperty(value = "健康状态（0 健康 1亚健康 2注意 3异常 4严重")
+    private Integer deviceState;
 }

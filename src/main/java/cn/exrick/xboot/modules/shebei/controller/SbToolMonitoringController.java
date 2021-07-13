@@ -2,6 +2,7 @@ package cn.exrick.xboot.modules.shebei.controller;
 
 import cn.exrick.xboot.modules.shebei.entity.SbSparePartsList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
 import cn.exrick.xboot.common.vo.BaseReqVO;
@@ -20,6 +21,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RestController;
 import cn.exrick.xboot.modules.shebei.service.SbToolMonitoringService;
 
+import java.util.ArrayList;
 import java.util.List;
 import cn.exrick.xboot.common.vo.Result;
 /**
@@ -67,6 +69,45 @@ public class SbToolMonitoringController {
         queryWrapper.lambda().gt(query.getStartTime()!= null ,SbToolMonitoring::getLastTestDate,query.getStartTime()); //时间开始
         queryWrapper.lambda().lt(query.getEndTime() != null,SbToolMonitoring::getLastTestDate,query.getEndTime());//结束时间
 
+        List<SbToolMonitoring> sbToolMonitorings = sbToolMonitoringService.getBaseMapper().selectList(queryWrapper);
+       /* Page page = sbToolMonitoringService.page(PageUtil.initMpPage(pageVo),queryWrapper);
+        List<SbToolMonitoring> sbToolMonitorings = page.getRecords();*/
+       /* List<SbToolMonitoring> sbToolMonitorings = sbTo                    olMonitoringService.getBaseMapper().selectList(new QueryWrapper<SbToolMonitoring>().lambda()
+                .eq(SbToolMonitoring::getSiteId, query.getSiteId())
+        );*/
+        int oneDay = 24*60*60*1000;
+        List<SbToolMonitoring> newSbToolMonitoring = new ArrayList<>();
+
+        if (query.getIsOverdue().equals("0")){
+            sbToolMonitorings.forEach(sbToolMonitoring -> {
+                String testCycle = sbToolMonitoring.getTestCycle();
+                if (System.currentTimeMillis() - Integer.parseInt(testCycle)*oneDay*30 -  sbToolMonitoring.getLastTestDate().getTime() > oneDay*7){
+                    sbToolMonitoring.setIsOverdue("未超期");
+                    newSbToolMonitoring.add(sbToolMonitoring);
+                }
+            });
+        }else if (query.getIsOverdue().equals("1")){
+
+            sbToolMonitorings.forEach(sbToolMonitoring -> {
+                String testCycle = sbToolMonitoring.getTestCycle();
+                Long time = System.currentTimeMillis() - Integer.parseInt(testCycle)*oneDay*30 -  sbToolMonitoring.getLastTestDate().getTime();
+                if (time <= oneDay*7&&time>0){
+                    sbToolMonitoring.setIsOverdue("即将超期");
+                    newSbToolMonitoring.add(sbToolMonitoring);
+                }
+            });
+
+        }else if (query.getIsOverdue().equals("2")) {
+            sbToolMonitorings.forEach(sbToolMonitoring -> {
+                String testCycle = sbToolMonitoring.getTestCycle();
+                if (System.currentTimeMillis() - Integer.parseInt(testCycle)*oneDay*30 -  sbToolMonitoring.getLastTestDate().getTime() <0){
+                    sbToolMonitoring.setIsOverdue("已超期");
+                    newSbToolMonitoring.add(sbToolMonitoring);
+                }
+            });
+
+        }
+        PageUtil.listToPage(pageVo,newSbToolMonitoring);
         Page page = sbToolMonitoringService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);
     }

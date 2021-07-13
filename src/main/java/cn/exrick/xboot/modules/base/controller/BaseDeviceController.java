@@ -1,5 +1,6 @@
 package cn.exrick.xboot.modules.base.controller;
 
+import cn.exrick.xboot.common.vo.InspectionPlanVO;
 import cn.exrick.xboot.modules.base.dto.AnFireDTO;
 import cn.exrick.xboot.modules.base.dto.DeviceCountDTO;
 import cn.exrick.xboot.modules.base.dto.DeviceMonitorDTO;
@@ -138,7 +139,7 @@ public class BaseDeviceController {
 
     @ApiOperation("运检计划监视")
     @GetMapping("/getInspectionPlan")
-    public Result<InspectionPlanDTO> getInspectionPlan(BaseReqVO request) {
+    public Result<InspectionPlanDTO> getInspectionPlan(InspectionPlanVO request) {
         try {
             InspectionPlanDTO inspectionPlan = baseDeviceService.getInspectionPlan(request);
             return  ResultUtil.data(inspectionPlan);

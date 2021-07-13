@@ -60,13 +60,14 @@ public class BaseEquipmentInvestigationController {
         QueryWrapper<BaseEquipmentInvestigation> queryWrapper = new QueryWrapper<BaseEquipmentInvestigation>() ;
         //TODO 条件待填写
         queryWrapper.lambda().eq(query.getSiteId()!=null,BaseEquipmentInvestigation::getSiteId,query.getSiteId());
+        queryWrapper.lambda().eq(query.getSiteId()!=null,BaseEquipmentInvestigation::getLookFlag,1);
         queryWrapper.lambda().like(query.getManufacturer()!=null,BaseEquipmentInvestigation::getManufacturer,query.getManufacturer());
         queryWrapper.lambda().like(query.getEquipmentModel()!=null,BaseEquipmentInvestigation::getEquipmentModel,query.getEquipmentModel());
         queryWrapper.lambda().like(query.getVoltageLevel()!=null,BaseEquipmentInvestigation::getVoltageLevel,query.getVoltageLevel());
-        queryWrapper.lambda().gt(query.getStartTime()!= null ,BaseEquipmentInvestigation::getCommissioningDate,query.getStartTime()); //时间开始
-        queryWrapper.lambda().lt(query.getEndTime() != null,BaseEquipmentInvestigation::getCommissioningDate,query.getEndTime());//结束时间
-        queryWrapper.lambda().gt(query.getStartTime()!= null ,BaseEquipmentInvestigation::getDateManufacture,query.getStartTime()); //时间开始
-        queryWrapper.lambda().lt(query.getEndTime() != null,BaseEquipmentInvestigation::getDateManufacture,query.getEndTime());//结束时间
+        queryWrapper.lambda().gt(query.getStartTime()!= null ,BaseEquipmentInvestigation::getCommissioningDate,query.getStartTime());
+        queryWrapper.lambda().lt(query.getEndTime() != null,BaseEquipmentInvestigation::getCommissioningDate,query.getEndTime());
+        queryWrapper.lambda().gt(query.getProductionStartTime()!= null ,BaseEquipmentInvestigation::getDateManufacture,query.getProductionStartTime());
+        queryWrapper.lambda().lt(query.getProductionEndTime() != null,BaseEquipmentInvestigation::getDateManufacture,query.getProductionEndTime());
         Page page = baseEquipmentInvestigationService.page(PageUtil.initMpPage(pageVo),queryWrapper);
         return ResultUtil.data(page);
     }

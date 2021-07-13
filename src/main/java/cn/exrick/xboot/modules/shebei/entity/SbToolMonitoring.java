@@ -32,6 +32,9 @@ public class SbToolMonitoring extends StmBaseEntity {
     @ApiModelProperty(value = "设备名称")
     private String deviceName;
 
+    @ApiModelProperty(value = "设备类型")
+    private String deviceType;
+
     @ApiModelProperty(value = "规格型号")
     private String specificationModel;
 
@@ -50,8 +53,7 @@ public class SbToolMonitoring extends StmBaseEntity {
     @ApiModelProperty(value = "出厂日期")
     private Date dateProduction;
 
-    @ApiModelProperty(value = "超期状态")
+    @ApiModelProperty(value = "超期状态 0未超期 1即将超期 2已超期")
     private String isOverdue;
-
 
 }

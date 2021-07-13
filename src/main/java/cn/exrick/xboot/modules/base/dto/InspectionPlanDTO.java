@@ -11,6 +11,7 @@ import lombok.Data;
  */
 @Data
 public class InspectionPlanDTO {
+
     @ApiModelProperty(value = "计划总数")
     private Integer planTotal;
 
@@ -22,5 +23,8 @@ public class InspectionPlanDTO {
 
     @ApiModelProperty(value = "已完成数量")
     private Integer completedNum;
+
+    @ApiModelProperty(value = "超期数量")
+    private Integer isOverNum;
 
 }

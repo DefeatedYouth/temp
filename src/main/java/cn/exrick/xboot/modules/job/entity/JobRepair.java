@@ -83,4 +83,7 @@ public class JobRepair extends StmBaseEntity {
 
     @ApiModelProperty(value = "是否超期")
     private Integer overFlag;
+
+    @ApiModelProperty(value = "0检修1运维2带电检测")
+    private Integer state;
 }

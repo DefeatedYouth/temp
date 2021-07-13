@@ -3,6 +3,7 @@ package cn.exrick.xboot.modules.base.service.impl;
 
 import cn.exrick.xboot.common.enums.*;
 import cn.exrick.xboot.common.vo.BaseReqVO;
+import cn.exrick.xboot.common.vo.InspectionPlanVO;
 import cn.exrick.xboot.modules.anxiaofang.entity.AxfDevice;
 import cn.exrick.xboot.modules.anxiaofang.service.AxfDeviceService;
 import cn.exrick.xboot.modules.base.dto.AnFireDTO;
@@ -12,6 +13,7 @@ import cn.exrick.xboot.modules.base.dto.InspectionPlanDTO;
 import cn.exrick.xboot.modules.base.service.BaseDeviceService;
 import cn.exrick.xboot.modules.job.entity.JobRepair;
 import cn.exrick.xboot.modules.job.service.JobRepairService;
+import cn.exrick.xboot.modules.overview.dto.ToolMonitoringDTO;
 import cn.exrick.xboot.modules.shebei.entity.*;
 import cn.exrick.xboot.modules.shebei.service.*;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -22,6 +24,7 @@ import cn.exrick.xboot.modules.base.entity.BaseDevice;
 import cn.exrick.xboot.modules.base.dao.BaseDeviceDao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +53,15 @@ public class BaseDeviceServiceImpl extends ServiceImpl<BaseDeviceDao, BaseDevice
     @Autowired
     JobRepairService jobRepairService;
 
+    @Autowired
+    SbSparePartsListService sbSparePartsListService;
+
+    @Autowired
+    SbToolMonitoringService sbToolMonitoringService;
+
+    @Autowired
+    SbSecondaryEquipmentMonitoringService sbSecondaryEquipmentMonitoringService;
+
     @Override
     public List<DeviceCountDTO> getDeviceCount(BaseReqVO request) {
         List<DeviceCountDTO> list = new ArrayList<>();
@@ -64,6 +76,100 @@ public class BaseDeviceServiceImpl extends ServiceImpl<BaseDeviceDao, BaseDevice
             if (map.get("device_type") != null && map.get("num") != null ){
                 Integer deviceType = (Integer)map.get("device_type");
                 if (deviceType <= 8){
+                    Long num = (Long)map.get("num");
+                    DeviceCountDTO deviceCountDTO = list.get(deviceType - 1);
+                    if (deviceCountDTO != null){
+                        deviceCountDTO.setNum(num);
+                    }
+                }
+            }
+        }
+        return list;
+    }
+
+
+    @Override
+    public List<DeviceCountDTO> sparePartsMonitoring(BaseReqVO request) {
+        List<DeviceCountDTO> list = new ArrayList<>();
+        initDeviceCountList(list);
+        QueryWrapper<SbSparePartsList> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda()
+                .eq(request.getSiteId() != null,SbSparePartsList::getSiteId, request.getSiteId())
+                .groupBy(SbSparePartsList::getDeviceType);
+        queryWrapper.select("device_type,count(*) num");
+        List<Map<String, Object>> maps = sbSparePartsListService.listMaps(queryWrapper);
+        for (Map<String, Object> map : maps) {
+            if (map.get("device_type") != null && map.get("num") != null ){
+                Integer deviceType = (Integer)map.get("device_type");
+                if (deviceType <= 8){
+                    Long num = (Long)map.get("num");
+                    DeviceCountDTO deviceCountDTO = list.get(deviceType - 1);
+                    if (deviceCountDTO != null){
+                        deviceCountDTO.setNum(num);
+                    }
+                }
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public ToolMonitoringDTO toolMonitoring(BaseReqVO request) {
+        ToolMonitoringDTO toolMonitoringDTO = new ToolMonitoringDTO();
+        List<DeviceCountDTO> list = new ArrayList<>();
+        initWorkDeviceCountList(list);
+
+        QueryWrapper<SbToolMonitoring> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda()
+                .eq(request.getSiteId() != null,SbToolMonitoring::getSiteId, request.getSiteId())
+                .groupBy(SbToolMonitoring::getDeviceType);
+        queryWrapper.select("device_type,count(*) num");
+        List<Map<String, Object>> maps = sbToolMonitoringService.listMaps(queryWrapper);
+        for (Map<String, Object> map : maps) {
+            if (map.get("device_type") != null && map.get("num") != null ){
+                Integer deviceType = (Integer)map.get("device_type");
+                if (deviceType <= 6){
+                    Long num = (Long)map.get("num");
+                    DeviceCountDTO deviceCountDTO = list.get(deviceType - 1);
+                    if (deviceCountDTO != null){
+                        deviceCountDTO.setNum(num);
+                    }
+                }
+            }
+        }
+        List<SbToolMonitoring> sbToolMonitorings = sbToolMonitoringService.getBaseMapper().selectList(new QueryWrapper<SbToolMonitoring>().lambda()
+                .eq(SbToolMonitoring::getSiteId, request.getSiteId())
+        );
+        int oneDay = 24*60*60*1000;
+        List<SbToolMonitoring> newSbToolMonitoring = new ArrayList<>();
+        sbToolMonitorings.forEach(sbToolMonitoring -> {
+            String testCycle = sbToolMonitoring.getTestCycle();
+           if (System.currentTimeMillis() - Integer.parseInt(testCycle)*oneDay*30 -  sbToolMonitoring.getLastTestDate().getTime() <= oneDay*7){
+               newSbToolMonitoring.add(sbToolMonitoring);
+           }
+        });
+
+        toolMonitoringDTO.setDeviceCountDTOS(list);
+        toolMonitoringDTO.setSbToolMonitorings(newSbToolMonitoring);
+        return toolMonitoringDTO;
+    }
+
+
+    @Override
+    public List<DeviceCountDTO> secondaryEquipment(BaseReqVO request) {
+        List<DeviceCountDTO> list = new ArrayList<>();
+        iniTSecondaryEquipmentCountList(list);
+
+        QueryWrapper<SbSecondaryEquipmentMonitoring> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda()
+                .eq(request.getSiteId() != null,SbSecondaryEquipmentMonitoring::getSiteId, request.getSiteId())
+                .groupBy(SbSecondaryEquipmentMonitoring::getDeviceType);
+        queryWrapper.select("device_type,count(*) num");
+        List<Map<String, Object>> maps = sbSecondaryEquipmentMonitoringService.listMaps(queryWrapper);
+        for (Map<String, Object> map : maps) {
+            if (map.get("device_type") != null && map.get("num") != null ){
+                Integer deviceType = (Integer)map.get("device_type");
+                if (deviceType <= 6){
                     Long num = (Long)map.get("num");
                     DeviceCountDTO deviceCountDTO = list.get(deviceType - 1);
                     if (deviceCountDTO != null){
@@ -186,25 +292,45 @@ public class BaseDeviceServiceImpl extends ServiceImpl<BaseDeviceDao, BaseDevice
     }
 
     @Override
-    public InspectionPlanDTO getInspectionPlan(BaseReqVO request) {
+    public InspectionPlanDTO getInspectionPlan(InspectionPlanVO request) {
         InspectionPlanDTO inspectionPlanDTO = new InspectionPlanDTO();
         Integer planTotal = jobRepairService.getBaseMapper().selectCount(new QueryWrapper<JobRepair>().lambda()
                 .eq(JobRepair::getSiteId, request.getSiteId())
+                .eq(request.getState()!=null,JobRepair::getState,request.getState())
+                .gt(request.getStartTime()!= null ,JobRepair::getPlanTime,request.getStartTime())
+                .lt(request.getEndTime() != null,JobRepair::getPlanTime,request.getEndTime())
         );
         inspectionPlanDTO.setPlanTotal(planTotal);
+        Integer overNum = jobRepairService.getBaseMapper().selectCount(new QueryWrapper<JobRepair>().lambda()
+                .eq(JobRepair::getSiteId, request.getSiteId())
+                .eq(JobRepair::getOverFlag,1)
+                .eq(request.getState()!=null,JobRepair::getState,request.getState())
+                .gt(request.getStartTime()!= null ,JobRepair::getPlanTime,request.getStartTime())
+                .lt(request.getEndTime() != null,JobRepair::getPlanTime,request.getEndTime())
+        );
+        inspectionPlanDTO.setIsOverNum(overNum);
         Integer processing = jobRepairService.getBaseMapper().selectCount(new QueryWrapper<JobRepair>().lambda()
                 .eq(JobRepair::getSiteId, request.getSiteId())
                 .eq(JobRepair::getJobState,EnumJobState.Processing.getValue())
+                .eq(request.getState()!=null,JobRepair::getState,request.getState())
+                .gt(request.getStartTime()!= null ,JobRepair::getPlanTime,request.getStartTime())
+                .lt(request.getEndTime() != null,JobRepair::getPlanTime,request.getEndTime())
         );
         inspectionPlanDTO.setLineNum(processing);
         Integer notStarted = jobRepairService.getBaseMapper().selectCount(new QueryWrapper<JobRepair>().lambda()
                 .eq(JobRepair::getSiteId, request.getSiteId())
                 .eq(JobRepair::getJobState,EnumJobState.Notstarted.getValue())
+                .eq(request.getState()!=null,JobRepair::getState,request.getState())
+                .gt(request.getStartTime()!= null ,JobRepair::getPlanTime,request.getStartTime())
+                .lt(request.getEndTime() != null,JobRepair::getPlanTime,request.getEndTime())
         );
         inspectionPlanDTO.setNotStartedNum(notStarted);
         Integer completed = jobRepairService.getBaseMapper().selectCount(new QueryWrapper<JobRepair>().lambda()
                 .eq(JobRepair::getSiteId, request.getSiteId())
                 .eq(JobRepair::getJobState,EnumJobState.Completed.getValue())
+                .eq(request.getState()!=null,JobRepair::getState,request.getState())
+                .gt(request.getStartTime()!= null ,JobRepair::getPlanTime,request.getStartTime())
+                .lt(request.getEndTime() != null,JobRepair::getPlanTime,request.getEndTime())
         );
         inspectionPlanDTO.setCompletedNum(completed);
         return inspectionPlanDTO;
@@ -244,5 +370,54 @@ public class BaseDeviceServiceImpl extends ServiceImpl<BaseDeviceDao, BaseDevice
         d8.setEquipmentName("组合电器");
         d8.setNum(0L);
         list.add(d8);
+    }
+
+
+
+    private void initWorkDeviceCountList(List<DeviceCountDTO> list){
+        DeviceCountDTO d1 = new DeviceCountDTO();
+        d1.setEquipmentName("绝缘杆");
+        d1.setNum(0L);
+        list.add(d1);
+        DeviceCountDTO d2 = new DeviceCountDTO();
+        d2.setEquipmentName("验电器");
+        d2.setNum(0L);
+        list.add(d2);
+        DeviceCountDTO d3 = new DeviceCountDTO();
+        d3.setEquipmentName("绝缘手套");
+        d3.setNum(0L);
+        list.add(d3);
+        DeviceCountDTO d4 = new DeviceCountDTO();
+        d4.setEquipmentName("绝缘靴");
+        d4.setNum(0L);
+        list.add(d4);
+        DeviceCountDTO d5 = new DeviceCountDTO();
+        d5.setEquipmentName("安全带");
+        d5.setNum(0L);
+        list.add(d5);
+        DeviceCountDTO d6 = new DeviceCountDTO();
+        d6.setEquipmentName("安全绳");
+        d6.setNum(0L);
+        list.add(d6);
+    }
+
+
+    private void iniTSecondaryEquipmentCountList(List<DeviceCountDTO> list){
+        DeviceCountDTO d1 = new DeviceCountDTO();
+        d1.setEquipmentName("变压器保护");
+        d1.setNum(0L);
+        list.add(d1);
+        DeviceCountDTO d2 = new DeviceCountDTO();
+        d2.setEquipmentName("母线保护");
+        d2.setNum(0L);
+        list.add(d2);
+        DeviceCountDTO d3 = new DeviceCountDTO();
+        d3.setEquipmentName("线路保护");
+        d3.setNum(0L);
+        list.add(d3);
+        DeviceCountDTO d4 = new DeviceCountDTO();
+        d4.setEquipmentName("电能表");
+        d4.setNum(0L);
+        list.add(d4);
     }
 }
