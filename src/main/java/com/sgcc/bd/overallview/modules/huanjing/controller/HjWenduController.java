@@ -10,7 +10,6 @@ import com.sgcc.bd.overallview.modules.huanjing.service.HjWenduService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
-import cn.exrick.xboot.common.utils.*;
 import com.sgcc.bd.overallview.modules.huanjing.entity.HjWendu;
 import com.sgcc.bd.overallview.modules.huanjing.query.HjWenduQuery;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

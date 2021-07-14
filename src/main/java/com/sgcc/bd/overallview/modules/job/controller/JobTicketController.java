@@ -9,7 +9,6 @@ import com.sgcc.bd.overallview.modules.job.service.JobTicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
-import cn.exrick.xboot.common.utils.*;
 import com.sgcc.bd.overallview.modules.job.entity.JobTicket;
 import com.sgcc.bd.overallview.modules.job.query.JobTicketQuery;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

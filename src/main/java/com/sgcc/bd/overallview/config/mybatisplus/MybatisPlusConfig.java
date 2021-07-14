@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Exrickx
  */
 @Configuration
-@MapperScan({"cn.exrick.xboot.modules.*.dao"})
+@MapperScan({"com.sgcc.bd.overallview.modules.*.dao"})
 public class MybatisPlusConfig {
 
     /**

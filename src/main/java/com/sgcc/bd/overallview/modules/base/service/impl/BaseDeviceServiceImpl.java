@@ -1,7 +1,6 @@
 package com.sgcc.bd.overallview.modules.base.service.impl;
 
 
-import cn.exrick.xboot.common.enums.*;
 import com.sgcc.bd.overallview.common.enums.*;
 import com.sgcc.bd.overallview.common.vo.BaseReqVO;
 import com.sgcc.bd.overallview.common.vo.InspectionPlanVO;
@@ -21,8 +20,6 @@ import com.sgcc.bd.overallview.modules.job.service.JobOperationTicketService;
 import com.sgcc.bd.overallview.modules.job.service.JobRepairService;
 import com.sgcc.bd.overallview.modules.job.service.JobTicketService;
 import com.sgcc.bd.overallview.modules.overview.dto.ToolMonitoringDTO;
-import cn.exrick.xboot.modules.shebei.entity.*;
-import cn.exrick.xboot.modules.shebei.service.*;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sgcc.bd.overallview.modules.shebei.entity.*;
 import com.sgcc.bd.overallview.modules.shebei.service.*;
