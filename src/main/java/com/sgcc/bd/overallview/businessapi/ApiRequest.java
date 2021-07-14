@@ -18,5 +18,6 @@ public class  ApiRequest<T extends ApiResponse> {
     protected Object apiCode;
     @ApiModelProperty(value = "接口名称")
     protected Object apiName;
-
+    @ApiModelProperty(value = "接口描述")
+    protected Object apiDescribe;
 }

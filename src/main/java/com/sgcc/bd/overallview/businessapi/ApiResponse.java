@@ -17,4 +17,7 @@ public class ApiResponse  implements Serializable{
     private String message;
 
 
+    @ApiModelProperty(value = "返回内容")
+    private String jsonContent;
+
 }

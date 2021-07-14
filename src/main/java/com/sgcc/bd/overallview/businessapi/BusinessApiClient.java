@@ -6,45 +6,46 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.Iterator;
 import java.util.Map;
 
-public class ApiHttpClient {
+public class BusinessApiClient {
     //网关
     //开发环境：pms.pms30dev.com.cn
-    private String getway="pms.pms30dev.com.cn";
+    private static String getway="pms.pms30dev.com.cn";
     //应用ID
-    private String appId="";
+    private static String appId="";
     //应用秘钥
-    private String appSecret="";
+    private static String appSecret="";
 
     //加密秘钥
-    private String refresh_token;
+    private static String refresh_token;
     //过期时间
-    private Integer expires_in;
+    private static Integer expires_in;
     //生成的jwt
-    private String access_token="eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMDAwMDAwMDUwOTE5NiIsImlhdCI6MTYyNjE2ODkwNSwic3ViIjoid3doX3BtcyIsImF1ZCI6IuWQtOaWh-m5pCIsImV4cCI6MTYyNjI1NTMwNX0.ZwiTkVXBM952MlBc4HFw0wwNfOj-KBKs_JC9zjPy9CE";
+    private static String access_token="eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMDAwMDAwMDUwOTE5NiIsImlhdCI6MTYyNjE2ODkwNSwic3ViIjoid3doX3BtcyIsImF1ZCI6IuWQtOaWh-m5pCIsImV4cCI6MTYyNjI1NTMwNX0.ZwiTkVXBM952MlBc4HFw0wwNfOj-KBKs_JC9zjPy9CE";
 
 
-    private ApiHttpClient instance;
+    private static BusinessApiClient instance;
 
-    public ApiHttpClient getInstance(){
-        if(this.instance==null&&access_token.equals("")){
+    public static BusinessApiClient getInstance(){
+        instance=new BusinessApiClient();
+        if(instance==null||access_token.equals("")){
             JSONObject jsonReq=new JSONObject();
-            jsonReq.put("client_id",this.appId);
-            jsonReq.put("client_secret",this.appSecret);
+            jsonReq.put("client_id",appId);
+            jsonReq.put("client_secret",appSecret);
             jsonReq.put("grant_type","credentials");
-            String  strResJson=HttpClient.doPost(this.getway+"/psr-auth/oauth/accessToken",JSON.toJSONString(jsonReq),this.access_token);
+            String  strResJson=HttpClient.doPost(getway+"/psr-auth/oauth/accessToken",JSON.toJSONString(jsonReq),access_token);
             JSONObject jsonRes=JSON.parseObject(strResJson);
-            this.expires_in=Integer.parseInt(jsonRes.get("expires_in").toString());
-            this.refresh_token=jsonRes.get("refresh_token").toString();
-            this.access_token=jsonRes.get("access_token").toString();
+            expires_in=Integer.parseInt(jsonRes.get("expires_in").toString());
+            refresh_token=jsonRes.get("refresh_token").toString();
+            access_token=jsonRes.get("access_token").toString();
         }
         //判断token是否过期
 
-        return this.instance;
+        return instance;
     }
-    private <T extends ApiResponse> T Execute(ApiRequest<T> request){
+    public <T extends ApiResponse> T Execute(ApiRequest<T> request){
         T rsp = null;
         try {
-            String httpUrl=this.getway+request.getApiUrl();
+            String httpUrl=getway+request.getApiUrl();
             String strResJson="";
             JSONObject jsonRequest=(JSONObject)JSON.toJSON(request);
             jsonRequest.remove("t");
@@ -52,6 +53,7 @@ public class ApiHttpClient {
             jsonRequest.remove("apiUrl");
             jsonRequest.remove("apiCode");
             jsonRequest.remove("apiName");
+            jsonRequest.remove("apiDescribe");
 
             Iterator iter = jsonRequest.entrySet().iterator();
             while (iter.hasNext()) {
@@ -67,15 +69,19 @@ public class ApiHttpClient {
                     Map.Entry entry = (Map.Entry) iter1.next();
                         httpUrl += entry.getKey().toString() + "=" + entry.getValue().toString() + "&";
                 }
-                strResJson=HttpClient.doGet(httpUrl,this.access_token);
+                strResJson=HttpClient.doGet(httpUrl,access_token);
+                rsp.setJsonContent(strResJson);
             }
             else{
-                strResJson=HttpClient.doPost(httpUrl,JSON.toJSONString(jsonRequest),this.access_token);
+                System.out.println(JSON.toJSONString(jsonRequest));
+                strResJson=HttpClient.doPost(httpUrl,JSON.toJSONString(jsonRequest),access_token);
+                rsp.setJsonContent(strResJson);
             }
             rsp= (T)JSON.parse(strResJson);
         }
         catch (Exception ex){
-            rsp= (T)JSON.parse("{\"status\":\"-9\",\"message\":\""+ex.getMessage()+"\"}");
+            rsp.setStatus("-9");
+            rsp.setMessage(ex.getMessage());
         }
         return rsp;
     }
