@@ -45,14 +45,7 @@ public class TestController {
         request.setTime(new Date());
         FindMeteorologyResponse response= BusinessApiClient.getInstance().Execute(request);
 
-        System.out.println(response.getJsonContent());
-
-
-//        rsp=(ApiResponse) JSON.parse("{\"message\":\"aaa\",\"status\":\"1\"}");
-//        rsp=JSON.parseObject("{\"message\":\"aaa\",\"status\":\"1\"}", new TypeReference<ApiResponse>() {});
-
-
-        return ResultUtil.data(response.getJsonContent());
+        return ResultUtil.data(response);
     }
 
 
