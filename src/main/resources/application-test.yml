@@ -1,7 +1,7 @@
 spring:
   # 数据源
   datasource:
-    url: jdbc:postgresql://10.144.95.192:31336/bd_overallview
+    url: jdbc:postgresql://10.144.95.192:31336/pms3?searchpath=bd_overallview
     username: power_tf
     password: 1qaz@WSX
     driver-class-name: org.postgresql.Driver

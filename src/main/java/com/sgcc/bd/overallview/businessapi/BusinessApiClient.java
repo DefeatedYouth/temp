@@ -12,7 +12,7 @@ import java.util.Map;
 public class BusinessApiClient {
     //网关
     //开发环境：pms.pms30dev.com.cn
-    private static String getway="http://pms.pms30dev.com.cn";
+    private static String getway="http://dwzyzt.cloudjs.dev.com.cn";
     //应用ID
     private static String appId="";
     //应用秘钥
@@ -23,7 +23,7 @@ public class BusinessApiClient {
     //过期时间
     private static Integer expires_in;
     //生成的jwt
-    private static String access_token="eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJkYXNoYm9hcmQtcmVhZC11c2VyLXRva2VuLXQ2OHo2Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImRhc2hib2FyZC1yZWFkLXVzZXIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiJlODA0NjBkNy05ZTg0LTExZWItOTM2OC0wMDE2M2UwMTAzN2YiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZS1zeXN0ZW06ZGFzaGJvYXJkLXJlYWQtdXNlciJ9.B5fxdVy0ZYm_8GLJCG74mhO9x4vnDDOC70L_TwZPtUaLeioeb1dTtgSFUAndtgtnJLyV8WjNOse-jH0Bj-5eScbNTLpFjBNTgDBcQi3UOKBaXOHfWnqplHS3WiZkkC4fnSyYhCkw-gRKuB1_n2oOk85GZnF5d5Nns6G0iXH4lNBihuD5K2O19Gbk2RwPZfGNhfR_dWc9SL-Dp_4OCC_hCFvlRbUmQ1bxvfzzZheKOGClLQVJOTHD0A8jOKya-mAyCDU1LSJpi-9HwbKodWfEiXOPNocFczDRNlEQ9lZQytneXGN2NmzKSupr3oFagUcfKYkAsNHJfeMhirj6NPNLNg";
+    private static String access_token="eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMDAwMDAwMDUwOTE5NiIsImlhdCI6MTYyNjE2ODkwNSwic3ViIjoid3doX3BtcyIsImF1ZCI6IuWQtOaWh-m5pCIsImV4cCI6MTYyNjI1NTMwNX0.ZwiTkVXBM952MlBc4HFw0wwNfOj-KBKs_JC9zjPy9CE";
 
 
     private static BusinessApiClient instance;
