@@ -4,11 +4,11 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.lang.reflect.ParameterizedType;
+
 @Data
 @ApiModel(value="业务中台请求体基对象")
 public class  ApiRequest<T extends ApiResponse> {
-
-    private T t;
 
     @ApiModelProperty(value = "请求方式:post,get")
     protected String method="post";
@@ -20,4 +20,11 @@ public class  ApiRequest<T extends ApiResponse> {
     protected Object apiName;
     @ApiModelProperty(value = "接口描述")
     protected Object apiDescribe;
+
+    public Class<T> responseClass()
+    {
+        Class<T> tClass = (Class<T>)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        return tClass;
+    }
+
 }

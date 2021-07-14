@@ -2,7 +2,10 @@ package com.sgcc.bd.overallview.businessapi;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -26,6 +29,7 @@ public class BusinessApiClient {
     private static BusinessApiClient instance;
 
     public static BusinessApiClient getInstance(){
+
         instance=new BusinessApiClient();
         if(instance==null||access_token.equals("")){
             JSONObject jsonReq=new JSONObject();
@@ -42,13 +46,18 @@ public class BusinessApiClient {
 
         return instance;
     }
+
+    public <T> T newTclass (Class < T > clazz) throws InstantiationException, IllegalAccessException {
+        T obj = clazz.newInstance();
+        return obj;
+    }
+
     public <T extends ApiResponse> T Execute(ApiRequest<T> request){
-        T rsp = null;
+        T rsp=null;
         try {
             String httpUrl=getway+request.getApiUrl();
             String strResJson="";
             JSONObject jsonRequest=(JSONObject)JSON.toJSON(request);
-            jsonRequest.remove("t");
             jsonRequest.remove("method");
             jsonRequest.remove("apiUrl");
             jsonRequest.remove("apiCode");
@@ -70,18 +79,16 @@ public class BusinessApiClient {
                         httpUrl += entry.getKey().toString() + "=" + entry.getValue().toString() + "&";
                 }
                 strResJson=HttpClient.doGet(httpUrl,access_token);
-                rsp.setJsonContent(strResJson);
             }
             else{
                 System.out.println(JSON.toJSONString(jsonRequest));
                 strResJson=HttpClient.doPost(httpUrl,JSON.toJSONString(jsonRequest),access_token);
-                rsp.setJsonContent(strResJson);
             }
-            rsp= (T)JSON.parse(strResJson);
+            rsp= (T)JSON.parseObject(strResJson, request.responseClass());
+            rsp.setJsonContent(strResJson);
         }
         catch (Exception ex){
-            rsp.setStatus("-9");
-            rsp.setMessage(ex.getMessage());
+            rsp=(T)JSON.parseObject("{\"message\":\""+ex.getMessage()+"\",\"status\":\"-9\",\"jsonContent\":\"\"}",request.responseClass());
         }
         return rsp;
     }

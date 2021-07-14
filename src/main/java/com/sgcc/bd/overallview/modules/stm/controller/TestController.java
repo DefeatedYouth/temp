@@ -1,5 +1,8 @@
 package com.sgcc.bd.overallview.modules.stm.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
+import com.sgcc.bd.overallview.businessapi.ApiResponse;
 import com.sgcc.bd.overallview.businessapi.BusinessApiClient;
 import com.sgcc.bd.overallview.businessapi.environmententer.FindMeteorologyRequest;
 import com.sgcc.bd.overallview.businessapi.environmententer.FindMeteorologyResponse;
@@ -43,6 +46,12 @@ public class TestController {
         FindMeteorologyResponse response= BusinessApiClient.getInstance().Execute(request);
 
         System.out.println(response.getJsonContent());
+
+
+//        rsp=(ApiResponse) JSON.parse("{\"message\":\"aaa\",\"status\":\"1\"}");
+//        rsp=JSON.parseObject("{\"message\":\"aaa\",\"status\":\"1\"}", new TypeReference<ApiResponse>() {});
+
+
         return ResultUtil.data(response.getJsonContent());
     }
 
