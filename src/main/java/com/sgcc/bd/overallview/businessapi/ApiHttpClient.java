@@ -8,7 +8,8 @@ import java.util.Map;
 
 public class ApiHttpClient {
     //网关
-    private String getway="http://20.132.145.55:30002";
+    //开发环境：pms.pms30dev.com.cn
+    private String getway="pms.pms30dev.com.cn";
     //应用ID
     private String appId="";
     //应用秘钥
@@ -19,7 +20,7 @@ public class ApiHttpClient {
     //过期时间
     private Integer expires_in;
     //生成的jwt
-    private String access_token="";
+    private String access_token="eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMDAwMDAwMDUwOTE5NiIsImlhdCI6MTYyNjE2ODkwNSwic3ViIjoid3doX3BtcyIsImF1ZCI6IuWQtOaWh-m5pCIsImV4cCI6MTYyNjI1NTMwNX0.ZwiTkVXBM952MlBc4HFw0wwNfOj-KBKs_JC9zjPy9CE";
 
 
     private ApiHttpClient instance;
