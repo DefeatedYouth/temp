@@ -22,6 +22,12 @@ applocal:
     currentOrgId: 8a0f688f46db11f00146db130fa002ce
     currentOrgPath: 国网福建电力/国网福州供电公司/
 
+datacenter:
+  businessapi:
+    getway: http://dwzyzt.cloudjs.dev.com.cn
+    appId:  1122
+    appSecret: 2233
+    accessToken: eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMDAwMDAwMDUwOTE5NiIsImlhdCI6MTYyNjE2ODkwNSwic3ViIjoid3doX3BtcyIsImF1ZCI6IuWQtOaWh-m5pCIsImV4cCI6MTYyNjI1NTMwNX0.ZwiTkVXBM952MlBc4HFw0wwNfOj-KBKs_JC9zjPy9CE
 
 # 面向科技 密码
 mx:

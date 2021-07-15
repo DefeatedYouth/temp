@@ -3,6 +3,8 @@ package com.sgcc.bd.overallview.businessapi;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.sgcc.bd.overallview.common.utils.SpringContextUtil;
+import com.sgcc.bd.overallview.config.properties.DataCenterProperties;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -25,6 +27,13 @@ public class BusinessApiClient {
     //生成的jwt
     private static String access_token="eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMDAwMDAwMDUwOTE5NiIsImlhdCI6MTYyNjE2ODkwNSwic3ViIjoid3doX3BtcyIsImF1ZCI6IuWQtOaWh-m5pCIsImV4cCI6MTYyNjI1NTMwNX0.ZwiTkVXBM952MlBc4HFw0wwNfOj-KBKs_JC9zjPy9CE";
 
+    static {
+        DataCenterProperties dataCenterProperties = SpringContextUtil.getBean(DataCenterProperties.class);
+        getway = dataCenterProperties.getGetway();
+        appId = dataCenterProperties.getAppId();
+        appSecret = dataCenterProperties.getAppSecret();
+        access_token = dataCenterProperties.getAccessToken();
+    }
 
     private static BusinessApiClient instance;
 
