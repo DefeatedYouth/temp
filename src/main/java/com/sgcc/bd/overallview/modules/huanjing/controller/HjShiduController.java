@@ -94,15 +94,6 @@ public class HjShiduController {
         }
     }
 
-    @ApiOperation(value = "湿度首页统计",notes = "参数 变电站id")
-    @GetMapping("/temperatureCount")
-    public Result<HjWenduDTO> temperatureCount(BaseReqVO request) {
-        try {
-            HjWenduDTO hjWenduDTO = hjShiduService.temperatureCount(request);
-            return  ResultUtil.data(hjWenduDTO);
-        }catch (Exception e){
-            return ResultUtil.error(500,e.getMessage());
-        }
-    }
+
 }
 

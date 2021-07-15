@@ -1,5 +1,6 @@
 package com.sgcc.bd.overallview.modules.shebei.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.sgcc.bd.overallview.base.StmBaseEntity;
 import java.util.Date;
 
@@ -162,4 +163,13 @@ public class SbBook extends StmBaseEntity {
     @ApiModelProperty(value = "三维对应id")
     private String threeId;
 
+    @ApiModelProperty(value = "设备容量")
+    private String equipmentCapacity;
+
+    @ApiModelProperty(value = "消防装置")
+    private String fireFightingEquipment;
+
+    @TableField(exist = false)
+    @ApiModelProperty(value = "同厂家设备数量")
+    private String num;
 }

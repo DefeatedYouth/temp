@@ -86,4 +86,7 @@ public class JobRepair extends StmBaseEntity {
 
     @ApiModelProperty(value = "0检修1运维2带电检测")
     private Integer state;
+
+    @ApiModelProperty(value = "0即将到期 1已超期")
+    private Integer jobRepairState;
 }

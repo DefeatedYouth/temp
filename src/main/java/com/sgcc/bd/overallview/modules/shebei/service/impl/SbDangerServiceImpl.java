@@ -24,7 +24,7 @@ public class SbDangerServiceImpl extends ServiceImpl<SbDangerDao, SbDanger> impl
     SbDangerDao sbDangerDao;
 
     @Override
-    public SbDefectDTO getCountDefectNum(BaseReqVO request) {
+    public SbDefectDTO getCountDangerNum(BaseReqVO request) {
         try {
             SbDefectDTO sbDangger = new SbDefectDTO();
 

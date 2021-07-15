@@ -104,16 +104,7 @@ public class BaseDeviceController {
         }
     }
 
-    @ApiOperation("查询所有的设备监视数量")
-    @GetMapping("/getDeviceMonitorCount")
-    public Result<DeviceMonitorDTO> getDeviceMonitorCount(BaseReqVO request) {
-        try {
-            DeviceMonitorDTO deviceCount = baseDeviceService.getDeviceMonitorCount(request);
-            return  ResultUtil.data(deviceCount);
-        }catch (Exception e){
-            return ResultUtil.error(500,e.getMessage());
-        }
-    }
+
 
     @ApiOperation("安消防监视")
     @GetMapping("/getAnFireCount")

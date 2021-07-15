@@ -1,5 +1,6 @@
 package com.sgcc.bd.overallview.modules.shebei.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.sgcc.bd.overallview.base.StmBaseEntity;
 import java.util.Date;
 
@@ -56,5 +57,8 @@ public class SbToolMonitoring extends StmBaseEntity {
 
     @ApiModelProperty(value = "超期状态 0未超期 1即将超期 2已超期")
     private String isOverdue;
+
+    @TableField(exist = false)
+    private Long day;
 
 }

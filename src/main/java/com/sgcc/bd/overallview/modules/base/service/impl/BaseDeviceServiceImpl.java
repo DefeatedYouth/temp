@@ -11,15 +11,8 @@ import com.sgcc.bd.overallview.modules.base.dto.DeviceCountDTO;
 import com.sgcc.bd.overallview.modules.base.dto.DeviceMonitorDTO;
 import com.sgcc.bd.overallview.modules.base.dto.InspectionPlanDTO;
 import com.sgcc.bd.overallview.modules.base.service.BaseDeviceService;
-import com.sgcc.bd.overallview.modules.job.entity.JobMaintenanceTasks;
-import com.sgcc.bd.overallview.modules.job.entity.JobOperationTicket;
-import com.sgcc.bd.overallview.modules.job.entity.JobRepair;
-import com.sgcc.bd.overallview.modules.job.entity.JobTicket;
-import com.sgcc.bd.overallview.modules.job.service.JobMaintenanceTasksService;
-import com.sgcc.bd.overallview.modules.job.service.JobOperationTicketService;
-import com.sgcc.bd.overallview.modules.job.service.JobRepairService;
-import com.sgcc.bd.overallview.modules.job.service.JobTicketService;
-import com.sgcc.bd.overallview.modules.overview.dto.ToolMonitoringDTO;
+import com.sgcc.bd.overallview.modules.job.entity.*;
+import com.sgcc.bd.overallview.modules.job.service.*;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sgcc.bd.overallview.modules.shebei.entity.*;
 import com.sgcc.bd.overallview.modules.shebei.service.*;
@@ -68,7 +61,10 @@ public class BaseDeviceServiceImpl extends ServiceImpl<BaseDeviceDao, BaseDevice
     @Autowired
     JobOperationTicketService jobOperationTicketService;
     @Autowired
-    JobMaintenanceTasksService jobMaintenanceTasksService;
+    JobMaintenanceWorkService jobMaintenanceWorkService;
+
+    @Autowired
+    JobPatrolTaskService jobPatrolTaskService;
 
     @Override
     public List<DeviceCountDTO> getDeviceCount(BaseReqVO request) {
@@ -122,8 +118,8 @@ public class BaseDeviceServiceImpl extends ServiceImpl<BaseDeviceDao, BaseDevice
     }
 
     @Override
-    public ToolMonitoringDTO toolMonitoring(BaseReqVO request) {
-        ToolMonitoringDTO toolMonitoringDTO = new ToolMonitoringDTO();
+    public List<DeviceCountDTO> toolMonitoring(BaseReqVO request) {
+      //  ToolMonitoringDTO toolMonitoringDTO = new ToolMonitoringDTO();
         List<DeviceCountDTO> list = new ArrayList<>();
         initWorkDeviceCountList(list);
 
@@ -145,21 +141,9 @@ public class BaseDeviceServiceImpl extends ServiceImpl<BaseDeviceDao, BaseDevice
                 }
             }
         }
-        List<SbToolMonitoring> sbToolMonitorings = sbToolMonitoringService.getBaseMapper().selectList(new QueryWrapper<SbToolMonitoring>().lambda()
-                .eq(SbToolMonitoring::getSiteId, request.getSiteId())
-        );
-        int oneDay = 24*60*60*1000;
-        List<SbToolMonitoring> newSbToolMonitoring = new ArrayList<>();
-        sbToolMonitorings.forEach(sbToolMonitoring -> {
-            String testCycle = sbToolMonitoring.getTestCycle();
-           if (System.currentTimeMillis() - Integer.parseInt(testCycle)*oneDay*30 -  sbToolMonitoring.getLastTestDate().getTime() <= oneDay*7){
-               newSbToolMonitoring.add(sbToolMonitoring);
-           }
-        });
-
-        toolMonitoringDTO.setDeviceCountDTOS(list);
-        toolMonitoringDTO.setSbToolMonitorings(newSbToolMonitoring);
-        return toolMonitoringDTO;
+      /*  toolMonitoringDTO.setDeviceCountDTOS(list);
+        toolMonitoringDTO.setSbToolMonitorings(newSbToolMonitoring);*/
+        return list;
     }
 
 
@@ -219,17 +203,20 @@ public class BaseDeviceServiceImpl extends ServiceImpl<BaseDeviceDao, BaseDevice
         list.add(threeDevice);
 
         DeviceCountDTO fourDevice = new DeviceCountDTO();
-        int jobCount = jobMaintenanceTasksService.count(new QueryWrapper<JobMaintenanceTasks>().lambda()
-                .eq(JobMaintenanceTasks::getSiteId, request.getSiteId()));
+        int jobCount = jobMaintenanceWorkService.count(new QueryWrapper<JobMaintenanceWork>().lambda()
+                .eq(JobMaintenanceWork::getSiteId, request.getSiteId()));
         fourDevice.setEquipmentName("维护任务");
         fourDevice.setNum(Long.parseLong(jobCount+""));
+        list.add(fourDevice);
 
+        DeviceCountDTO fiveDevice = new DeviceCountDTO();
+        int jobPatrolCount = jobPatrolTaskService.count(new QueryWrapper<JobPatrolTask>().lambda()
+                .eq(JobPatrolTask::getSiteId, request.getSiteId()));
+        fiveDevice.setEquipmentName("巡视任务");
+        fiveDevice.setNum(Long.parseLong(jobPatrolCount+""));
+        list.add(fiveDevice);
 
-
-
-
-
-        return null;
+        return list;
     }
 
 
@@ -467,9 +454,17 @@ public class BaseDeviceServiceImpl extends ServiceImpl<BaseDeviceDao, BaseDevice
         d3.setNum(0L);
         list.add(d3);
         DeviceCountDTO d4 = new DeviceCountDTO();
-        d4.setEquipmentName("电能表");
+        d4.setEquipmentName("断路器保护");
         d4.setNum(0L);
         list.add(d4);
+        DeviceCountDTO d5 = new DeviceCountDTO();
+        d5.setEquipmentName("软压板投退");
+        d5.setNum(0L);
+        list.add(d5);
+        DeviceCountDTO d6 = new DeviceCountDTO();
+        d5.setEquipmentName("电能表");
+        d5.setNum(0L);
+        list.add(d6);
     }
 
 

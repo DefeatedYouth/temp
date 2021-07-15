@@ -20,5 +20,6 @@ public class SbDefectDTO {
     private Integer criticalNum;
     @ApiModelProperty(value = "未处理缺陷（隐患）数量")
     private Integer notdefectNum;
-
+    @ApiModelProperty(value = "超期未处理缺陷（隐患）数量")
+    private Integer overnotdefectNum;
 }

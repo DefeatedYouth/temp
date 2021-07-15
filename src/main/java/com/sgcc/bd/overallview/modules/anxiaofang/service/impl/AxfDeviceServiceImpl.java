@@ -29,7 +29,7 @@ public class AxfDeviceServiceImpl extends ServiceImpl<AxfDeviceDao, AxfDevice> i
     @Override
     public FirefightovweviewDTO fireFightingOvweview(BaseReqVO request) {
     try {
-        //
+        //todo 消防设施信息总览 先默认从那边直接取过来
         FirefightovweviewDTO firefightovweviewDTO = new FirefightovweviewDTO();
         int total = this.count(new QueryWrapper<AxfDevice>().lambda()
                 .eq(AxfDevice::getSiteId, request.getSiteId()));

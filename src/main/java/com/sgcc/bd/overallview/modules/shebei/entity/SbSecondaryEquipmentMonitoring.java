@@ -40,5 +40,6 @@ public class SbSecondaryEquipmentMonitoring extends StmBaseEntity {
     @ApiModelProperty(value = "状态")
     private Integer state;
 
-
+    @ApiModelProperty(value = "值")
+    private String value;
 }

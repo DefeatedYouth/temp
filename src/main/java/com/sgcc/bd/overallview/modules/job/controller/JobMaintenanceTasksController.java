@@ -5,12 +5,12 @@ import com.sgcc.bd.overallview.common.utils.ResultUtil;
 import com.sgcc.bd.overallview.common.vo.BaseReqVO;
 import com.sgcc.bd.overallview.common.vo.PageVo;
 import com.sgcc.bd.overallview.common.vo.Result;
-import com.sgcc.bd.overallview.modules.job.query.JobMaintenanceTasksQuery;
-import com.sgcc.bd.overallview.modules.job.service.JobMaintenanceTasksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
+
 import com.sgcc.bd.overallview.modules.job.entity.JobMaintenanceTasks;
+import com.sgcc.bd.overallview.modules.job.query.JobMaintenanceTasksQuery;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
@@ -20,17 +20,18 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import org.springframework.web.bind.annotation.RestController;
+import com.sgcc.bd.overallview.modules.job.service.JobMaintenanceTasksService;
 
 /**
- * @desc  controller
+ * @desc 维护作业表 controller
  * @author chenfeixiang
- * @since 2021-07-13
+ * @since 2021-07-14
  */
 @RestController
 @RequestMapping("/job/jobMaintenanceTasks")
 @Slf4j
-@ApiModel(value="JobMaintenanceTasks对象", description="")
-@Api(tags = "job-")
+@ApiModel(value="JobMaintenanceTasks对象", description="维护作业表")
+@Api(tags = "job-维护作业表")
 public class JobMaintenanceTasksController {
 
     @Autowired

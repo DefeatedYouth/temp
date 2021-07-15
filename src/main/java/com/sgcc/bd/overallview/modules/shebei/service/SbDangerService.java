@@ -13,5 +13,5 @@ import com.sgcc.bd.overallview.modules.shebei.entity.SbDanger;
  */
 public interface SbDangerService  extends IService<SbDanger>{
 
-    SbDefectDTO getCountDefectNum(BaseReqVO request);
+    SbDefectDTO getCountDangerNum(BaseReqVO request);
 }

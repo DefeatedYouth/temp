@@ -24,4 +24,12 @@ public class AlarmDTO {
     private List activeWarning;
 
     private Integer activeWarningNum;
+
+    private List faultList;
+
+    private Integer faultNum;
+
+    private List weightList;
+
+    private Integer weightNum;
 }

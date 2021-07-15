@@ -94,15 +94,5 @@ public class HjChushijiController {
         }
     }
 
-    @ApiOperation(value = "除湿机设备监视数量统计",notes = "参数 变电站id")
-    @GetMapping("/getAuxiliaryEquipmentNum")
-    public Result<HjEquipmentNumDTO> getAuxiliaryEquipmentNum(BaseReqVO request) {
-        try {
-            HjEquipmentNumDTO auxiliaryEquipmentNum = hjChushijiService.getAuxiliaryEquipmentNum(request);
-            return  ResultUtil.data(auxiliaryEquipmentNum);
-        }catch (Exception e){
-            return ResultUtil.error(500,e.getMessage());
-        }
-    }
 }
 

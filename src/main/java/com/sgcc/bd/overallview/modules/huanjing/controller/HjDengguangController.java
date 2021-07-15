@@ -94,15 +94,6 @@ public class HjDengguangController {
         }
     }
 
-    @ApiOperation(value = "灯光设备监视数量统计",notes = "参数 变电站id")
-    @GetMapping("/getAuxiliaryEquipmentNum")
-    public Result<HjEquipmentNumDTO> getAuxiliaryEquipmentNum(BaseReqVO request) {
-        try {
-            HjEquipmentNumDTO auxiliaryEquipmentNum = hjDengguangService.getAuxiliaryEquipmentNum(request);
-            return  ResultUtil.data(auxiliaryEquipmentNum);
-        }catch (Exception e){
-            return ResultUtil.error(500,e.getMessage());
-        }
-    }
+
 }
 

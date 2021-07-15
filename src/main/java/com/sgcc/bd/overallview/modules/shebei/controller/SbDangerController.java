@@ -98,11 +98,6 @@ public class SbDangerController {
         }
     }
 
-    @ApiOperation("缺陷数量信息统计")
-    @GetMapping("/getCountDangerNum")
-    public Result<SbDefectDTO> getCountDefectNum(BaseReqVO request) {
-        SbDefectDTO countDefectNum = sbDangerService.getCountDefectNum(request);
-        return ResultUtil.data(countDefectNum);
-    }
+
 }
 

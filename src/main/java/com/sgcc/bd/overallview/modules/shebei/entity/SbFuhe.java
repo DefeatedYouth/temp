@@ -117,4 +117,7 @@ public class SbFuhe extends StmBaseEntity {
 
     @ApiModelProperty(value = "三维对应id")
     private String threeId;
+
+    @ApiModelProperty(value = "是否重过载")
+    private String  isWeight;
 }

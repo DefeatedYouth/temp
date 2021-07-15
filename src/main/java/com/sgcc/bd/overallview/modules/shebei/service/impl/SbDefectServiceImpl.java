@@ -28,20 +28,25 @@ public class SbDefectServiceImpl extends ServiceImpl<SbDefectDao, SbDefect> impl
         try {
             SbDefectDTO sbDefect = new SbDefectDTO();
 
-            Integer common = this.count(new QueryWrapper<SbDefect>().lambda().eq(SbDefect::getDeviceType, request.getType())
+            QueryWrapper<SbDefect> sbDefectQueryWrapper = new QueryWrapper<>();
+
+            Integer common = this.count(sbDefectQueryWrapper.lambda().eq(SbDefect::getDeviceType, request.getType())
                     .eq(SbDefect::getSiteId,request.getSiteId())
                     .eq(SbDefect::getDefectLevel, EnumDefectStatus.Common.getValue()));
             Integer severity = this.count(new QueryWrapper<SbDefect>().lambda()
                     .eq(SbDefect::getSiteId,request.getSiteId())
-                    .eq(SbDefect::getDeviceType, request.getType()).eq(SbDefect::getDefectLevel, EnumDefectStatus.Severity.getValue()));
+                    .eq(request.getType()!=null,SbDefect::getDeviceType, request.getType()).eq(SbDefect::getDefectLevel, EnumDefectStatus.Severity.getValue()));
             Integer critical = this.count(new QueryWrapper<SbDefect>().lambda()
                     .eq(SbDefect::getSiteId,request.getSiteId())
-                    .eq(SbDefect::getDeviceType, request.getType()).eq(SbDefect::getDefectLevel, EnumDefectStatus.Critical.getValue()));
+                    .eq(request.getType()!=null,SbDefect::getDeviceType, request.getType()).eq(SbDefect::getDefectLevel, EnumDefectStatus.Critical.getValue()));
             //Integer notdefect = sbDefectService.getBaseMapper().selectCount(new QueryWrapper<SbDefect>().lambda().eq(SbDefect::getDeviceType, "变压器").eq(SbDefect::getDefectLevel, EnumDefectStatus.notdefect.getValue()));
             sbDefect.setCommonNum(common);
             sbDefect.setSeverityNum(severity);
             sbDefect.setCriticalNum(critical);
-            sbDefect.setNotdefectNum(common+severity+critical);
+            int notdefectNum = this.count(new QueryWrapper<SbDefect>().lambda().eq(SbDefect::getSiteId, request.getSiteId())
+                    .eq(SbDefect::getDefaultState, "未消缺")
+            );
+            sbDefect.setNotdefectNum(notdefectNum);
             return  sbDefect;
             //todo 根据前端传过来的设备类型来查询 具体是什么设备的缺陷信息统计 这里是写死的 变压器，后面根据传过来的type进行修改。
         }catch (Exception e){

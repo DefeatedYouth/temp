@@ -30,7 +30,7 @@ public interface BaseDeviceService  extends IService<BaseDevice>{
 
     List<DeviceCountDTO> sparePartsMonitoring(BaseReqVO request);
 
-    ToolMonitoringDTO toolMonitoring(BaseReqVO request);
+    List<DeviceCountDTO> toolMonitoring(BaseReqVO request);
 
     List<DeviceCountDTO> secondaryEquipment(BaseReqVO request);
 

@@ -26,6 +26,7 @@ import com.sgcc.bd.overallview.modules.base.service.*;
 import com.sgcc.bd.overallview.modules.shebei.entity.*;
 import com.sgcc.bd.overallview.modules.shebei.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -37,14 +38,17 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 /**
- * @desc 首页信息统计
- * @author chenfeixiang
- * @since 2021-07-08
+ * @description: 首页信息统计
+ * @author: bbsn
+ * @Time: 2021/7/14 15:35
+ * @Params:
  */
+
 @RestController
 @RequestMapping("/overview")
 @Slf4j
@@ -109,6 +113,9 @@ public class OverviewController {
     @Autowired
     private SbSparePartsListService sbSparePartsListService;
 
+    @Autowired
+    private  SbToolMonitoringService sbToolMonitoringService;
+
 
     @ApiOperation("获取单条变电站信息")
     @GetMapping("/getById")
@@ -151,11 +158,15 @@ public class OverviewController {
             alarmDTO.setActiveWarningNum(count1);
 
 
+
+
             return  ResultUtil.data(alarmDTO);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
         }
     }
+
+
 
     @ApiOperation("今日作业")
     @GetMapping("/getTodayWork")
@@ -208,17 +219,6 @@ public class OverviewController {
         }
     }
 
-    @ApiOperation("缺陷数量信息统计")
-    @GetMapping("/getCountDefectNum")
-    public Result<SbDefectDTO> getCountDefectNum(BaseReqVO request) {
-        try {
-            SbDefectDTO countDefectNum = sbDefectService.getCountDefectNum(request);
-            return  ResultUtil.data(countDefectNum);
-            //todo 根据前端传过来的设备类型来查询 具体是什么设备的缺陷信息统计 这里是写死的 变压器，后面根据传过来的type进行修改。
-        }catch (Exception e){
-            return ResultUtil.error(500,e.getMessage());
-        }
-    }
 
     @ApiOperation("风险预警")
     @GetMapping("/getRiskAlarm")
@@ -431,9 +431,9 @@ public class OverviewController {
 
     @ApiOperation("工器具监视")
     @GetMapping("/toolMonitoring")
-    public Result<ToolMonitoringDTO> toolMonitoring(BaseReqVO request) {
+    public Result<List<DeviceCountDTO>> toolMonitoring(BaseReqVO request) {
         try {
-            ToolMonitoringDTO list = baseDeviceService.toolMonitoring(request);
+            List<DeviceCountDTO> list = baseDeviceService.toolMonitoring(request);
             return  ResultUtil.data(list);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
@@ -455,12 +455,59 @@ public class OverviewController {
     @GetMapping("/performanceManagement")
     public Result<List<DeviceCountDTO>> performanceManagement(BaseReqVO request) {
         try {
+            List<DeviceCountDTO> list = baseDeviceService.performanceManagement(request);
+            return  ResultUtil.data(list);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
+
+
+    @ApiOperation("计划辅助决策")
+    @GetMapping("/planAssistDecision")
+    public Result<List<DeviceCountDTO>> planAssistDecision(BaseReqVO request) {
+        try {
+            //todo 计划辅助决策部分它们还在商榷中
             List<DeviceCountDTO> list = baseDeviceService.secondaryEquipment(request);
             return  ResultUtil.data(list);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());
         }
     }
+
+    @ApiOperation("工器具到期时间")
+    @GetMapping("/toolExpiryTime")
+    public Result<List<SbToolMonitoring>> toolExpiryTime(BaseReqVO request) {
+        try {
+            List<SbToolMonitoring> sbToolMonitorings = sbToolMonitoringService.getBaseMapper().selectList(new QueryWrapper<SbToolMonitoring>().lambda()
+                    .eq(SbToolMonitoring::getSiteId, request.getSiteId())
+            );
+            int oneDay = 24*60*60*1000;
+            List<SbToolMonitoring> newSbToolMonitoring = new ArrayList<>();
+            sbToolMonitorings.forEach(sbToolMonitoring -> {
+                //非空判断
+                if(sbToolMonitoring.getTestCycle()!=null&&sbToolMonitoring.getLastTestDate()!=null){
+                    Long time =   System.currentTimeMillis() - Integer.parseInt(sbToolMonitoring.getTestCycle())*oneDay*30 -  sbToolMonitoring.getLastTestDate().getTime();
+                    if (time<= oneDay*7&&time>0){
+                        Long day =   (oneDay*7-time)/oneDay ;
+                        //延迟天数
+                        sbToolMonitoring.setDay(day);
+                        //1状态表示即将到期
+                        sbToolMonitoring.setIsOverdue("1");
+                        newSbToolMonitoring.add(sbToolMonitoring);
+                    }else if (time<0){
+                        //2表示已超期
+                        sbToolMonitoring.setIsOverdue("2");
+                        newSbToolMonitoring.add(sbToolMonitoring);
+                    }
+                }
+            });
+            return  ResultUtil.data(newSbToolMonitoring);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
+
 
 }
 

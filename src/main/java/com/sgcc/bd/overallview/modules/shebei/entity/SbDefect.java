@@ -82,6 +82,15 @@ public class SbDefect extends StmBaseEntity {
     @ApiModelProperty(value = "发送方式")
     private String sendType;
 
+    @ApiModelProperty(value = "是否延期")
+    private String isExtension;
+
+    @ApiModelProperty(value = "消缺日期")
+    private String defaultDate;
+
+    @ApiModelProperty(value = "消缺状态")
+    private String defaultState;
+
     @ApiModelProperty(value = "发现人")
     private String sendMan;
 
