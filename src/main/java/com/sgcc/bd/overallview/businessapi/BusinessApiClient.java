@@ -67,6 +67,7 @@ public class BusinessApiClient {
                     httpUrl=httpUrl.replace("{"+entry.getKey()+"}",entry.getValue().toString());
                 }
             }
+            System.out.println(JSON.toJSONString("接口："+httpUrl));
             if(request.getMethod().equals("get")){
                 httpUrl+="?";
                 Iterator iter1 = jsonRequest.entrySet().iterator();
