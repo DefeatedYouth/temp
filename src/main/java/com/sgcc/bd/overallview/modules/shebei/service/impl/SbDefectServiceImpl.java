@@ -43,10 +43,18 @@ public class SbDefectServiceImpl extends ServiceImpl<SbDefectDao, SbDefect> impl
             sbDefect.setCommonNum(common);
             sbDefect.setSeverityNum(severity);
             sbDefect.setCriticalNum(critical);
-            int notdefectNum = this.count(new QueryWrapper<SbDefect>().lambda().eq(SbDefect::getSiteId, request.getSiteId())
+            int notdefectNum = this.count(new QueryWrapper<SbDefect>().lambda()
+                    .eq(SbDefect::getDeviceType, request.getType())
+                    .eq(SbDefect::getSiteId, request.getSiteId())
                     .eq(SbDefect::getDefaultState, "未消缺")
             );
             sbDefect.setNotdefectNum(notdefectNum);
+            int overNum = this.count(new QueryWrapper<SbDefect>().lambda().eq(SbDefect::getSiteId, request.getSiteId())
+                    .eq(SbDefect::getDeviceType, request.getType())
+                    .eq(SbDefect::getIsOver, "是")
+                    .eq(SbDefect::getDefaultState, "未消缺")
+            );
+            sbDefect.setOvernotdefectNum(overNum);
             return  sbDefect;
             //todo 根据前端传过来的设备类型来查询 具体是什么设备的缺陷信息统计 这里是写死的 变压器，后面根据传过来的type进行修改。
         }catch (Exception e){

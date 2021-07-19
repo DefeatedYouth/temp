@@ -20,4 +20,8 @@ public class InformationAnalysisChartDTO {
   private  String values;
 
   private  Date date;
+
+  private String accumulatedTime;
+
+  private String highTemp;
 }

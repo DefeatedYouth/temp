@@ -70,4 +70,7 @@ public class SbDanger extends StmBaseEntity {
     @ApiModelProperty(value = "三维对应id")
     private String threeId;
 
+    @ApiModelProperty(value = "是否超期")
+    private String isOver;
+
 }

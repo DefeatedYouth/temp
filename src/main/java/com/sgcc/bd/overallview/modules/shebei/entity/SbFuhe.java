@@ -120,4 +120,7 @@ public class SbFuhe extends StmBaseEntity {
 
     @ApiModelProperty(value = "是否重过载")
     private String  isWeight;
+
+    @ApiModelProperty(value = "本月累计重载持续时间")
+    private String accumulatedTime;
 }

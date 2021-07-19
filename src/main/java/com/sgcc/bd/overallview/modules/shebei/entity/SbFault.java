@@ -79,4 +79,9 @@ public class SbFault extends StmBaseEntity {
     @ApiModelProperty(value = "应急预案")
     private String emergencyPlan;
 
+    @ApiModelProperty(value = "短路冲击")
+    private String shortCircuitImpact;
+
+    @ApiModelProperty(value = "故障跳闸次数")
+    private String faultTrip;
 }

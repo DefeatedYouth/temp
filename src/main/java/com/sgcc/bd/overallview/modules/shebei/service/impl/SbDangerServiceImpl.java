@@ -2,8 +2,10 @@ package com.sgcc.bd.overallview.modules.shebei.service.impl;
 
 
 import com.sgcc.bd.overallview.common.enums.EnumDangerStatus;
+import com.sgcc.bd.overallview.common.enums.EnumDefectStatus;
 import com.sgcc.bd.overallview.common.vo.BaseReqVO;
 import com.sgcc.bd.overallview.modules.shebei.dto.SbDefectDTO;
+import com.sgcc.bd.overallview.modules.shebei.entity.SbDefect;
 import com.sgcc.bd.overallview.modules.shebei.service.SbDangerService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sgcc.bd.overallview.modules.shebei.dao.SbDangerDao;
@@ -34,11 +36,26 @@ public class SbDangerServiceImpl extends ServiceImpl<SbDangerDao, SbDanger> impl
             Integer severity = this.count(new QueryWrapper<SbDanger>().lambda()
                     .eq(SbDanger::getSiteId,request.getSiteId())
                     .eq(SbDanger::getDeviceType, request.getType()).eq(SbDanger::getHiddenDangerLevel, EnumDangerStatus.Severity.getValue()));
+            Integer critical = this.count(new QueryWrapper<SbDanger>().lambda()
+                    .eq(SbDanger::getSiteId,request.getSiteId())
+                    .eq(SbDanger::getDeviceType, request.getType())
+                    .eq(request.getType()!=null,SbDanger::getDeviceType, request.getType()).eq(SbDanger::getHiddenDangerLevel, EnumDefectStatus.Critical.getValue()));
+            Integer notdefectNum = this.count(new QueryWrapper<SbDanger>().lambda()
+                    .eq(SbDanger::getDeviceType, request.getType())
+                    .eq(SbDanger::getSiteId, request.getSiteId())
+                    .eq(SbDanger::getHiddenDangerState, "未处理")
+            );
+            Integer overNum = this.count(new QueryWrapper<SbDanger>().lambda().eq(SbDanger::getSiteId, request.getSiteId())
+                    .eq(SbDanger::getDeviceType, request.getType())
+                    .eq(SbDanger::getIsOver, "是")
+                    .eq(SbDanger::getHiddenDangerState, "未消缺")
+            );
             // Integer notdefect = sbDangerService.getBaseMapper().selectCount(new QueryWrapper<SbDanger>().lambda().eq(SbDanger::getDeviceType, "变压器").eq(SbDanger::getHiddenDangerLevel, EnumDangerStatus.notdefect.getValue()));
             sbDangger.setCommonNum(common);
             sbDangger.setSeverityNum(severity);
-            //sbDefect.setCriticalNum(critical);
-            sbDangger.setNotdefectNum(common+severity);
+            sbDangger.setCriticalNum(critical);
+            sbDangger.setNotdefectNum(notdefectNum);
+            sbDangger.setOvernotdefectNum(overNum);
             return  sbDangger;
             //todo 根据前端传过来的设备类型来查询 具体是什么设备的缺陷信息统计 这里是写死的 变压器，后面根据传过来的type进行修改。
         }catch (Exception e){

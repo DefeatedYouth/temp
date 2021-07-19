@@ -1,5 +1,6 @@
 package com.sgcc.bd.overallview.modules.overview.controller;
 
+import cn.hutool.Hutool;
 import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -27,6 +28,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -60,6 +63,8 @@ public class SbController {
     private SbDefectService sbDefectService;
     @Autowired
     private SbDangerService sbDangerService;
+    @Autowired
+    private SbOverhaulService sbOverhaulService;
 
     @ApiOperation("监视告警")
     @GetMapping("/getAlarm")
@@ -165,7 +170,23 @@ public class SbController {
         SbFuhe sbFuhe = sbFuheService.getBaseMapper().selectOne(queryWrapper);
         informationAnalysisChartDTO.setDate(sbFuhe.getMonitoringTime());
         informationAnalysisChartDTO.setValues(sbFuhe.getLoadFactor());
+        informationAnalysisChartDTO.setAccumulatedTime(sbFuhe.getAccumulatedTime());
 
+        SbRealdata sbRealdata = sbRealdataService.getBaseMapper().selectOne(new QueryWrapper<SbRealdata>().lambda()
+                .eq(SbRealdata::getSiteId, query.getSiteId())
+                .eq(SbRealdata::getDeviceName, sbFuhe.getDeviceName())
+        );
+
+        List<Integer> nums = new ArrayList<Integer>();
+        nums.add(sbRealdata.getAtopOilTemperatureOne());
+        nums.add(sbRealdata.getBtopOilTemperatureOne());
+        nums.add(sbRealdata.getCtopOilTemperatureOne());
+        nums.add(sbRealdata.getAtopOilTemperatureTwo());
+        nums.add(sbRealdata.getBtopOilTemperatureTwo());
+        nums.add(sbRealdata.getCtopOilTemperatureTwo());
+        //设置最大值Max
+        int Max = Collections.max(nums);
+        informationAnalysisChartDTO.setHighTemp(Max+"");
         return ResultUtil.data(informationAnalysisChartDTO);
     }
 
@@ -186,6 +207,21 @@ public class SbController {
         }
     }
 
+    @ApiOperation("设备大事记")
+    @GetMapping("/getById")
+    public Result<SbOverhaul> getById(BaseReqVO request) {
+        try {
+            //查一下设备检修记录的故障情况
+            SbOverhaul sbOverhaul = sbOverhaulService.getBaseMapper().selectOne(new QueryWrapper<SbOverhaul>().lambda()
+                    .eq(SbOverhaul::getSiteId,request.getSiteId())
+                    .eq(SbOverhaul::getDeviceType,request.getType())
+                    .groupBy(SbOverhaul::getWorkDate)
+            );
+            return  ResultUtil.data(sbOverhaul);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
 
 }
 
