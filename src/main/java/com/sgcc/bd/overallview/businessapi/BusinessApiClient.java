@@ -2,19 +2,19 @@ package com.sgcc.bd.overallview.businessapi;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
 import com.sgcc.bd.overallview.common.utils.SpringContextUtil;
 import com.sgcc.bd.overallview.config.properties.DataCenterProperties;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.Iterator;
 import java.util.Map;
 
 public class BusinessApiClient {
     //网关
     //开发环境：pms.pms30dev.com.cn
-    private static String getway="http://dwzyzt.cloudjs.dev.com.cn";
+    //private static String getway="http://dwzyzt.cloudjs.dev.com.cn";
+    private static String getway="20.132.145.55:30002";
+
+    private static String xToken="225a190e-589d-4c28-8a78-3e193ec6dbbe";
     //应用ID
     private static String appId="";
     //应用秘钥
@@ -25,14 +25,15 @@ public class BusinessApiClient {
     //过期时间
     private static Integer expires_in;
     //生成的jwt
-    private static String access_token="eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMDAwMDAwMDUwOTE5NiIsImlhdCI6MTYyNjE2ODkwNSwic3ViIjoid3doX3BtcyIsImF1ZCI6IuWQtOaWh-m5pCIsImV4cCI6MTYyNjI1NTMwNX0.ZwiTkVXBM952MlBc4HFw0wwNfOj-KBKs_JC9zjPy9CE";
-
+    //private static String access_token="eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMDAwMDAwMDUwOTE5NiIsImlhdCI6MTYyNjE2ODkwNSwic3ViIjoid3doX3BtcyIsImF1ZCI6IuWQtOaWh-m5pCIsImV4cCI6MTYyNjI1NTMwNX0.ZwiTkVXBM952MlBc4HFw0wwNfOj-KBKs_JC9zjPy9CE";
+    private static String access_token="225a190e-589d-4c28-8a78-3e193ec6dbbe";
     static {
         DataCenterProperties dataCenterProperties = SpringContextUtil.getBean(DataCenterProperties.class);
         getway = dataCenterProperties.getGetway();
         appId = dataCenterProperties.getAppId();
         appSecret = dataCenterProperties.getAppSecret();
         access_token = dataCenterProperties.getAccessToken();
+        xToken = dataCenterProperties.getXToken();
     }
 
     private static BusinessApiClient instance;
@@ -44,6 +45,7 @@ public class BusinessApiClient {
             JSONObject jsonReq=new JSONObject();
             jsonReq.put("client_id",appId);
             jsonReq.put("client_secret",appSecret);
+            jsonReq.put("x-token",xToken);
             jsonReq.put("grant_type","credentials");
             String  strResJson=HttpClient.doPost(getway+"/psr-auth/oauth/accessToken",JSON.toJSONString(jsonReq),access_token);
             JSONObject jsonRes=JSON.parseObject(strResJson);

@@ -73,4 +73,7 @@ public class AxfDevice extends StmBaseEntity {
 
     @ApiModelProperty(value = "运维班组名称")
     private String operationMaintenanceTeam;
+
+    @ApiModelProperty(value = "三维id")
+    private String threeId;
 }

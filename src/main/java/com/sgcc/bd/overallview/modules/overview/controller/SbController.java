@@ -140,7 +140,6 @@ public class SbController {
         SbFuhe sbFuhe = sbFuheService.getBaseMapper().selectOne(queryWrapper);
         loadInformationDTO.setSbFuhe(sbFuhe);
 
-
         SbRealdata sbRealdata = sbRealdataService.getBaseMapper().selectOne(new QueryWrapper<SbRealdata>().lambda()
                 .eq(SbRealdata::getSiteId, request.getSiteId())
                 .eq(SbRealdata::getDeviceName, sbFuhe.getDeviceName())
@@ -158,7 +157,7 @@ public class SbController {
         queryWrapper.lambda().eq(SbFuhe::getSiteId,query.getSiteId());
         queryWrapper.lambda().eq(SbFuhe::getDeviceName,query.getDeviceName());
 
-   /*     queryWrapper.lambda().gt(query.getStartTime()!= null , SbYousepu::getMonitoringTime,query.getStartTime());
+   /*   queryWrapper.lambda().gt(query.getStartTime()!= null , SbYousepu::getMonitoringTime,query.getStartTime());
         queryWrapper.lambda().lt(query.getEndTime() != null,SbYousepu::getMonitoringTime,query.getEndTime());*/
         //TODO 条件待填写
         List<SbFuhe> sbFuhes = sbFuheService.getBaseMapper().selectList(queryWrapper);

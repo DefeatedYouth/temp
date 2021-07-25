@@ -61,7 +61,7 @@ import java.util.concurrent.ExecutorService;
 @RequestMapping("/job")
 @Slf4j
 @ApiModel(value="作业首页", description="作业首页信息展示")
-@Api(tags = "job-作业首页信息展示Controller")
+@Api(tags = "作业首页信息展示")
 public class JobController {
 
     @Autowired

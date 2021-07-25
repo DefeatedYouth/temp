@@ -18,5 +18,5 @@ public class DataCenterProperties {
      String appId;
      String appSecret;
      String accessToken;
-
+    String xToken;
 }

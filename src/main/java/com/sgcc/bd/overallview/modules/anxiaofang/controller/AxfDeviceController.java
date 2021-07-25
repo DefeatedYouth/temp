@@ -3,8 +3,12 @@ package com.sgcc.bd.overallview.modules.anxiaofang.controller;
 import com.sgcc.bd.overallview.common.enums.EnumNodeType;
 import com.sgcc.bd.overallview.common.utils.ResultUtil;
 import com.sgcc.bd.overallview.modules.anxiaofang.dto.*;
+import com.sgcc.bd.overallview.modules.base.service.BaseCameraService;
 import com.sgcc.bd.overallview.modules.base.service.BaseDeviceService;
+import com.sgcc.bd.overallview.modules.huanjing.entity.HjDengguang;
+import com.sgcc.bd.overallview.modules.huanjing.service.*;
 import com.sgcc.bd.overallview.modules.robot.service.RobotInspMessageService;
+import com.sgcc.bd.overallview.modules.robot.service.RobotInspRecordsService;
 import com.sgcc.bd.overallview.modules.shebei.service.SbBookService;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IoUtil;
@@ -62,6 +66,32 @@ public class AxfDeviceController {
     private RobotInspMessageService robotInspMessageService;
     @Autowired
     private SbBookService sbBookService;
+    @Autowired
+    private BaseCameraService baseCameraService;
+    @Autowired
+    private RobotInspRecordsService robotInspRecordsService;
+    @Autowired
+    private HjChushijiService hjChushijiService;
+    @Autowired
+    private HjDengguangService hjDengguangService;
+    @Autowired
+    private HjFengjiService hjFengjiService;
+    @Autowired
+    private HjKongtiaoService hjKongtiaoService;
+    @Autowired
+    private HjSfsexService hjSfsexService;
+    @Autowired
+    private HjShiduService hjShiduService;
+    @Autowired
+    private HjShuibangService hjShuibangService;
+    @Autowired
+    private HjShuishengService hjShuishengService;
+    @Autowired
+    private HjShuiweiService hjShuiweiService;
+    @Autowired
+    private HjWenduService hjWenduService;
+
+
 
     @Value("${storeBasePath}")
     private  String storeBasePath;
@@ -194,6 +224,7 @@ public class AxfDeviceController {
         }
     }
 
+
     @PostMapping("/upload")
     @ApiOperation("上传excel模板")
     @ResponseBody
@@ -205,12 +236,22 @@ public class AxfDeviceController {
         ExcelReader excelReader = null;
         List<ReadSheet> readSheetList = Lists.newArrayList();
         try {
-            //导入设备类型点位基础模板数据
             excelReader = EasyExcel.read(tmpFile).build();
             ReadSheet readSheet0 =
-                    EasyExcel.readSheet(3).headRowNumber(4).head(PrimaryDeviceTypeVO.class).registerReadListener(new PrimaryDeviceTypeListener(sbBookService)).build();
+                    EasyExcel.readSheet(0).headRowNumber(1).head(ExcelInVo.class).registerReadListener(new BaseCameraListener(baseCameraService)).build();
+            ReadSheet readSheet1 =
+                    EasyExcel.readSheet(1).headRowNumber(1).head(ExcelInVo.class).registerReadListener(new DeviceListener(sbBookService)).build();
+            ReadSheet readSheet2 =
+                    EasyExcel.readSheet(2).headRowNumber(1).head(ExcelInVo.class).registerReadListener(new AxfListener(axfDeviceService)).build();
+            ReadSheet readSheet3 =
+                    EasyExcel.readSheet(3).headRowNumber(1).head(ExcelInVo.class).registerReadListener(new RobotListener(robotInspRecordsService)).build();
+            ReadSheet readSheet4 =
+                    EasyExcel.readSheet(4).headRowNumber(1).head(MoveRingVo.class).registerReadListener(new MoveRingListener(hjChushijiService,hjDengguangService,hjFengjiService,hjKongtiaoService,hjSfsexService,hjShiduService,hjShuibangService,hjShuishengService,hjShuiweiService,hjWenduService)).build();
             readSheetList.add(readSheet0);
-
+            readSheetList.add(readSheet1);
+            readSheetList.add(readSheet2);
+            readSheetList.add(readSheet3);
+            readSheetList.add(readSheet4);
             this.myExecutgeExcelInner(tmpFile, excelReader, readSheetList);
         } catch (Exception e) {
             e.printStackTrace();
