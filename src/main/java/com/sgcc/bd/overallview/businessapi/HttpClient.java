@@ -1,13 +1,12 @@
 package com.sgcc.bd.overallview.businessapi;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class HttpClient {
 
@@ -99,6 +98,10 @@ public class HttpClient {
             connection.setRequestProperty("Content-Type", "application/json");
             // 设置鉴权信息：Authorization: Bearer da3efcbf-0845-4fe3-8aba-ee040be542c0
             connection.setRequestProperty("x-token", xToken);
+          /*  Map<String, List<String>> headerFields = connection.getHeaderFields();
+            List<String> list = new ArrayList<>();
+            list.add("225a190e-589d-4c28-8a78-3e193ec6dbbe");
+            headerFields.put("x-token",list);*/
             // 通过连接对象获取一个输出流
             os = connection.getOutputStream();
             // 通过输出流对象将参数写出去/传输出去,它是通过字节数组写出的
@@ -109,7 +112,6 @@ public class HttpClient {
                 is = connection.getInputStream();
                 // 对输入流对象进行包装:charset根据工作项目组的要求来设置
                 br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-
                 StringBuffer sbf = new StringBuffer();
                 String temp = null;
                 // 循环遍历一行一行读取数据

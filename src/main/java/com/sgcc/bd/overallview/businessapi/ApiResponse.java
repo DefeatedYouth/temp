@@ -25,5 +25,4 @@ public class ApiResponse  implements Serializable {
     @ApiModelProperty(value = "返回内容")
     @JSONField(name="jsonContent")
     private String jsonContent;
-
 }

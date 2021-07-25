@@ -1,13 +1,7 @@
 package com.sgcc.bd.overallview.modules.stm.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
-import com.sgcc.bd.overallview.businessapi.ApiResponse;
 import com.sgcc.bd.overallview.businessapi.BusinessApiClient;
-import com.sgcc.bd.overallview.businessapi.environmententer.FindMeteorologyRequest;
-import com.sgcc.bd.overallview.businessapi.environmententer.FindMeteorologyResponse;
-import com.sgcc.bd.overallview.businessapi.oauth.GetBusinessApplicationRequest;
-import com.sgcc.bd.overallview.businessapi.oauth.GetBusinessApplicationResponse;
+import com.sgcc.bd.overallview.businessapi.environmententer.*;
 import com.sgcc.bd.overallview.common.utils.ResultUtil;
 import com.sgcc.bd.overallview.common.vo.Result;
 import io.swagger.annotations.Api;
@@ -17,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.ws.Response;
 import java.util.Date;
 
 @Slf4j
@@ -48,7 +43,36 @@ public class TestController {
         return ResultUtil.data(response);
     }
 
+    @RequestMapping(value = "/eleLevel",method = RequestMethod.POST)
+    @ApiOperation(value = "eleLevel")
+    public Result<Object> eleLevel(){
 
+        EleLevelRequest request=new EleLevelRequest();
+        request.setTypeCode("010401");
+        EleLevelResponse response= BusinessApiClient.getInstance().Execute(request);
+
+        return ResultUtil.data(response);
+    }
+
+    @RequestMapping(value = "/jobOpTicket",method = RequestMethod.POST)
+    @ApiOperation(value = "jobOpTicket")
+    public Result<Object> jobOpTicket(){
+        JobOpTicketRequest request=new JobOpTicketRequest();
+        request.setCurrent(1);
+        request.setFields("astId");
+        JobOpTicketRequest.RequestData requestData = new JobOpTicketRequest.RequestData();
+        requestData.setCompare("=");
+        requestData.setFieldName("psrId");
+        requestData.setFieldValue("1");
+        request.setFilters(requestData);
+        request.setOrderBy("astId desc");
+        request.setPage(1);
+        request.setPerpage(50);
+        request.setSize(50);
+        JobOpTicketResponse response= BusinessApiClient.getInstance().Execute(request);
+
+        return ResultUtil.data(response);
+    }
 
 
 }

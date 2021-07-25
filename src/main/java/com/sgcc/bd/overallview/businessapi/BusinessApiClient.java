@@ -12,13 +12,13 @@ public class BusinessApiClient {
     //网关
     //开发环境：pms.pms30dev.com.cn
     //private static String getway="http://dwzyzt.cloudjs.dev.com.cn";
-    private static String getway="20.132.145.55:30002";
+    private static String getway;
 
-    private static String xToken="225a190e-589d-4c28-8a78-3e193ec6dbbe";
+    private static String xToken;
     //应用ID
-    private static String appId="";
+    private static String appId;
     //应用秘钥
-    private static String appSecret="";
+    private static String appSecret;
 
     //加密秘钥
     private static String refresh_token;
@@ -26,7 +26,7 @@ public class BusinessApiClient {
     private static Integer expires_in;
     //生成的jwt
     //private static String access_token="eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMDAwMDAwMDUwOTE5NiIsImlhdCI6MTYyNjE2ODkwNSwic3ViIjoid3doX3BtcyIsImF1ZCI6IuWQtOaWh-m5pCIsImV4cCI6MTYyNjI1NTMwNX0.ZwiTkVXBM952MlBc4HFw0wwNfOj-KBKs_JC9zjPy9CE";
-    private static String access_token="225a190e-589d-4c28-8a78-3e193ec6dbbe";
+    private static String access_token;
     static {
         DataCenterProperties dataCenterProperties = SpringContextUtil.getBean(DataCenterProperties.class);
         getway = dataCenterProperties.getGetway();
@@ -98,6 +98,7 @@ public class BusinessApiClient {
         }
         catch (Exception ex){
             rsp=(T)JSON.parseObject("{\"message\":\""+ex.getMessage()+"\",\"status\":\"-9\",\"jsonContent\":\"\"}",request.responseClass());
+            ex.printStackTrace();
         }
         return rsp;
     }
