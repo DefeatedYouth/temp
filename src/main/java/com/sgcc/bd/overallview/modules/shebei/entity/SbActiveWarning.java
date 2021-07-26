@@ -57,7 +57,7 @@ public class SbActiveWarning extends StmBaseEntity {
     private String maintenanceDecision;
 
     @ApiModelProperty(value = "运维决策")
-    private Date operationMaintenanceDecision;
+    private String operationMaintenanceDecision;
 
     @ApiModelProperty(value = "创建时间")
     private Date createDate;

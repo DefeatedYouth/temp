@@ -20,8 +20,8 @@ public class BaseReqVO {
     @ApiModelProperty(value = "唯一标识")
     private List<String> ids ;
 
-    @ApiModelProperty(value = "设备类型id")
-    private Integer type;
+    @ApiModelProperty(value = "设备类型")
+    private String type;
 
     @ApiModelProperty(value = "变电站id")
     private Long siteId;
