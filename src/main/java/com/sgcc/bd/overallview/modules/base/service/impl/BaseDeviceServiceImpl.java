@@ -225,30 +225,30 @@ public class BaseDeviceServiceImpl extends ServiceImpl<BaseDeviceDao, BaseDevice
         DeviceMonitorDTO deviceMonitorDTO = new DeviceMonitorDTO();
         Integer commonNum = sbDefectService.count(new QueryWrapper<SbDefect>().lambda()
                 .eq(SbDefect::getSiteId, request.getSiteId())
-                .eq(SbDefect::getDefectLevel, EnumDefectStatus.Common.getValue())
-                .eq(SbDefect::getStateValue, EnumStateValue.Untreated.getValue())
+                .eq(SbDefect::getDefectLevel, EnumDefectStatus.Common.getText())
+                .eq(SbDefect::getStateValue, EnumStateValue.Untreated.getText())
         );
         deviceMonitorDTO.setGeneralDefectsNum(commonNum);
         Integer severityNum = sbDefectService.count(new QueryWrapper<SbDefect>().lambda()
                 .eq(SbDefect::getSiteId, request.getSiteId())
-                .eq(SbDefect::getDefectLevel, EnumDefectStatus.Severity.getValue())
-                .eq(SbDefect::getStateValue, EnumStateValue.Untreated.getValue())
+                .eq(SbDefect::getDefectLevel, EnumDefectStatus.Severity.getText())
+                .eq(SbDefect::getStateValue, EnumStateValue.Untreated.getText())
         );
         deviceMonitorDTO.setSeriousFlawsNum(severityNum);
         Integer criticalNum = sbDefectService.count(new QueryWrapper<SbDefect>().lambda()
                 .eq(SbDefect::getSiteId, request.getSiteId())
-                .eq(SbDefect::getDefectLevel, EnumDefectStatus.Critical.getValue())
-                .eq(SbDefect::getStateValue, EnumStateValue.Untreated.getValue())
+                .eq(SbDefect::getDefectLevel, EnumDefectStatus.Critical.getText())
+                .eq(SbDefect::getStateValue, EnumStateValue.Untreated.getText())
         );
         deviceMonitorDTO.setCriticalDefectNum(criticalNum);
         Integer untreatedDangerNum = sbDangerService.count(new QueryWrapper<SbDanger>().lambda()
                 .eq(SbDanger::getSiteId, request.getSiteId())
-                .eq(SbDanger::getHiddenDangerState, EnumStateValue.Untreated.getValue())
+                .eq(SbDanger::getHiddenDangerState, EnumStateValue.Untreated.getText())
         );
         deviceMonitorDTO.setHiddenNum(untreatedDangerNum);
         Integer UntreatedAlarmNum = sbAlarmService.count(new QueryWrapper<SbAlarm>().lambda()
                 .eq(SbAlarm::getSiteId, request.getSiteId())
-                .eq(SbAlarm::getAlarmState, EnumStateValue.Untreated.getValue())
+                .eq(SbAlarm::getAlarmState, EnumStateValue.Untreated.getText())
         );
         deviceMonitorDTO.setMonitoringAlarmNum(UntreatedAlarmNum);
         int fauleNum = sbFaultService.count(new QueryWrapper<SbFault>().lambda()
