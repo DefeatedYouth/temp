@@ -192,10 +192,10 @@ public class OverviewController {
 
 
             QueryWrapper<JobRepair> jobRepairQueryWrapper1 = new QueryWrapper<>();
-            jobRepairQueryWrapper.lambda().eq(JobRepair::getSiteId,request.getSiteId());
-            jobRepairQueryWrapper.lambda().eq(JobRepair::getState,1);
-            jobRepairQueryWrapper.lambda().gt(JobRepair::getBeginTime,startTime);
-            jobRepairQueryWrapper.lambda().lt(JobRepair::getBeginTime,endTime);
+            jobRepairQueryWrapper1.lambda().eq(JobRepair::getSiteId,request.getSiteId());
+            jobRepairQueryWrapper1.lambda().eq(JobRepair::getState,1);
+            jobRepairQueryWrapper1.lambda().gt(JobRepair::getBeginTime,startTime);
+            jobRepairQueryWrapper1.lambda().lt(JobRepair::getBeginTime,endTime);
 
             List<JobRepair> jobRepairs1 = jobRepairService.getBaseMapper().selectList(jobRepairQueryWrapper1);
             int count1 = jobRepairService.count(jobRepairQueryWrapper1);
@@ -204,10 +204,10 @@ public class OverviewController {
 
 
             QueryWrapper<JobRepair> jobRepairQueryWrapper2 = new QueryWrapper<>();
-            jobRepairQueryWrapper.lambda().eq(JobRepair::getSiteId,request.getSiteId());
-            jobRepairQueryWrapper.lambda().eq(JobRepair::getState,2);
-            jobRepairQueryWrapper.lambda().gt(JobRepair::getBeginTime,startTime);
-            jobRepairQueryWrapper.lambda().lt(JobRepair::getBeginTime,endTime);
+            jobRepairQueryWrapper2.lambda().eq(JobRepair::getSiteId,request.getSiteId());
+            jobRepairQueryWrapper2.lambda().eq(JobRepair::getState,2);
+            jobRepairQueryWrapper2.lambda().gt(JobRepair::getBeginTime,startTime);
+            jobRepairQueryWrapper2.lambda().lt(JobRepair::getBeginTime,endTime);
             List<JobRepair> jobRepairs2 = jobRepairService.getBaseMapper().selectList(jobRepairQueryWrapper2);
             int count2 = jobRepairService.count(jobRepairQueryWrapper2);
             todayWorkDTO.setLineMaintenanceList(jobRepairs2);
@@ -228,23 +228,23 @@ public class OverviewController {
             //气象预警第一条信息
             BaseMeteorologicalWarning baseMeteorologicalWarning = baseMeteorologicalWarningService.getBaseMapper().selectOne(new QueryWrapper<BaseMeteorologicalWarning>().lambda()
                     .eq(BaseMeteorologicalWarning::getSiteId,request.getSiteId())
-                    .groupBy(BaseMeteorologicalWarning::getStartingTime));
+                    .orderByDesc(BaseMeteorologicalWarning::getStartingTime));
             riskAlarmDTO.setBaseMeteorologicalWarning(baseMeteorologicalWarning);
             //保电第一条信息
             BasePowerProtection basePowerProtection = basePowerProtectionService.getBaseMapper().selectOne(new QueryWrapper<BasePowerProtection>().lambda()
                     .eq(BasePowerProtection::getSiteId, request.getSiteId())
-                    .groupBy(BasePowerProtection::getStartTime));
+                    .orderByDesc(BasePowerProtection::getStartTime));
             riskAlarmDTO.setBasePowerProtection(basePowerProtection);
             //巡视风险信息第一条
             BaseInspectionRisk baseInspectionRisk = baseInspectionRiskService.getBaseMapper().selectOne(new QueryWrapper<BaseInspectionRisk>().lambda()
                     .eq(BaseInspectionRisk::getSiteId, request.getSiteId())
-                    .groupBy(BaseInspectionRisk::getEndTime)
+                    .orderByDesc(BaseInspectionRisk::getEndTime)
             );
             riskAlarmDTO.setBaseInspectionRisk(baseInspectionRisk);
             //风险预警第一条
             BaseRiskWarning baseRiskWarning = baseRiskWarningService.getBaseMapper().selectOne(new QueryWrapper<BaseRiskWarning>().lambda()
                     .eq(BaseRiskWarning::getSiteId, request.getSiteId())
-                    .groupBy(BaseRiskWarning::getDatee)
+                    .orderByDesc(BaseRiskWarning::getDatee)
             );
             riskAlarmDTO.setBaseRiskWarning(baseRiskWarning);
             return  ResultUtil.data(riskAlarmDTO);
@@ -258,7 +258,7 @@ public class OverviewController {
     public Result<SbFault> getDefault(BaseReqVO request) {
         try {
             SbFault sbFault = sbFaultService.getBaseMapper().selectOne(new QueryWrapper<SbFault>().lambda().eq(SbFault::getSiteId, request.getSiteId())
-                    .groupBy(SbFault::getBreakdownTime)
+                    .orderByDesc(SbFault::getBreakdownTime)
             );
             return  ResultUtil.data(sbFault);
         }catch (Exception e){

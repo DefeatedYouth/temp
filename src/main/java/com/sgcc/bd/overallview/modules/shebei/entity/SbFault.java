@@ -35,7 +35,7 @@ public class SbFault extends StmBaseEntity {
     private String deviceName;
 
     @ApiModelProperty(value = "设备类型")
-    private Integer deviceType;
+    private String deviceType;
 
     @ApiModelProperty(value = "故障时间")
     private String breakdownTime;

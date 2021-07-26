@@ -349,7 +349,7 @@ public class BaseDeviceServiceImpl extends ServiceImpl<BaseDeviceDao, BaseDevice
         inspectionPlanDTO.setIsOverNum(overNum);
         Integer processing = jobRepairService.getBaseMapper().selectCount(new QueryWrapper<JobRepair>().lambda()
                 .eq(JobRepair::getSiteId, request.getSiteId())
-                .eq(JobRepair::getJobState, EnumJobState.Processing.getValue())
+                .eq(JobRepair::getJobState, EnumJobState.Processing.getText())
                 .eq(request.getState()!=null,JobRepair::getState,request.getState())
                 .gt(request.getStartTime()!= null ,JobRepair::getPlanTime,request.getStartTime())
                 .lt(request.getEndTime() != null,JobRepair::getPlanTime,request.getEndTime())
@@ -357,7 +357,7 @@ public class BaseDeviceServiceImpl extends ServiceImpl<BaseDeviceDao, BaseDevice
         inspectionPlanDTO.setLineNum(processing);
         Integer notStarted = jobRepairService.getBaseMapper().selectCount(new QueryWrapper<JobRepair>().lambda()
                 .eq(JobRepair::getSiteId, request.getSiteId())
-                .eq(JobRepair::getJobState,EnumJobState.Notstarted.getValue())
+                .eq(JobRepair::getJobState,EnumJobState.Notstarted.getText())
                 .eq(request.getState()!=null,JobRepair::getState,request.getState())
                 .gt(request.getStartTime()!= null ,JobRepair::getPlanTime,request.getStartTime())
                 .lt(request.getEndTime() != null,JobRepair::getPlanTime,request.getEndTime())
@@ -365,7 +365,7 @@ public class BaseDeviceServiceImpl extends ServiceImpl<BaseDeviceDao, BaseDevice
         inspectionPlanDTO.setNotStartedNum(notStarted);
         Integer completed = jobRepairService.getBaseMapper().selectCount(new QueryWrapper<JobRepair>().lambda()
                 .eq(JobRepair::getSiteId, request.getSiteId())
-                .eq(JobRepair::getJobState,EnumJobState.Completed.getValue())
+                .eq(JobRepair::getJobState,EnumJobState.Completed.getText())
                 .eq(request.getState()!=null,JobRepair::getState,request.getState())
                 .gt(request.getStartTime()!= null ,JobRepair::getPlanTime,request.getStartTime())
                 .lt(request.getEndTime() != null,JobRepair::getPlanTime,request.getEndTime())
