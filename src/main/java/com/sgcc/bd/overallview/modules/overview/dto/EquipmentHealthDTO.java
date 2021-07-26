@@ -15,21 +15,21 @@ import org.aspectj.lang.annotation.DeclareAnnotation;
 public class EquipmentHealthDTO {
 
     @ApiModelProperty(value = "设备总数")
-    private Integer totalNum;
+    private Integer totalNum=0;
 
     @ApiModelProperty(value = "健康")
-    private Integer healthNum;
+    private Integer healthNum=0;
 
     @ApiModelProperty(value = "亚健康")
-    private Integer subhealthNum;
+    private Integer subhealthNum=0;
 
     @ApiModelProperty(value = "注意")
-    private Integer noteNum;
+    private Integer noteNum=0;
 
     @ApiModelProperty(value = "异常")
-    private Integer abnormalNum;
+    private Integer abnormalNum=0;
 
     @ApiModelProperty(value = "严重")
-    private Integer seriousNum;
+    private Integer seriousNum=0;
 
 }

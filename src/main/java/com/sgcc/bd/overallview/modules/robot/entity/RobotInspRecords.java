@@ -46,7 +46,7 @@ public class RobotInspRecords extends StmBaseEntity {
     private String inspFile;
 
     @ApiModelProperty(value = "'任务状态'")
-    private Integer taskType;
+    private String taskType;
 
     @ApiModelProperty(value = "巡视点位数量")
     private Integer pointNum;

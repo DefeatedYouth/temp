@@ -12,17 +12,17 @@ import lombok.Data;
 @Data
 public class FirefightovweviewDTO {
     @ApiModelProperty(value = "消防设施总数")
-    private Integer totalFireFightingNum;
+    private Integer totalFireFightingNum=0;
     @ApiModelProperty(value = "消防火灾总报警")
-    private String  fireAlarmNum;
+    private String  fireAlarmNum="0";
     @ApiModelProperty(value = "变压器消防火灾告警")
-    private Integer transformerFireAlarm;
+    private Integer transformerFireAlarm=0;
     @ApiModelProperty(value = "变压器灭火装置异常")
-    private Integer transformerFireExtinguishingNum;
+    private Integer transformerFireExtinguishingNum=0;
     @ApiModelProperty(value = "烟感探测器报警")
-    private Integer smokeDetectorAlarm;
+    private Integer smokeDetectorAlarm=0;
     @ApiModelProperty(value = "火灾探测器报警")
-    private Integer fireDetectorAlarm;
+    private Integer fireDetectorAlarm=0;
     @ApiModelProperty(value = "消防装置故障")
-    private Integer fireProtectionDeviceFailure;
+    private Integer fireProtectionDeviceFailure=0;
 }

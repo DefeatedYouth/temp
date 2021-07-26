@@ -77,7 +77,7 @@ public class MovingRingController {
     @GetMapping("/getSiteDetail")
     public Result<BaseSite> getSiteDetail(BaseReqVO request) {
         try {
-            BaseSite baseSite = baseSiteService.getById(request.getId());
+            BaseSite baseSite = baseSiteService.getById(request.getSiteId());
             return  ResultUtil.data(baseSite);
         }catch (Exception e){
             return ResultUtil.error(500,e.getMessage());

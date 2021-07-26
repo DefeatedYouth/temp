@@ -13,5 +13,5 @@ import lombok.Data;
 public class SparePartsMonitoringDTO {
 
     @ApiModelProperty(value = "断路器")
-    private Integer breakerNum;
+    private Integer breakerNum=0;
 }

@@ -12,19 +12,19 @@ import lombok.Data;
 @Data
 public class HjEquipmentNumDTO {
     @ApiModelProperty(value = "总数")
-    private Integer totalNum;
+    private Integer totalNum=0;
     @ApiModelProperty(value = "开启数量")
-    private Integer openNum;
+    private Integer openNum=0;
     @ApiModelProperty(value = "关闭数量")
-    private Integer downNum;
+    private Integer downNum=0;
     @ApiModelProperty(value = "通信异常")
-    private Integer abnormalCommunicationNum;
+    private Integer abnormalCommunicationNum=0;
     @ApiModelProperty(value = "告警数量")
-    private Integer alarmNum;
+    private Integer alarmNum=0;
     @ApiModelProperty(value = "sf6最大浓度")
-    private String sfSixMax;
+    private String sfSixMax="";
     @ApiModelProperty(value = "CO2最大浓度")
-    private String cotwoMax;
+    private String cotwoMax="";
     @ApiModelProperty(value = "水位最大高度")
-    private String waterLevelMax;
+    private String waterLevelMax="";
 }

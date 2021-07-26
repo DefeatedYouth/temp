@@ -16,13 +16,13 @@ public class TodayWorkDTO {
 
     private List  operationList;
 
-    private Integer operationNum;
+    private Integer operationNum=0;
 
     private List  overhaulList;
 
-    private Integer overhaulNum;
+    private Integer overhaulNum=0;
 
     private List  lineMaintenanceList;
 
-    private Integer lineMaintenanceNum;
+    private Integer lineMaintenanceNum=0;
 }
