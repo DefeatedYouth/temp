@@ -1,5 +1,7 @@
 package com.sgcc.bd.overallview.modules.job.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.sgcc.bd.overallview.base.StmBaseEntity;
 import java.util.Date;
 
@@ -87,6 +89,7 @@ public class JobRepair extends StmBaseEntity {
     @ApiModelProperty(value = "0检修1运维2带电检测")
     private Integer state;
 
+    @TableField(exist=false)
     @ApiModelProperty(value = "0即将到期 1已超期")
     private Integer jobRepairState;
 }
