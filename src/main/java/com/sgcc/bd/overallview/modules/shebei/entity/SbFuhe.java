@@ -38,7 +38,7 @@ public class SbFuhe extends StmBaseEntity {
     private String deviceName;
 
     @ApiModelProperty(value = "设备类型")
-    private Integer deviceType;
+    private String deviceType;
 
     @ApiModelProperty(value = "高压测A相电压")
     private String highAvoltage;
