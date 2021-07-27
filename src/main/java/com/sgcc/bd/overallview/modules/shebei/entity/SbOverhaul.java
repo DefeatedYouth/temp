@@ -53,7 +53,7 @@ public class SbOverhaul extends StmBaseEntity {
     private String deviceName;
 
     @ApiModelProperty(value = "设备类型")
-    private Integer deviceType;
+    private String deviceType;
 
     @ApiModelProperty(value = "专业性质")
     private String professionalNature;

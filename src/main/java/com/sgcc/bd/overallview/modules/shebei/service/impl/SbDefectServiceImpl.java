@@ -32,13 +32,13 @@ public class SbDefectServiceImpl extends ServiceImpl<SbDefectDao, SbDefect> impl
 
             Integer common = this.count(sbDefectQueryWrapper.lambda().eq(SbDefect::getDeviceType, request.getType())
                     .eq(SbDefect::getSiteId,request.getSiteId())
-                    .eq(SbDefect::getDefectLevel, EnumDefectStatus.Common.getValue()));
+                    .eq(SbDefect::getDefectLevel, EnumDefectStatus.Common.getText()));
             Integer severity = this.count(new QueryWrapper<SbDefect>().lambda()
                     .eq(SbDefect::getSiteId,request.getSiteId())
-                    .eq(request.getType()!=null,SbDefect::getDeviceType, request.getType()).eq(SbDefect::getDefectLevel, EnumDefectStatus.Severity.getValue()));
+                    .eq(request.getType()!=null,SbDefect::getDeviceType, request.getType()).eq(SbDefect::getDefectLevel, EnumDefectStatus.Severity.getText()));
             Integer critical = this.count(new QueryWrapper<SbDefect>().lambda()
                     .eq(SbDefect::getSiteId,request.getSiteId())
-                    .eq(request.getType()!=null,SbDefect::getDeviceType, request.getType()).eq(SbDefect::getDefectLevel, EnumDefectStatus.Critical.getValue()));
+                    .eq(request.getType()!=null,SbDefect::getDeviceType, request.getType()).eq(SbDefect::getDefectLevel, EnumDefectStatus.Critical.getText()));
             //Integer notdefect = sbDefectService.getBaseMapper().selectCount(new QueryWrapper<SbDefect>().lambda().eq(SbDefect::getDeviceType, "变压器").eq(SbDefect::getDefectLevel, EnumDefectStatus.notdefect.getValue()));
             sbDefect.setCommonNum(common);
             sbDefect.setSeverityNum(severity);

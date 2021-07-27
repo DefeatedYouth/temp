@@ -32,14 +32,14 @@ public class SbDangerServiceImpl extends ServiceImpl<SbDangerDao, SbDanger> impl
 
             Integer common = this.count(new QueryWrapper<SbDanger>().lambda().eq(SbDanger::getDeviceType, request.getType())
                     .eq(SbDanger::getSiteId,request.getSiteId())
-                    .eq(SbDanger::getHiddenDangerLevel, EnumDangerStatus.Common.getValue()));
+                    .eq(SbDanger::getHiddenDangerLevel, EnumDangerStatus.Common.getText()));
             Integer severity = this.count(new QueryWrapper<SbDanger>().lambda()
                     .eq(SbDanger::getSiteId,request.getSiteId())
-                    .eq(SbDanger::getDeviceType, request.getType()).eq(SbDanger::getHiddenDangerLevel, EnumDangerStatus.Severity.getValue()));
+                    .eq(SbDanger::getDeviceType, request.getType()).eq(SbDanger::getHiddenDangerLevel, EnumDangerStatus.Severity.getText()));
             Integer critical = this.count(new QueryWrapper<SbDanger>().lambda()
                     .eq(SbDanger::getSiteId,request.getSiteId())
                     .eq(SbDanger::getDeviceType, request.getType())
-                    .eq(request.getType()!=null,SbDanger::getDeviceType, request.getType()).eq(SbDanger::getHiddenDangerLevel, EnumDefectStatus.Critical.getValue()));
+                    .eq(request.getType()!=null,SbDanger::getDeviceType, request.getType()).eq(SbDanger::getHiddenDangerLevel, EnumDefectStatus.Critical.getText()));
             Integer notdefectNum = this.count(new QueryWrapper<SbDanger>().lambda()
                     .eq(SbDanger::getDeviceType, request.getType())
                     .eq(SbDanger::getSiteId, request.getSiteId())

@@ -214,7 +214,7 @@ public class SbController {
             SbOverhaul sbOverhaul = sbOverhaulService.getBaseMapper().selectOne(new QueryWrapper<SbOverhaul>().lambda()
                     .eq(SbOverhaul::getSiteId,request.getSiteId())
                     .eq(SbOverhaul::getDeviceType,request.getType())
-                    .groupBy(SbOverhaul::getWorkDate)
+                    .orderByDesc(SbOverhaul::getWorkDate).last(" limit 1")
             );
             return  ResultUtil.data(sbOverhaul);
         }catch (Exception e){
