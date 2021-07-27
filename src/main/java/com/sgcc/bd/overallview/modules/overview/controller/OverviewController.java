@@ -487,7 +487,7 @@ public class OverviewController {
             sbToolMonitorings.forEach(sbToolMonitoring -> {
                 //非空判断
                 if(sbToolMonitoring.getTestCycle()!=null&&sbToolMonitoring.getLastTestDate()!=null){
-                    Long time =   System.currentTimeMillis() - Integer.parseInt(sbToolMonitoring.getTestCycle())*oneDay*30 -  sbToolMonitoring.getLastTestDate().getTime();
+                    Long time =   System.currentTimeMillis() - sbToolMonitoring.getTestCycle()*oneDay*30 -  sbToolMonitoring.getLastTestDate().getTime();
                     if (time<= oneDay*7&&time>0){
                         Long day =   (oneDay*7-time)/oneDay ;
                         //延迟天数

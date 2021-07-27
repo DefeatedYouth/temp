@@ -80,8 +80,7 @@ public class SbToolMonitoringController {
 
         if (query.getIsOverdue().equals("0")){
             sbToolMonitorings.forEach(sbToolMonitoring -> {
-                String testCycle = sbToolMonitoring.getTestCycle();
-                if (System.currentTimeMillis() - Integer.parseInt(testCycle)*oneDay*30 -  sbToolMonitoring.getLastTestDate().getTime() > oneDay*7){
+                if (System.currentTimeMillis() - sbToolMonitoring.getTestCycle()*oneDay*30 -  sbToolMonitoring.getLastTestDate().getTime() > oneDay*7){
                     sbToolMonitoring.setIsOverdue("未超期");
                     newSbToolMonitoring.add(sbToolMonitoring);
                 }
@@ -89,8 +88,7 @@ public class SbToolMonitoringController {
         }else if (query.getIsOverdue().equals("1")){
 
             sbToolMonitorings.forEach(sbToolMonitoring -> {
-                String testCycle = sbToolMonitoring.getTestCycle();
-                Long time = System.currentTimeMillis() - Integer.parseInt(testCycle)*oneDay*30 -  sbToolMonitoring.getLastTestDate().getTime();
+                Long time = System.currentTimeMillis() - sbToolMonitoring.getTestCycle()*oneDay*30 -  sbToolMonitoring.getLastTestDate().getTime();
                 if (time <= oneDay*7&&time>0){
                     sbToolMonitoring.setIsOverdue("即将超期");
                     newSbToolMonitoring.add(sbToolMonitoring);
@@ -99,8 +97,7 @@ public class SbToolMonitoringController {
 
         }else if (query.getIsOverdue().equals("2")) {
             sbToolMonitorings.forEach(sbToolMonitoring -> {
-                String testCycle = sbToolMonitoring.getTestCycle();
-                if (System.currentTimeMillis() - Integer.parseInt(testCycle)*oneDay*30 -  sbToolMonitoring.getLastTestDate().getTime() <0){
+                if (System.currentTimeMillis() - sbToolMonitoring.getTestCycle()*oneDay*30 -  sbToolMonitoring.getLastTestDate().getTime() <0){
                     sbToolMonitoring.setIsOverdue("已超期");
                     newSbToolMonitoring.add(sbToolMonitoring);
                 }

@@ -44,7 +44,7 @@ public class SbToolMonitoring extends StmBaseEntity {
     private String deviceCode;
 
     @ApiModelProperty(value = "试验周期")
-    private String testCycle;
+    private Integer testCycle;
 
     @ApiModelProperty(value = "上次试验日期")
     private Date lastTestDate;

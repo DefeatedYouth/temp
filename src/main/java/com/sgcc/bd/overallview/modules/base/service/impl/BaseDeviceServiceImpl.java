@@ -123,23 +123,13 @@ public class BaseDeviceServiceImpl extends ServiceImpl<BaseDeviceDao, BaseDevice
         List<DeviceCountDTO> list = new ArrayList<>();
         initWorkDeviceCountList(list);
 
-        QueryWrapper<SbToolMonitoring> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda()
-                .eq(request.getSiteId() != null,SbToolMonitoring::getSiteId, request.getSiteId())
-                .groupBy(SbToolMonitoring::getDeviceType);
-        queryWrapper.select("device_type,count(*) num");
-        List<Map<String, Object>> maps = sbToolMonitoringService.listMaps(queryWrapper);
-        for (Map<String, Object> map : maps) {
-            if (map.get("device_type") != null && map.get("num") != null ){
-                Integer deviceType = (Integer)map.get("device_type");
-                if (deviceType <= 6){
-                    Long num = (Long)map.get("num");
-                    DeviceCountDTO deviceCountDTO = list.get(deviceType - 1);
-                    if (deviceCountDTO != null){
-                        deviceCountDTO.setNum(num);
-                    }
-                }
-            }
+            for (DeviceCountDTO item : list) {
+                QueryWrapper<SbToolMonitoring> queryWrapper = new QueryWrapper<>();
+                queryWrapper.lambda()
+                        .eq(request.getSiteId() != null,SbToolMonitoring::getSiteId, request.getSiteId())
+                        .eq(SbToolMonitoring::getDeviceType,item.getEquipmentName());
+                Integer count=sbToolMonitoringService.count(queryWrapper);
+                item.setNum(count.longValue());
         }
       /*  toolMonitoringDTO.setDeviceCountDTOS(list);
         toolMonitoringDTO.setSbToolMonitorings(newSbToolMonitoring);*/
@@ -152,23 +142,13 @@ public class BaseDeviceServiceImpl extends ServiceImpl<BaseDeviceDao, BaseDevice
         List<DeviceCountDTO> list = new ArrayList<>();
         iniTSecondaryEquipmentCountList(list);
 
-        QueryWrapper<SbSecondaryEquipmentMonitoring> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda()
-                .eq(request.getSiteId() != null,SbSecondaryEquipmentMonitoring::getSiteId, request.getSiteId())
-                .groupBy(SbSecondaryEquipmentMonitoring::getDeviceType);
-        queryWrapper.select("device_type,count(*) num");
-        List<Map<String, Object>> maps = sbSecondaryEquipmentMonitoringService.listMaps(queryWrapper);
-        for (Map<String, Object> map : maps) {
-            if (map.get("device_type") != null && map.get("num") != null ){
-                Integer deviceType = (Integer)map.get("device_type");
-                if (deviceType <= 6){
-                    Long num = (Long)map.get("num");
-                    DeviceCountDTO deviceCountDTO = list.get(deviceType - 1);
-                    if (deviceCountDTO != null){
-                        deviceCountDTO.setNum(num);
-                    }
-                }
-            }
+        for (DeviceCountDTO item : list) {
+            QueryWrapper<SbSecondaryEquipmentMonitoring> queryWrapper = new QueryWrapper<>();
+            queryWrapper.lambda()
+                    .eq(request.getSiteId() != null,SbSecondaryEquipmentMonitoring::getSiteId, request.getSiteId())
+                    .eq(SbSecondaryEquipmentMonitoring::getDeviceType,item.getEquipmentName());
+            Integer count=sbSecondaryEquipmentMonitoringService.count(queryWrapper);
+            item.setNum(count.longValue());
         }
         return list;
     }
@@ -462,8 +442,8 @@ public class BaseDeviceServiceImpl extends ServiceImpl<BaseDeviceDao, BaseDevice
         d5.setNum(0L);
         list.add(d5);
         DeviceCountDTO d6 = new DeviceCountDTO();
-        d5.setEquipmentName("电能表");
-        d5.setNum(0L);
+        d6.setEquipmentName("电能表");
+        d6.setNum(0L);
         list.add(d6);
     }
 
