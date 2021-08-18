@@ -48,10 +48,10 @@ public class HjChushiji extends StmBaseEntity {
     private String deviceName;
 
     @ApiModelProperty(value = "通信状态 0通信正常 1通信异常")
-    private Integer linkState;
+    private String linkState;
 
     @ApiModelProperty(value = "工作状态 0关 1开")
-    private Integer workState;
+    private String workState;
 
     @ApiModelProperty(value = "监测温度")
     private String wenduValue;

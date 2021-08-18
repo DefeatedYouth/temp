@@ -272,8 +272,6 @@ public class AxfDeviceController {
                     FileUtil.del(tmpFile);
                 }
             });
-
         }
-
 }
 

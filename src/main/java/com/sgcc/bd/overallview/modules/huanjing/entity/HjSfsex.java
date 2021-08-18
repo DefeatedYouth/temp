@@ -46,7 +46,7 @@ public class HjSfsex extends StmBaseEntity {
     private String deviceName;
 
     @ApiModelProperty(value = "通信状态 0通信正常 1通信异常")
-    private Integer linkState;
+    private String linkState;
 
     @ApiModelProperty(value = "装置状态")
     private String deviceState;
@@ -61,7 +61,7 @@ public class HjSfsex extends StmBaseEntity {
     private String otwoValue;
 
     @ApiModelProperty(value = "报警状态 0未报警 1已报警")
-    private Integer alarmState;
+    private String alarmState;
 
     @ApiModelProperty(value = "三维对应id")
     private String threeId;

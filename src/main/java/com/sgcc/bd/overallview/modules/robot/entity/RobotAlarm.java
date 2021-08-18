@@ -52,7 +52,7 @@ public class RobotAlarm extends StmBaseEntity {
     private String alarmState;
 
     @ApiModelProperty(value = "告警等级")
-    private Integer alarmLevel;
+    private String alarmLevel;
 
     @ApiModelProperty(value = "数据源id")
     private String resourcesId;

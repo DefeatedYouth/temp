@@ -95,7 +95,7 @@ public class SbBook extends StmBaseEntity {
     private String wbsCode;
 
     @ApiModelProperty(value = "运行编号")
-    private Integer operationNumber;
+    private String operationNumber;
 
     @ApiModelProperty(value = "间隔单元")
     private String spacerUnit;
@@ -104,7 +104,7 @@ public class SbBook extends StmBaseEntity {
     private String equipmentOwner;
 
     @ApiModelProperty(value = "设备状态")
-    private Integer deviceState;
+    private String deviceState;
 
     @ApiModelProperty(value = "相数")
     private String farewellNum;
@@ -116,7 +116,7 @@ public class SbBook extends StmBaseEntity {
     private Date latelyUseTime;
 
     @ApiModelProperty(value = "是否农网")
-    private Integer isAgriculture;
+    private String isAgriculture;
 
     @ApiModelProperty(value = "使用环境")
     private String useEnvironment;
@@ -128,7 +128,7 @@ public class SbBook extends StmBaseEntity {
     private String majorClassification;
 
     @ApiModelProperty(value = "开关编号")
-    private Integer switchNumber;
+    private String switchNumber;
 
     @ApiModelProperty(value = "出厂编号")
     private String factoryNumber;

@@ -61,10 +61,10 @@ public class HjShuibang extends StmBaseEntity {
     private String jiudiSate;
 
     @ApiModelProperty(value = "开关状态值 0关 1开")
-    private Integer switchState;
+    private String switchState;
 
     @ApiModelProperty(value = "通信状态 0通信正常 1通信异常")
-    private Integer linkState;
+    private String linkState;
 
 
     @ApiModelProperty(value = "运维班id")

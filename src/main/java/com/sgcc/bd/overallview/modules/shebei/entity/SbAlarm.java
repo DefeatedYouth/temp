@@ -42,7 +42,7 @@ public class SbAlarm extends StmBaseEntity {
     private Date alarmTime;
 
     @ApiModelProperty(value = "告警类型(0 正常 1 事故告警 2 异常告警 3 越线告警 4 变位告警 5 告知告警)")
-    private Integer alarmType;
+    private String alarmType;
 
     @ApiModelProperty(value = "告警描述")
     private String alarmDesc;
@@ -57,7 +57,7 @@ public class SbAlarm extends StmBaseEntity {
     private String threeId;
 
     @ApiModelProperty(value = "1 在线告警 2监测告警")
-    private Integer alarmKind;
+    private String alarmKind;
 
 
 }

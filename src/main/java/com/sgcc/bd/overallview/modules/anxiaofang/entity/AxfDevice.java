@@ -48,10 +48,10 @@ public class AxfDevice extends StmBaseEntity {
     private String deviceType;
 
     @ApiModelProperty(value = "节点类型  0布防状态 1撤防状态")
-    private Integer nodeType;
+    private String nodeType;
 
     @ApiModelProperty(value = "设备状态（0装置故障 1通信异常）")
-    private Integer deviceState;
+    private String deviceState;
 
     @ApiModelProperty(value = "事件描述")
     private String eventDesc;
@@ -69,7 +69,7 @@ public class AxfDevice extends StmBaseEntity {
     private String nodeName;
 
     @ApiModelProperty(value = "开启状态0关闭1开启")
-    private Integer openFlag;
+    private String openFlag;
 
     @ApiModelProperty(value = "运维班组名称")
     private String operationMaintenanceTeam;

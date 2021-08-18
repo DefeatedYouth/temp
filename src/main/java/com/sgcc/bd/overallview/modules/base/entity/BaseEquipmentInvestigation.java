@@ -48,5 +48,5 @@ public class BaseEquipmentInvestigation extends StmBaseEntity {
     private String voltageLevel;
 
     @ApiModelProperty(value = "是否查阅0未查悦 1已查阅")
-    private Integer lookFlag;
+    private String lookFlag;
 }

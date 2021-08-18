@@ -41,10 +41,10 @@ public class SbRealdataRecord extends StmBaseEntity {
     private Date monitoringTime;
 
     @ApiModelProperty(value = "开合状态")
-    private Integer openingClosingState;
+    private String openingClosingState;
 
     @ApiModelProperty(value = "运行档位")
-    private Integer operatingGear;
+    private String operatingGear;
 
     @ApiModelProperty(value = "挡位值")
     private String gearPosition;

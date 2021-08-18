@@ -41,49 +41,49 @@ public class SbRealdata extends StmBaseEntity {
     private Date monitoringTime;
 
     @ApiModelProperty(value = "开合状态")
-    private Integer openingClosingState;
+    private String openingClosingState;
 
     @ApiModelProperty(value = "运行挡位")
-    private Integer operatingGear;
+    private String operatingGear;
 
     @ApiModelProperty(value = "挡位值")
     private String gearPosition;
 
     @ApiModelProperty(value = "A相位绕组温度")
-    private Integer awindingTemperature;
+    private String awindingTemperature;
 
     @ApiModelProperty(value = "A相顶层油温1")
-    private Integer atopOilTemperatureOne;
+    private String atopOilTemperatureOne;
 
     @ApiModelProperty(value = "A相顶层油温2")
-    private Integer atopOilTemperatureTwo;
+    private String atopOilTemperatureTwo;
 
     @ApiModelProperty(value = "A相铁芯接地电流")
-    private Integer acoreGroundingCurrent;
+    private String acoreGroundingCurrent;
 
     @ApiModelProperty(value = "B相位绕组温度")
-    private Integer bwindingTemperature;
+    private String bwindingTemperature;
 
     @ApiModelProperty(value = "B相顶层油温1")
-    private Integer btopOilTemperatureOne;
+    private String btopOilTemperatureOne;
 
     @ApiModelProperty(value = "B相顶层油温2")
-    private Integer btopOilTemperatureTwo;
+    private String btopOilTemperatureTwo;
 
     @ApiModelProperty(value = "B相铁芯接地电流")
-    private Integer bcoreGroundingCurrent;
+    private String bcoreGroundingCurrent;
 
     @ApiModelProperty(value = "C相位绕组温度")
-    private Integer cwindingTemperature;
+    private String cwindingTemperature;
 
     @ApiModelProperty(value = "C相顶层油温1")
-    private Integer ctopOilTemperatureOne;
+    private String ctopOilTemperatureOne;
 
     @ApiModelProperty(value = "C相顶层油温2")
-    private Integer ctopOilTemperatureTwo;
+    private String ctopOilTemperatureTwo;
 
     @ApiModelProperty(value = "C相铁芯接地电流")
-    private Integer ccoreGroundingCurrent;
+    private String ccoreGroundingCurrent;
 
     @ApiModelProperty(value = "三维对应id")
     private String threeId;

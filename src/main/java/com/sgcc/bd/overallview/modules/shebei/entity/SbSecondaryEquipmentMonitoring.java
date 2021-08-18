@@ -38,7 +38,7 @@ public class SbSecondaryEquipmentMonitoring extends StmBaseEntity {
     private String deviceName;
 
     @ApiModelProperty(value = "状态")
-    private Integer state;
+    private String state;
 
     @ApiModelProperty(value = "值")
     private String value;

@@ -177,12 +177,12 @@ public class SbController {
         );
 
         List<Integer> nums = new ArrayList<Integer>();
-        nums.add(sbRealdata.getAtopOilTemperatureOne());
-        nums.add(sbRealdata.getBtopOilTemperatureOne());
-        nums.add(sbRealdata.getCtopOilTemperatureOne());
-        nums.add(sbRealdata.getAtopOilTemperatureTwo());
-        nums.add(sbRealdata.getBtopOilTemperatureTwo());
-        nums.add(sbRealdata.getCtopOilTemperatureTwo());
+        nums.add(Integer.parseInt(sbRealdata.getAtopOilTemperatureOne()));
+        nums.add(Integer.parseInt(sbRealdata.getBtopOilTemperatureOne()));
+        nums.add(Integer.parseInt(sbRealdata.getCtopOilTemperatureOne()));
+        nums.add(Integer.parseInt(sbRealdata.getAtopOilTemperatureTwo()));
+        nums.add(Integer.parseInt(sbRealdata.getBtopOilTemperatureTwo()));
+        nums.add(Integer.parseInt(sbRealdata.getCtopOilTemperatureTwo()));
         //设置最大值Max
         int Max = Collections.max(nums);
         informationAnalysisChartDTO.setHighTemp(Max+"");

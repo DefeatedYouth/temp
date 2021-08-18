@@ -46,13 +46,13 @@ public class HjShuiwei extends StmBaseEntity {
     private String deviceName;
 
     @ApiModelProperty(value = "通信状态 0通信正常 1通信异常")
-    private Integer linkState;
+    private String linkState;
 
     @ApiModelProperty(value = "水位")
     private String shuiweiValue;
 
     @ApiModelProperty(value = "报警状态 0未报警 1已报警（温度）")
-    private Integer alarmState;
+    private String alarmState;
 
     @ApiModelProperty(value = "运维班id")
     private Integer parentId;

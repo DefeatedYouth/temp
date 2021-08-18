@@ -62,7 +62,7 @@ public class SbDanger extends StmBaseEntity {
     private String hiddenDangerSource;
 
     @ApiModelProperty(value = "是否是共性隐患")
-    private Integer commonHiddenDanger;
+    private String commonHiddenDanger;
 
     @ApiModelProperty(value = "隐患状态")
     private String hiddenDangerState;

@@ -19,7 +19,6 @@ import java.util.Date;
 @RequestMapping("/http/test")
 public class HttpTestController {
 
-
     @RequestMapping(value = "/test",method = RequestMethod.GET)
     @ApiOperation(value = "test")
     public Result<Object> test(String id){
@@ -41,8 +40,5 @@ public class HttpTestController {
 
         return ResultUtil.data(response);
     }
-
-
-
 
 }

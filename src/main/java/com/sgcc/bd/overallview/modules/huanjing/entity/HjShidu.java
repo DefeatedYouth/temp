@@ -51,10 +51,10 @@ public class HjShidu extends StmBaseEntity {
     private String shiduValue;
 
     @ApiModelProperty(value = "通信状态0通信正常 1通信异常")
-    private Integer linkState;
+    private String linkState;
 
     @ApiModelProperty(value = "报警状态 0未报警 1已报警（温湿度）")
-    private Integer alarmState;
+    private String alarmState;
 
     @ApiModelProperty(value = "运维班id")
     private Integer parentId;

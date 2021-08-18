@@ -36,7 +36,7 @@ public class BaseMeteorologicalWarning extends StmBaseEntity {
     private String type;
 
     @ApiModelProperty(value = "级别")
-    private Integer level;
+    private String level;
 
     @ApiModelProperty(value = "内容")
     private String text;
