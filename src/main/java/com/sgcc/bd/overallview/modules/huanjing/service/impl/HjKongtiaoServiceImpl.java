@@ -33,15 +33,15 @@ public class HjKongtiaoServiceImpl extends ServiceImpl<HjKongtiaoDao, HjKongtiao
             hjEquipmentNumDTO.setTotalNum(totalNum);
             Integer openNum = this.count(new QueryWrapper<HjKongtiao>().lambda()
                     .eq(HjKongtiao::getSiteId, request.getSiteId())
-                    .eq(HjKongtiao::getSwitchState, EnumSwitchState.Open.getValue()));
+                    .eq(HjKongtiao::getSwitchState, EnumSwitchState.Open.getValue().toString()));
             hjEquipmentNumDTO.setOpenNum(openNum);
             Integer downNum = this.count(new QueryWrapper<HjKongtiao>().lambda()
                     .eq(HjKongtiao::getSiteId, request.getSiteId())
-                    .eq(HjKongtiao::getSwitchState, EnumSwitchState.Shut.getValue()));
+                    .eq(HjKongtiao::getSwitchState, EnumSwitchState.Shut.getValue().toString()));
             hjEquipmentNumDTO.setDownNum(downNum);
             Integer processed = this.count(new QueryWrapper<HjKongtiao>().lambda()
                     .eq(HjKongtiao::getSiteId, request.getSiteId())
-                    .eq(HjKongtiao::getLinkState, EnumLinkState.Processed.getValue()));
+                    .eq(HjKongtiao::getLinkState, EnumLinkState.Processed.getValue().toString()));
             hjEquipmentNumDTO.setAbnormalCommunicationNum(processed);
             return  hjEquipmentNumDTO;
         }catch (Exception e){

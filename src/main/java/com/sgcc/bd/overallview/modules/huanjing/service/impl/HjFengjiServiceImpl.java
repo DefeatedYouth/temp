@@ -33,11 +33,11 @@ public class HjFengjiServiceImpl extends ServiceImpl<HjFengjiDao, HjFengji> impl
             hjEquipmentNumDTO.setTotalNum(totalNum);
             Integer processed = this.count(new QueryWrapper<HjFengji>().lambda()
                     .eq(HjFengji::getSiteId, request.getSiteId())
-                    .eq(HjFengji::getLinkState, EnumLinkState.Processed.getValue()));
+                    .eq(HjFengji::getLinkState, EnumLinkState.Processed.getValue().toString()));
             hjEquipmentNumDTO.setAbnormalCommunicationNum(processed);
             Integer shutNum = this.count(new QueryWrapper<HjFengji>().lambda()
                     .eq(HjFengji::getSiteId, request.getSiteId())
-                    .eq(HjFengji::getFengjiState, EnumSwitchState.Shut.getValue()));
+                    .eq(HjFengji::getFengjiState, EnumSwitchState.Shut.getValue().toString()));
             hjEquipmentNumDTO.setDownNum(shutNum);
             return  hjEquipmentNumDTO;
         }catch (Exception e){

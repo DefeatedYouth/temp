@@ -39,11 +39,11 @@ public class HjSfsexServiceImpl extends ServiceImpl<HjSfsexDao, HjSfsex> impleme
             hjEquipmentNumDTO.setCotwoMax(cotwo.getOtwoValue());
             Integer processed = this.count(new QueryWrapper<HjSfsex>().lambda()
                     .eq(HjSfsex::getSiteId, request.getSiteId())
-                    .eq(HjSfsex::getLinkState, EnumLinkState.Processed.getValue()));
+                    .eq(HjSfsex::getLinkState, EnumLinkState.Processed.getValue().toString()));
             hjEquipmentNumDTO.setAbnormalCommunicationNum(processed);
             Integer alarmNum = this.count(new QueryWrapper<HjSfsex>().lambda()
                     .eq(HjSfsex::getSiteId, request.getSiteId())
-                    .eq(HjSfsex::getAlarmState, EnumAlarmStateType.Processed.getValue()));
+                    .eq(HjSfsex::getAlarmState, EnumAlarmStateType.Processed.getValue().toString()));
             hjEquipmentNumDTO.setAlarmNum(alarmNum);
             return  hjEquipmentNumDTO;
         }catch (Exception e){

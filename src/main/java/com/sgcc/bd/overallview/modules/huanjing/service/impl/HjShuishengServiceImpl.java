@@ -33,11 +33,11 @@ public class HjShuishengServiceImpl extends ServiceImpl<HjShuishengDao, HjShuish
             hjEquipmentNumDTO.setTotalNum(totalNum);
             Integer linkStateNum = this.count(new QueryWrapper<HjShuisheng>().lambda()
                     .eq(HjShuisheng::getSiteId, request.getSiteId())
-                    .eq(HjShuisheng::getLinkState, EnumLinkState.Processed.getValue()));
+                    .eq(HjShuisheng::getLinkState, EnumLinkState.Processed.getValue().toString()));
             hjEquipmentNumDTO.setAbnormalCommunicationNum(linkStateNum);
             Integer alarmNum = this.count(new QueryWrapper<HjShuisheng>().lambda()
                     .eq(HjShuisheng::getSiteId, request.getSiteId())
-                    .eq(HjShuisheng::getAlarmState, EnumAlarmStateType.Processed.getValue()));
+                    .eq(HjShuisheng::getAlarmState, EnumAlarmStateType.Processed.getValue().toString()));
             hjEquipmentNumDTO.setAlarmNum(alarmNum);
             return hjEquipmentNumDTO;
         }catch (Exception e){

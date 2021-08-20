@@ -33,15 +33,15 @@ public class HjChushijiServiceImpl extends ServiceImpl<HjChushijiDao, HjChushiji
             hjEquipmentNumDTO.setTotalNum(totalNum);
             Integer openNum = this.count(new QueryWrapper<HjChushiji>().lambda()
                     .eq(HjChushiji::getSiteId, request.getSiteId())
-                    .eq(HjChushiji::getWorkState, EnumSwitchState.Open.getValue()));
+                    .eq(HjChushiji::getWorkState, EnumSwitchState.Open.getValue().toString()));
             hjEquipmentNumDTO.setOpenNum(openNum);
             Integer downNum = this.count(new QueryWrapper<HjChushiji>().lambda()
                     .eq(HjChushiji::getSiteId, request.getSiteId())
-                    .eq(HjChushiji::getWorkState, EnumSwitchState.Shut.getValue()));
+                    .eq(HjChushiji::getWorkState, EnumSwitchState.Shut.getValue().toString()));
             hjEquipmentNumDTO.setDownNum(downNum);
             Integer processed = this.count(new QueryWrapper<HjChushiji>().lambda()
                     .eq(HjChushiji::getSiteId, request.getSiteId())
-                    .eq(HjChushiji::getLinkState, EnumLinkState.Processed.getValue()));
+                    .eq(HjChushiji::getLinkState, EnumLinkState.Processed.getValue().toString()));
             hjEquipmentNumDTO.setAbnormalCommunicationNum(processed);
             return  hjEquipmentNumDTO;
         }catch (Exception e){

@@ -36,7 +36,7 @@ public class HjShuiweiServiceImpl extends ServiceImpl<HjShuiweiDao, HjShuiwei> i
             hjEquipmentNumDTO.setWaterLevelMax(hjShuiwei.getShuiweiValue());
             Integer alarmNum = this.count(new QueryWrapper<HjShuiwei>().lambda()
                     .eq(HjShuiwei::getSiteId, request.getSiteId())
-                    .eq(HjShuiwei::getAlarmState, EnumAlarmStateType.Processed.getValue()));
+                    .eq(HjShuiwei::getAlarmState, EnumAlarmStateType.Processed.getValue().toString()));
             hjEquipmentNumDTO.setAlarmNum(alarmNum);
             return  hjEquipmentNumDTO;
         }catch (Exception e){

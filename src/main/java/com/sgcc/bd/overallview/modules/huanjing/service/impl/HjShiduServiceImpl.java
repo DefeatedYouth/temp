@@ -32,12 +32,12 @@ public class HjShiduServiceImpl extends ServiceImpl<HjShiduDao, HjShidu> impleme
             hjWenduDTO.setTotalNum(totalNum);
             Integer alarmNum = this.count(new QueryWrapper<HjShidu>().lambda()
                     .eq(HjShidu::getSiteId, request.getSiteId())
-                    .eq(HjShidu::getAlarmState, EnumTemperatureAlarmState.Alarm.getValue())
+                    .eq(HjShidu::getAlarmState, EnumTemperatureAlarmState.Alarm.getValue().toString())
             );
             hjWenduDTO.setAlarmNum(alarmNum);
             HjShidu hjShidu = this.getBaseMapper().selectOne(new QueryWrapper<HjShidu>().lambda().eq(HjShidu::getSiteId, request.getSiteId()).orderByAsc(HjShidu::getShiduValue).last("limit 1"));
             hjWenduDTO.setMaximumTemperature(hjShidu.getShiduValue());
-            Integer abnormalCommunication = this.count(new QueryWrapper<HjShidu>().lambda().eq(HjShidu::getSiteId, request.getSiteId()).eq(HjShidu::getLinkState, EnumLinkState.Processed.getValue()));
+            Integer abnormalCommunication = this.count(new QueryWrapper<HjShidu>().lambda().eq(HjShidu::getSiteId, request.getSiteId()).eq(HjShidu::getLinkState, EnumLinkState.Processed.getValue().toString()));
             hjWenduDTO.setAbnormalCommunication(abnormalCommunication);
             return  hjWenduDTO;
         }catch (Exception e){

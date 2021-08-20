@@ -226,24 +226,28 @@ public class OverviewController {
         try {
             RiskAlarmDTO riskAlarmDTO = new RiskAlarmDTO();
             //气象预警第一条信息
-            BaseMeteorologicalWarning baseMeteorologicalWarning = baseMeteorologicalWarningService.getBaseMapper().selectOne(new QueryWrapper<BaseMeteorologicalWarning>().lambda()
-                    .eq(BaseMeteorologicalWarning::getSiteId,request.getSiteId())
+            BaseMeteorologicalWarning baseMeteorologicalWarnings = baseMeteorologicalWarningService.getBaseMapper().selectOne(new QueryWrapper<BaseMeteorologicalWarning>().lambda()
+                    .eq(BaseMeteorologicalWarning::getSiteId, request.getSiteId())
+                    .last("limit 1")
                     .orderByDesc(BaseMeteorologicalWarning::getStartingTime));
-            riskAlarmDTO.setBaseMeteorologicalWarning(baseMeteorologicalWarning);
+            riskAlarmDTO.setBaseMeteorologicalWarning(baseMeteorologicalWarnings);
             //保电第一条信息
             BasePowerProtection basePowerProtection = basePowerProtectionService.getBaseMapper().selectOne(new QueryWrapper<BasePowerProtection>().lambda()
                     .eq(BasePowerProtection::getSiteId, request.getSiteId())
+                    .last("limit 1")
                     .orderByDesc(BasePowerProtection::getStartTime));
             riskAlarmDTO.setBasePowerProtection(basePowerProtection);
             //巡视风险信息第一条
             BaseInspectionRisk baseInspectionRisk = baseInspectionRiskService.getBaseMapper().selectOne(new QueryWrapper<BaseInspectionRisk>().lambda()
                     .eq(BaseInspectionRisk::getSiteId, request.getSiteId())
+                    .last("limit 1")
                     .orderByDesc(BaseInspectionRisk::getEndTime)
             );
             riskAlarmDTO.setBaseInspectionRisk(baseInspectionRisk);
             //风险预警第一条
             BaseRiskWarning baseRiskWarning = baseRiskWarningService.getBaseMapper().selectOne(new QueryWrapper<BaseRiskWarning>().lambda()
                     .eq(BaseRiskWarning::getSiteId, request.getSiteId())
+                    .last("limit 1")
                     .orderByDesc(BaseRiskWarning::getDatee)
             );
             riskAlarmDTO.setBaseRiskWarning(baseRiskWarning);

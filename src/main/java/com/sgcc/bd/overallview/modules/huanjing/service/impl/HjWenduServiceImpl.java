@@ -32,7 +32,7 @@ public class HjWenduServiceImpl extends ServiceImpl<HjWenduDao, HjWendu> impleme
             hjWenduDTO.setTotalNum(totalNum);
             Integer alarmNum = this.count(new QueryWrapper<HjWendu>().lambda()
                     .eq(HjWendu::getSiteId, request.getSiteId())
-                    .eq(HjWendu::getAlarmState, EnumTemperatureAlarmState.Alarm.getValue())
+                    .eq(HjWendu::getAlarmState, EnumTemperatureAlarmState.Alarm.getValue().toString())
             );
             hjWenduDTO.setAlarmNum(alarmNum);
             HjWendu hjWendus = this.getBaseMapper().selectOne(new QueryWrapper<HjWendu>().lambda().eq(HjWendu::getSiteId, request.getSiteId()).orderByAsc(HjWendu::getWenduValue).last("limit 1"));

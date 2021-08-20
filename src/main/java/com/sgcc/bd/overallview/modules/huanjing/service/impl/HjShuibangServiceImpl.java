@@ -34,15 +34,15 @@ public class HjShuibangServiceImpl extends ServiceImpl<HjShuibangDao, HjShuibang
             hjEquipmentNumDTO.setTotalNum(totalNum);
             Integer openNum = this.count(new QueryWrapper<HjShuibang>().lambda()
                     .eq(HjShuibang::getSiteId, request.getSiteId())
-                    .eq(HjShuibang::getSwitchState, EnumSwitchState.Open.getValue()));
+                    .eq(HjShuibang::getSwitchState, EnumSwitchState.Open.getValue().toString()));
             hjEquipmentNumDTO.setOpenNum(openNum);
             Integer downNum = this.count(new QueryWrapper<HjShuibang>().lambda()
                     .eq(HjShuibang::getSiteId, request.getSiteId())
-                    .eq(HjShuibang::getSwitchState, EnumSwitchState.Shut.getValue()));
+                    .eq(HjShuibang::getSwitchState, EnumSwitchState.Shut.getValue().toString()));
             hjEquipmentNumDTO.setDownNum(downNum);
             Integer processed = this.count(new QueryWrapper<HjShuibang>().lambda()
                     .eq(HjShuibang::getSiteId, request.getSiteId())
-                    .eq(HjShuibang::getLinkState, EnumLinkState.Processed.getValue()));
+                    .eq(HjShuibang::getLinkState, EnumLinkState.Processed.getValue().toString()));
             hjEquipmentNumDTO.setAbnormalCommunicationNum(processed);
             return hjEquipmentNumDTO;
         }catch (Exception e){
