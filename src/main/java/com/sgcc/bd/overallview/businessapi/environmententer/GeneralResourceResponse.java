@@ -13,6 +13,7 @@ import java.util.List;
  * @date：2021/8/20 11:13
  * @File: GeneralResourceResponse
  */
+@Data
 public class GeneralResourceResponse extends ApiResponse {
 
     @ApiModelProperty(value = "响应数据")

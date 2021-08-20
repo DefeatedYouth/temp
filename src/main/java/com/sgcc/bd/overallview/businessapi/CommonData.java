@@ -10,7 +10,9 @@ import lombok.Data;
  * @date：2021/8/20 10:23
  * @File: CommonData
  */
+@Data
 public class CommonData {
+
     public Integer current;
 
     public String fields;
