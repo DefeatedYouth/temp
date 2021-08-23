@@ -136,7 +136,7 @@ public class OverviewController {
 
             QueryWrapper<SbAlarm> sbAlarmQueryWrapper = new QueryWrapper<>();
             sbAlarmQueryWrapper.lambda().eq(SbAlarm::getSiteId,request.getSiteId());
-            sbAlarmQueryWrapper.lambda().eq(SbAlarm::getAlarmKind,1);
+            sbAlarmQueryWrapper.lambda().eq(SbAlarm::getAlarmKind,'1');
             List<SbAlarm> sbAlarms = sbAlarmService.getBaseMapper().selectList(sbAlarmQueryWrapper);
             int count = sbAlarmService.count(sbAlarmQueryWrapper);
             alarmDTO.setOnlineAlarmList(sbAlarms);
@@ -144,7 +144,7 @@ public class OverviewController {
 
             QueryWrapper<SbAlarm> sbAlarmQueryWrapper1 = new QueryWrapper<>();
             sbAlarmQueryWrapper1.lambda().eq(SbAlarm::getSiteId,request.getSiteId());
-            sbAlarmQueryWrapper1.lambda().eq(SbAlarm::getAlarmKind,2);
+            sbAlarmQueryWrapper1.lambda().eq(SbAlarm::getAlarmKind,'2');
             List<SbAlarm> monitoringAlarmList = sbAlarmService.getBaseMapper().selectList(sbAlarmQueryWrapper1);
             int monitoringAlarmNum = sbAlarmService.count(sbAlarmQueryWrapper1);
             alarmDTO.setMonitoringAlarmList(monitoringAlarmList);
