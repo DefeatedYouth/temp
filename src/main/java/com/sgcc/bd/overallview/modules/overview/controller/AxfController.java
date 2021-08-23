@@ -1,42 +1,17 @@
 package com.sgcc.bd.overallview.modules.overview.controller;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.IoUtil;
-import cn.hutool.core.thread.ThreadUtil;
-import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.ExcelReader;
-import com.alibaba.excel.read.metadata.ReadSheet;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.google.common.collect.Lists;
-import com.sgcc.bd.overallview.common.enums.EnumNodeType;
-import com.sgcc.bd.overallview.common.utils.PageUtil;
+
 import com.sgcc.bd.overallview.common.utils.ResultUtil;
 import com.sgcc.bd.overallview.common.vo.BaseReqVO;
-import com.sgcc.bd.overallview.common.vo.PageVo;
 import com.sgcc.bd.overallview.common.vo.Result;
 import com.sgcc.bd.overallview.modules.anxiaofang.dto.*;
-import com.sgcc.bd.overallview.modules.anxiaofang.entity.AxfDevice;
-import com.sgcc.bd.overallview.modules.anxiaofang.query.AxfDeviceQuery;
 import com.sgcc.bd.overallview.modules.anxiaofang.service.AxfDeviceService;
-import com.sgcc.bd.overallview.modules.base.service.BaseDeviceService;
-import com.sgcc.bd.overallview.modules.robot.service.RobotInspMessageService;
-import com.sgcc.bd.overallview.modules.shebei.service.SbBookService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.validation.Valid;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
 
 /**
  * @desc 安消防首页列表信息 controller
