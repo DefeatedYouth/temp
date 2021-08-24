@@ -63,9 +63,11 @@ public class SbDefectController {
         //TODO 条件待填写
         queryWrapper.lambda().eq(SbDefect::getSiteId,query.getSiteId());
         queryWrapper.lambda().like(query.getDefectDevice()!=null,SbDefect::getDefectDevice,query.getDefectDevice());
-        queryWrapper.lambda().eq(query.getDeviceType()!=null,SbDefect::getDeviceType, EnumDeviceType.valueOf(query.getDeviceType()));
+        queryWrapper.lambda().eq(query.getDeviceType()!=null,SbDefect::getDeviceType, query.getDeviceType());
+       // queryWrapper.lambda().eq(query.getDeviceType()!=null,SbDefect::getDeviceType, EnumDeviceType.valueOf(query.getDeviceType()));
         queryWrapper.lambda().like(query.getDefectsNature()!=null,SbDefect::getDefectsNature,query.getDefectsNature());
-        queryWrapper.lambda().eq(query.getDefectLevel()!=null,SbDefect::getDefectLevel,EnumDefectStatus.valueOf(query.getDefectLevel()));
+        queryWrapper.lambda().eq(query.getDefectLevel()!=null,SbDefect::getDefectLevel,query.getDefectLevel());
+        //  queryWrapper.lambda().eq(query.getDefectLevel()!=null,SbDefect::getDefectLevel,EnumDefectStatus.valueOf(query.getDefectLevel()));
         queryWrapper.lambda().like(query.getDiscoveryTeam()!=null,SbDefect::getDiscoveryTeam,query.getDiscoveryTeam());
         queryWrapper.lambda().like(query.getSendMan()!=null,SbDefect::getSendMan,query.getSendMan());
         queryWrapper.lambda().gt(query.getStartTime()!= null , SbDefect::getSendDate,query.getStartTime());

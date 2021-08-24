@@ -51,9 +51,9 @@ public class AxfDeviceServiceImpl extends ServiceImpl<AxfDeviceDao, AxfDevice> i
         infraredRadiationCountDTO.setTotalNum(count);
         int alarmNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.InfraredRadiationInformation.getText()).eq(AxfDevice::getAlarmState, EnumAlarmStateType.Processed.getText()));
         infraredRadiationCountDTO.setAlarmNum(alarmNum);
-        int deviceFailueNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.InfraredRadiationInformation.getText()).eq(AxfDevice::getDeviceState, EnumInfraredRadiationState.DeviceFailure.getValue()));
+        int deviceFailueNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.InfraredRadiationInformation.getText()).eq(AxfDevice::getDeviceState, EnumInfraredRadiationState.DeviceFailure.getText()));
         infraredRadiationCountDTO.setDeviceFailureNum(deviceFailueNum);
-        int abnormalCommunicationNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.InfraredRadiationInformation.getText()).eq(AxfDevice::getDeviceState, EnumInfraredRadiationState.AbnormalCommunication.getValue()));
+        int abnormalCommunicationNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.InfraredRadiationInformation.getText()).eq(AxfDevice::getDeviceState, EnumInfraredRadiationState.AbnormalCommunication.getText()));
         infraredRadiationCountDTO.setAbnormalPowerSupplyNum(abnormalCommunicationNum);
         return infraredRadiationCountDTO;
     }
@@ -65,9 +65,9 @@ public class AxfDeviceServiceImpl extends ServiceImpl<AxfDeviceDao, AxfDevice> i
         infraredRadiationCountDTO.setTotalNum(count);
         int alarmNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.InfraredDoubleDetector.getText()).eq(AxfDevice::getAlarmState, EnumAlarmStateType.Processed.getText()));
         infraredRadiationCountDTO.setAlarmNum(alarmNum);
-        int deviceFailueNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.InfraredDoubleDetector.getText()).eq(AxfDevice::getDeviceState, EnumInfraredRadiationState.DeviceFailure.getValue()));
+        int deviceFailueNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.InfraredDoubleDetector.getText()).eq(AxfDevice::getDeviceState, EnumInfraredRadiationState.DeviceFailure.getText()));
         infraredRadiationCountDTO.setDeviceFailureNum(deviceFailueNum);
-        int abnormalCommunicationNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.InfraredDoubleDetector.getText()).eq(AxfDevice::getDeviceState, EnumInfraredRadiationState.AbnormalCommunication.getValue()));
+        int abnormalCommunicationNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.InfraredDoubleDetector.getText()).eq(AxfDevice::getDeviceState, EnumInfraredRadiationState.AbnormalCommunication.getText()));
         infraredRadiationCountDTO.setAbnormalPowerSupplyNum(abnormalCommunicationNum);
         return infraredRadiationCountDTO;
     }
@@ -79,9 +79,9 @@ public class AxfDeviceServiceImpl extends ServiceImpl<AxfDeviceDao, AxfDevice> i
         infraredRadiationCountDTO.setTotalNum(count);
        /* int alarmNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.Camera.getValue()).eq(AxfDevice::getAlarmState, EnumAlarmStateType.Processed.getValue()));
         infraredRadiationCountDTO.setAlarmNum(alarmNum);*/
-        int deviceFailueNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.Camera.getText()).eq(AxfDevice::getDeviceState, EnumInfraredRadiationState.DeviceFailure.getValue()));
+        int deviceFailueNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.Camera.getText()).eq(AxfDevice::getDeviceState, EnumInfraredRadiationState.DeviceFailure.getText()));
         infraredRadiationCountDTO.setDeviceFailureNum(deviceFailueNum);
-        int abnormalCommunicationNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.Camera.getText()).eq(AxfDevice::getDeviceState, EnumInfraredRadiationState.AbnormalCommunication.getValue()));
+        int abnormalCommunicationNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.Camera.getText()).eq(AxfDevice::getDeviceState, EnumInfraredRadiationState.AbnormalCommunication.getText()));
         infraredRadiationCountDTO.setAbnormalPowerSupplyNum(abnormalCommunicationNum);
         int alarmNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.Camera.getText()).eq(AxfDevice::getAlarmState, EnumAlarmStateType.Processed.getText()));
         infraredRadiationCountDTO.setAlarmNum(alarmNum);
@@ -95,13 +95,13 @@ public class AxfDeviceServiceImpl extends ServiceImpl<AxfDeviceDao, AxfDevice> i
         electronicFenceDTO.setTotalNum(count);
        /* int alarmNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.Camera.getValue()).eq(AxfDevice::getAlarmState, EnumAlarmStateType.Processed.getValue()));
         infraredRadiationCountDTO.setAlarmNum(alarmNum);*/
-        int deploymentStatusNuM = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.ElectricFence.getText()).eq(AxfDevice::getNodeType, EnumNodeType.DeploymentStatus.getValue()));
+        int deploymentStatusNuM = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.ElectricFence.getText()).eq(AxfDevice::getNodeType, EnumNodeType.DeploymentStatus.getText()));
         electronicFenceDTO.setDeploymentNum(deploymentStatusNuM);
-        int theStateOfWithdrawal = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.ElectricFence.getText()).eq(AxfDevice::getNodeType, EnumNodeType.TheStateOfWithdrawal.getValue()));
+        int theStateOfWithdrawal = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.ElectricFence.getText()).eq(AxfDevice::getNodeType, EnumNodeType.TheStateOfWithdrawal.getText()));
         electronicFenceDTO.setWithdrawalNum(theStateOfWithdrawal);
-        int deviceFailueNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.ElectricFence.getText()).eq(AxfDevice::getDeviceState, EnumInfraredRadiationState.AbnormalCommunication.getValue()));
+        int deviceFailueNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.ElectricFence.getText()).eq(AxfDevice::getDeviceState, EnumInfraredRadiationState.AbnormalCommunication.getText()));
         electronicFenceDTO.setCommunicationNum(deviceFailueNum);
-        int abnormalCommunicationNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.ElectricFence.getText()).eq(AxfDevice::getDeviceState, EnumInfraredRadiationState.AbnormalPowerSupply.getValue()));
+        int abnormalCommunicationNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.ElectricFence.getText()).eq(AxfDevice::getDeviceState, EnumInfraredRadiationState.AbnormalPowerSupply.getText()));
         electronicFenceDTO.setAbnormalNum(abnormalCommunicationNum);
         int alarmNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.ElectricFence.getText()).eq(AxfDevice::getAlarmState, EnumAlarmStateType.Processed.getText()));
         electronicFenceDTO.setAlarmNum(alarmNum);
@@ -113,11 +113,11 @@ public class AxfDeviceServiceImpl extends ServiceImpl<AxfDeviceDao, AxfDevice> i
         AccessControlInformationDTO accessControlInformationDTO = new AccessControlInformationDTO();
         int count = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.AccessControlInformationMonitoring.getText()));
         accessControlInformationDTO.setTotalNum(count);
-        int openNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.AccessControlInformationMonitoring.getText()).eq(AxfDevice::getOpenFlag, EnumOpenFlag.Open.getValue()));
+        int openNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.AccessControlInformationMonitoring.getText()).eq(AxfDevice::getOpenFlag, EnumOpenFlag.Open.getText()));
         accessControlInformationDTO.setOpenFlag(openNum);
-        int controllerFailureNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.AccessControlInformationMonitoring.getText()).eq(AxfDevice::getDeviceState, EnumInfraredRadiationState.ControllerFailure.getValue()));
+        int controllerFailureNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.AccessControlInformationMonitoring.getText()).eq(AxfDevice::getDeviceState, EnumInfraredRadiationState.ControllerFailure.getText()));
         accessControlInformationDTO.setControllerFailure(controllerFailureNum);
-        int abnormalCommunicationNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.AccessControlInformationMonitoring.getText()).eq(AxfDevice::getDeviceState, EnumInfraredRadiationState.AbnormalCommunication.getValue()));
+        int abnormalCommunicationNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.AccessControlInformationMonitoring.getText()).eq(AxfDevice::getDeviceState, EnumInfraredRadiationState.AbnormalCommunication.getText()));
         accessControlInformationDTO.setCommunicationNum(abnormalCommunicationNum);
         int alarmNum = this.count(new QueryWrapper<AxfDevice>().lambda().eq(AxfDevice::getSiteId, request.getSiteId()).eq(AxfDevice::getDeviceType, EnumAxfDeviceType.AccessControlInformationMonitoring.getText()).eq(AxfDevice::getAlarmState, EnumAlarmStateType.Processed.getText()));
         accessControlInformationDTO.setAlarmNum(alarmNum);
