@@ -226,11 +226,11 @@ public class BaseDeviceServiceImpl extends ServiceImpl<BaseDeviceDao, BaseDevice
                 .eq(SbDanger::getHiddenDangerState, EnumStateValue.Untreated.getText())
         );
         deviceMonitorDTO.setHiddenNum(untreatedDangerNum);
-        Integer UntreatedAlarmNum = sbAlarmService.count(new QueryWrapper<SbAlarm>().lambda()
+        Integer untreatedAlarmNum = sbAlarmService.count(new QueryWrapper<SbAlarm>().lambda()
                 .eq(SbAlarm::getSiteId, request.getSiteId())
                 .eq(SbAlarm::getAlarmState, EnumStateValue.Untreated.getText())
         );
-        deviceMonitorDTO.setMonitoringAlarmNum(UntreatedAlarmNum);
+        deviceMonitorDTO.setMonitoringAlarmNum(untreatedAlarmNum);
         int fauleNum = sbFaultService.count(new QueryWrapper<SbFault>().lambda()
                 .eq(SbFault::getSiteId, request.getSiteId())
         );

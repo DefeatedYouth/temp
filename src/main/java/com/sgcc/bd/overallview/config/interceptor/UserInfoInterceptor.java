@@ -28,13 +28,13 @@ public class UserInfoInterceptor extends HandlerInterceptorAdapter {
     DefaultUserProperties defaultUserProperties;
 
 
-    /**
+/*    *//**
      * currentUserId,
      * currentUserName,
      * currentRealName,
      * currentOrgId,
      * currentOrgParentPath
-     */
+     *//*
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
                              Object handler) throws Exception {
@@ -54,7 +54,7 @@ public class UserInfoInterceptor extends HandlerInterceptorAdapter {
         userBaseInfoDTO.setCurrentOrgBmxz(currentOrgBmxz);
         ThreadLocalUtil.set(SecurityConstant.USER_INFO_KEY, userBaseInfoDTO);
         return true;
-    }
+    }*/
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response,

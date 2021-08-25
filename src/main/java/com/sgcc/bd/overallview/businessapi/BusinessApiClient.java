@@ -41,7 +41,7 @@ public class BusinessApiClient {
     public static BusinessApiClient getInstance(){
 
         instance=new BusinessApiClient();
-        if(instance==null||access_token.equals("")){
+        if(instance==null|| "".equals(access_token)){
             JSONObject jsonReq=new JSONObject();
             jsonReq.put("client_id",appId);
             jsonReq.put("client_secret",appSecret);
@@ -79,7 +79,7 @@ public class BusinessApiClient {
                 }
             }
             System.out.println(JSON.toJSONString("接口："+httpUrl));
-            if(request.getMethod().equals("get")){
+            if("get".equals(request.getMethod())){
                 httpUrl+="?";
                 Iterator iter1 = jsonRequest.entrySet().iterator();
                 while (iter1.hasNext()) {

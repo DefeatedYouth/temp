@@ -2,7 +2,6 @@ package com.sgcc.bd.overallview.modules.overview.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @description: TODO

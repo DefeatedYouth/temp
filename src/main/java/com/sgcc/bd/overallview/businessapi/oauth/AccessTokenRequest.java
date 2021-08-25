@@ -12,9 +12,9 @@ public class AccessTokenRequest extends ApiRequest<AccessTokenResponse> {
 
 
     //应用id
-    private String client_id;
+    private String clientId;
     //应用key
-    private String client_secret;
+    private String clientSecret;
     //授权方式（目前只支持credentials授权码方式）
-    private String grant_type="credentials";
+    private String grantType="credentials";
 }

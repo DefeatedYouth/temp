@@ -7,7 +7,7 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * @description: TODO
+ * @description: TODO 工器具台账模糊查询
  * @author： hfl
  * @date：2021/8/20 15:41
  * @File: InspectionReportMaintenance

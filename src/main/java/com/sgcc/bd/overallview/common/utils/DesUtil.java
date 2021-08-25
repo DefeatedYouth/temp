@@ -14,8 +14,8 @@ import java.util.Date;
  */
 public class DesUtil {
 
-    public final static  String key =  "DYPNNKLCB38=";
-    public final static  String key2 =  "DYPNNKLCB38=";
+    public final static  String KEY =  "DYPNNKLCB38=";
+    public final static  String KEY2 =  "DYPNNKLCB38=";
 
     public static String generateKey() {
         //随机生成密钥
@@ -101,9 +101,9 @@ public class DesUtil {
                 "         left join AIMS.INTO_EXP_COMPANY_REL c on a.EXP_CENTER_ID=c.\"ID\"\n" +
                 "         left join AIMS.COM_BASEORGNAIZE f on a.GROUP_ID=f.OBJ_ID\n" +
                 "         left join AIMS.COM_BASEORGNAIZE g on c.EXP_GROUP_ID=g.OBJ_ID";
-        String s = encryptStr(content,key);
+        String s = encryptStr(content,KEY);
         System.out.println(s);
-        String s1 = decryptStr(s,key);
+        String s1 = decryptStr(s,KEY);
         System.out.println(s1);
 
         String pwdS = MyDateUtil.date2Str(new Date(), "MMddHH");

@@ -5,9 +5,9 @@ import com.sgcc.bd.overallview.businessapi.ApiResponse;
 public class AccessTokenResponse extends ApiResponse {
 
     //加密秘钥
-    private String refresh_token;
+    private String refreshToken;
     //过期时间
-    private Integer expires_in;
+    private Integer expiresIn;
     //生成的jwt
-    private String access_token;
+    private String accessToken;
 }

@@ -4,7 +4,8 @@
  *
  *
  *
- */
+ *//*
+
 
 package com.sgcc.bd.overallview.common.utils.validator;
 
@@ -12,11 +13,13 @@ import com.sgcc.bd.overallview.common.exception.XbootException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
+*/
 /**
  * 数据校验
  *
  * @author Mark sunlightcs@gmail.com
- */
+ *//*
+
 @Slf4j
 public abstract class Assert {
 
@@ -32,3 +35,4 @@ public abstract class Assert {
         }
     }
 }
+*/

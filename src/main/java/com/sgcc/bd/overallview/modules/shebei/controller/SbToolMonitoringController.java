@@ -78,14 +78,14 @@ public class SbToolMonitoringController {
         int oneDay = 24*60*60*1000;
         List<SbToolMonitoring> newSbToolMonitoring = new ArrayList<>();
 
-        if (query.getIsOverdue().equals("0")){
+        if ("0".equals(query.getIsOverdue())){
             sbToolMonitorings.forEach(sbToolMonitoring -> {
                 if (System.currentTimeMillis() - sbToolMonitoring.getTestCycle()*oneDay*30 -  sbToolMonitoring.getLastTestDate().getTime() > oneDay*7){
                     sbToolMonitoring.setIsOverdue("未超期");
                     newSbToolMonitoring.add(sbToolMonitoring);
                 }
             });
-        }else if (query.getIsOverdue().equals("1")){
+        }else if ("1".equals(query.getIsOverdue())){
 
             sbToolMonitorings.forEach(sbToolMonitoring -> {
                 Long time = System.currentTimeMillis() - sbToolMonitoring.getTestCycle()*oneDay*30 -  sbToolMonitoring.getLastTestDate().getTime();
@@ -95,7 +95,7 @@ public class SbToolMonitoringController {
                 }
             });
 
-        }else if (query.getIsOverdue().equals("2")) {
+        }else if ("2".equals(query.getIsOverdue())) {
             sbToolMonitorings.forEach(sbToolMonitoring -> {
                 if (System.currentTimeMillis() - sbToolMonitoring.getTestCycle()*oneDay*30 -  sbToolMonitoring.getLastTestDate().getTime() <0){
                     sbToolMonitoring.setIsOverdue("已超期");

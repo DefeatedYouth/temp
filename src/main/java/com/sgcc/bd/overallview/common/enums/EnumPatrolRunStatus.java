@@ -9,9 +9,10 @@ import java.util.Map;
  * @author: dadi
  * @create: 2020-05-28 17:12
  */
+
 public enum EnumPatrolRunStatus {
 
-
+    //ASD
     notstart(1, "未开始"),
     underway(2, "进行中"),
     finish(3, "已完成"),

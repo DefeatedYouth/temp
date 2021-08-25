@@ -68,12 +68,12 @@ public class StringCodeHandleUtil {
         return targetStr;
     }
 
-    /**
+/*    *//**
      * 校验 定制编号合理性
      *
      * @param serialNum
      * @return
-     */
+     *//*
     public static boolean checkApplianceSerialNum(String serialNum) {
         if (HLStringUtil.isEmptyWithBlank(serialNum)) {
             throw new XbootException("定制编号不能为空");
@@ -87,7 +87,7 @@ public class StringCodeHandleUtil {
             throw new XbootException("定制编号#尾部必须是数字");
         }
         return true;
-    }
+    }*/
 
     // mm？或 mm² 转 mm2
     public static String replaceAreaTo2(String target) {

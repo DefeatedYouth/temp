@@ -30,7 +30,7 @@ public class BasePlaceServiceImpl extends ServiceImpl<BasePlaceDao, BasePlace> i
             List<BasePlace> basePlaces =
                     this.getBaseMapper().selectList(new QueryWrapper<BasePlace>().lambda()
                             .eq(BasePlace::getLevel, municipalCompanyVO.getLevel())
-                            .eq(municipalCompanyVO.getParentId()!=null&&!municipalCompanyVO.getParentId().equals(""),BasePlace::getParentId,municipalCompanyVO.getParentId())
+                            .eq(municipalCompanyVO.getParentId()!=null&&!"".equals(municipalCompanyVO.getParentId()),BasePlace::getParentId,municipalCompanyVO.getParentId())
                           //  .eq(municipalCompanyVO.getVoltageLevel()!=null&&!municipalCompanyVO.getVoltageLevel().equals(""),BasePlace::getVoltageLevel,municipalCompanyVO.getVoltageLevel())
                     );
             return basePlaces;
