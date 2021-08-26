@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @desc 主设备表 serviceImpl
+ * @desc 主设备表 serviceImpl 检测计划查询
  * @author chenfeixiang
  * @since 2021-06-08
  */
