@@ -102,8 +102,8 @@ public class TestController {
         commonData.setSize(10);
         c.setCommonData(commonData);
         assetGeneralQueryRequest.setData(c);
-
-        return ResultUtil.data(null);
+        AssetGeneralQueryResponse response =  BusinessApiClient.getInstance().Execute(assetGeneralQueryRequest);
+        return ResultUtil.data(response);
     }
 
 /*    public static void main(String[] args) {
@@ -112,6 +112,40 @@ public class TestController {
         String replace = s.replace("{assetType}", ss);
         System.out.println(replace);
     }*/
+
+ /*   //缺陷记录查询服务
+    @RequestMapping(value = "/defectRecord",method = RequestMethod.POST)
+    @ApiOperation(value = "defectRecord")
+    public   Result<Object> defectRecord(){
+
+        DefectFindRequest defectFindRequest = new DefectFindRequest();
+
+
+
+    }*/
+    //设备台账查询
+    @RequestMapping(value = "/assetGeneralQuery",method = RequestMethod.POST)
+    @ApiOperation(value = "assetGeneralQuery")
+    public Result<Object> EquipmentLedgerQuery(){
+
+        EquipmentLedgerRequest equipmentLedgerRequest = new EquipmentLedgerRequest();
+        equipmentLedgerRequest.setProfessionalKind("1");
+        equipmentLedgerRequest.setPsrType("zf01");
+        CommonData commonData = new CommonData();
+        commonData.setCurrent(1);
+       // commonData.setFields("100");
+       // CommonData.RequestData requestData = new CommonData.RequestData();
+       // requestData.setCompare("=");
+       // requestData.setFieldName("psrId");
+       // requestData.setFieldValue("6975c8234b8a10f363766975c701766975c8110022");
+      //  commonData.setFilters(requestData);
+        commonData.setOrderBy("psrId desc");
+       // commonData.setPage(1);
+       // commonData.setPerpage(50);
+       commonData.setSize(50);
+        EquipmentLedgerResponse execute = BusinessApiClient.getInstance().Execute(equipmentLedgerRequest);
+        return ResultUtil.data(execute);
+    }
 
 
 
