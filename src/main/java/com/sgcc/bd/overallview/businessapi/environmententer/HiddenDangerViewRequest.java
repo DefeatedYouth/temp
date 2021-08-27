@@ -16,7 +16,7 @@ public class HiddenDangerViewRequest extends ApiRequest<HiddenDangerViewResponse
 
         //super.apiCode="NA-B-2010-RE-00385";
         super.apiUrl="/WMCenter/hazard/queryHazard";
-        super.apiName="隐患查询";
+        super.apiName="隐患查看";
         super.apiDescribe="提供查看单条隐患详细信息服务能力";
 
     }

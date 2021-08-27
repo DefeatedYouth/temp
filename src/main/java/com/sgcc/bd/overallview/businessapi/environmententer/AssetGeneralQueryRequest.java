@@ -5,7 +5,7 @@ import com.sgcc.bd.overallview.businessapi.CommonData;
 import lombok.Data;
 
 /**
- * @description: TODO 资源通用查询
+ * @description: TODO
  * @author： hfl
  * @date：2021/8/25 16:14
  * @File: AssetGeneralQueryRequest
@@ -22,5 +22,14 @@ public class AssetGeneralQueryRequest extends ApiRequest<AssetGeneralQueryRespon
 
     String  assetType;
 
-    CommonData commonData;
+    AssetGeneralQueryData data;
+
+    @Data
+    public static class AssetGeneralQueryData{
+
+        String id;
+
+        CommonData commonData;
+    }
+
 }

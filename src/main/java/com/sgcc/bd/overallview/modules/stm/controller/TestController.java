@@ -1,6 +1,7 @@
 package com.sgcc.bd.overallview.modules.stm.controller;
 
 import com.sgcc.bd.overallview.businessapi.BusinessApiClient;
+import com.sgcc.bd.overallview.businessapi.CommonData;
 import com.sgcc.bd.overallview.businessapi.environmententer.*;
 import com.sgcc.bd.overallview.common.utils.ResultUtil;
 import com.sgcc.bd.overallview.common.vo.Result;
@@ -31,6 +32,7 @@ public class TestController {
         return ResultUtil.data("api success");
     }
 
+    //天气查询接口
     @RequestMapping(value = "/businessapitest",method = RequestMethod.GET)
     @ApiOperation(value = "businessapitest")
     public Result<Object> businessapitest(){
@@ -43,6 +45,7 @@ public class TestController {
         return ResultUtil.data(response);
     }
 
+    //电压等级查询接口
     @RequestMapping(value = "/eleLevel",method = RequestMethod.POST)
     @ApiOperation(value = "eleLevel")
     public Result<Object> eleLevel(){
@@ -54,6 +57,7 @@ public class TestController {
         return ResultUtil.data(response);
     }
 
+    //工作票查询接口
     @RequestMapping(value = "/jobOpTicket",method = RequestMethod.POST)
     @ApiOperation(value = "jobOpTicket")
     public Result<Object> jobOpTicket(){
@@ -73,6 +77,42 @@ public class TestController {
 
         return ResultUtil.data(response);
     }
+
+    //资产通用查询
+    @RequestMapping(value = "/assetGeneralQuery",method = RequestMethod.POST)
+    @ApiOperation(value = "assetGeneralQuery")
+    public Result<Object> assetGeneralQuery(){
+        AssetGeneralQueryRequest assetGeneralQueryRequest = new AssetGeneralQueryRequest();
+        assetGeneralQueryRequest.setAssetType("astLvZone");
+        String apiUrl = assetGeneralQueryRequest.getApiUrl();
+        assetGeneralQueryRequest.setAssetType(apiUrl.replace("{assetType}", assetGeneralQueryRequest.getAssetType()));
+        CommonData commonData = new CommonData();
+        AssetGeneralQueryRequest.AssetGeneralQueryData c = new AssetGeneralQueryRequest.AssetGeneralQueryData();
+        c.setId("6975c8234b8a10f363766975c701766975c8110022");
+        commonData.setCurrent(1);
+        commonData.setFields("");
+        CommonData.RequestData requestData = new CommonData.RequestData();
+        requestData.setCompare("=");
+        requestData.setFieldName("psrId");
+        requestData.setFieldValue("6975c8234b8a10f363766975c701766975c8110022");
+        commonData.setFilters(requestData);
+        commonData.setOrderBy("");
+        commonData.setPage(1);
+        commonData.setPerpage(10);
+        commonData.setSize(10);
+        c.setCommonData(commonData);
+        assetGeneralQueryRequest.setData(c);
+
+        return ResultUtil.data(null);
+    }
+
+/*    public static void main(String[] args) {
+        String s = "/ast-center/astQueryServices/{assetType}";
+        String ss = "abc";
+        String replace = s.replace("{assetType}", ss);
+        System.out.println(replace);
+    }*/
+
 
 
 }
