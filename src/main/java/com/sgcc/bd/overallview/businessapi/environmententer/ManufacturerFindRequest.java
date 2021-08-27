@@ -14,7 +14,7 @@ public class ManufacturerFindRequest extends ApiRequest<ManufacturerFindResponse
 
     public ManufacturerFindRequest(){
         //super.apiCode="NA-B-2010-RE-00385";
-        super.apiUrl="/jobresource-center/instruments/listToolsByFuzzyName";
+        super.apiUrl="/psr-criterion-manage/equipProd/getEquipByCode";
         super.apiName="生产厂家精确查询";
         super.apiDescribe="按生产厂家编码精确查询生产厂家名称";
     }

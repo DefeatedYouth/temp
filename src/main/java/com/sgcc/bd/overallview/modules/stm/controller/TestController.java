@@ -1,10 +1,17 @@
 package com.sgcc.bd.overallview.modules.stm.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sgcc.bd.overallview.businessapi.ApiResponse;
 import com.sgcc.bd.overallview.businessapi.BusinessApiClient;
 import com.sgcc.bd.overallview.businessapi.CommonData;
 import com.sgcc.bd.overallview.businessapi.environmententer.*;
+import com.sgcc.bd.overallview.common.utils.PageUtil;
 import com.sgcc.bd.overallview.common.utils.ResultUtil;
+import com.sgcc.bd.overallview.common.vo.PageVo;
 import com.sgcc.bd.overallview.common.vo.Result;
+import com.sgcc.bd.overallview.modules.shebei.entity.SbBook;
+import com.sgcc.bd.overallview.modules.shebei.query.SbBookQuery;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.xml.ws.Response;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -123,30 +132,49 @@ public class TestController {
 
 
     }*/
-    //设备台账查询
+    //设备台账查询  变压器
+    @RequestMapping(value = "/assetGeneralQuery",method = RequestMethod.POST)
+    @ApiOperation(value = "assetGeneralQuery")
+    public Result<Page<SbBook>> EquipmentLedgerQuery(PageVo pageVo, SbBookQuery query){
+        TransformerRequest transformerRequest = new TransformerRequest();
+        transformerRequest.setProfessionalKind("1");
+        transformerRequest.setPsrType("0301");
+        CommonData commonData = new CommonData();
+        commonData.setCurrent(pageVo.getPage());
+        commonData.setOrderBy("psrId desc");
+        commonData.setSize(pageVo.getPageSize());
+        TransformerResponse execute = BusinessApiClient.getInstance().Execute(transformerRequest);
+        TransformerResponse.TransformerData transformerData = execute.getResult().get("0301Z");
+        List<TransformerResponse.TransformerData.Record> records = transformerData.getRecords();
+        List<SbBook> list = new ArrayList<>();
+        records.forEach(record -> {
+            SbBook sbBook = new SbBook();
+            sbBook.setResourcesId(record.getResourceData().getPsrId());
+            sbBook.setDeviceName(record.getResourceData().getName());
+            sbBook.setRegion(record.getResourceData().getCity());
+            sbBook.setMaintenanceUnit(record.getResourceData().getMaintOrg());
+            sbBook.setMaintenanceTeam(record.getResourceData().getMaintGroup());
+            sbBook.setSiteName(record.getResourceData().getStation());
+            sbBook.setVoltageLevel(record.getResourceData().getVoltageLevel());
+            sbBook.setManufacturer(record.getAssects().getManufacturer());
+            sbBook.setEquipmentModel(record.getAssects().getModel());
+            sbBook.setLatelyUseTime(record.getAssects().getOperateDate());
+        });
+        Page page = PageUtil.initMpPage(pageVo);
+        page.setRecords(list);
+        return ResultUtil.data(page);
+    }
+
+
+
+    //生产厂家查询
+/*
     @RequestMapping(value = "/assetGeneralQuery",method = RequestMethod.POST)
     @ApiOperation(value = "assetGeneralQuery")
     public Result<Object> EquipmentLedgerQuery(){
 
-        EquipmentLedgerRequest equipmentLedgerRequest = new EquipmentLedgerRequest();
-        equipmentLedgerRequest.setProfessionalKind("1");
-        equipmentLedgerRequest.setPsrType("zf01");
-        CommonData commonData = new CommonData();
-        commonData.setCurrent(1);
-       // commonData.setFields("100");
-       // CommonData.RequestData requestData = new CommonData.RequestData();
-       // requestData.setCompare("=");
-       // requestData.setFieldName("psrId");
-       // requestData.setFieldValue("6975c8234b8a10f363766975c701766975c8110022");
-      //  commonData.setFilters(requestData);
-        commonData.setOrderBy("psrId desc");
-       // commonData.setPage(1);
-       // commonData.setPerpage(50);
-       commonData.setSize(50);
-        EquipmentLedgerResponse execute = BusinessApiClient.getInstance().Execute(equipmentLedgerRequest);
-        return ResultUtil.data(execute);
     }
-
+*/
 
 
 }
